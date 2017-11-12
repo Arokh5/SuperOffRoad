@@ -24,6 +24,7 @@ public:
 	SDL_Texture* graphics = nullptr;
 	map<Animation*, vector<int>> idles;
 	Animation turnRight;
+	Animation* tempAnim;
 	Animation turnLeft;
 	iPoint position;
 	Animation* currentAnimation;

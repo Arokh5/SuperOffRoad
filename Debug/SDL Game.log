@@ -1,5 +1,3 @@
 ﻿  ModulePlayer.cpp
-d:\masterupc\3dgame\superoffroad\moduleplayer.cpp(141): warning C4700: se utilizó la variable local 'x' sin inicializar
-d:\masterupc\3dgame\superoffroad\moduleplayer.cpp(142): warning C4700: se utilizó la variable local 'y' sin inicializar
   SDL Game.vcxproj -> D:\MasterUPC\3DGame\SuperOffRoad\Debug\SuperOffRoad.exe
   SDL Game.vcxproj -> D:\MasterUPC\3DGame\SuperOffRoad\Debug\SuperOffRoad.pdb (Partial PDB)

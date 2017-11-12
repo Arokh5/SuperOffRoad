@@ -55,24 +55,26 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	}
 	turnLeft.speed = speed;
 
+	int x = -1;
+	int y = -1;
+
 	// fill animation idles with each turn animation frame
-	for (vector<SDL_Rect>::const_iterator it = turnRight.frames.cbegin(); it != turnRight.frames.cend(); ++it)
+	for (vector<SDL_Rect>::iterator it = turnRight.frames.begin(); it != turnRight.frames.end(); ++it)
 	{
-		Animation* anim = new Animation();
-		anim->frames.push_back(*it);
-		idles.insert(pair<Animation*, vector<int>>(anim, { 1, 0 }));
-		delete anim;
-		anim = nullptr;
+		tempAnim = new Animation();
+		tempAnim->frames.push_back(*it);
+		idles.insert(pair<Animation*, vector<int>>(tempAnim, { x, y }));
 	}
 
 	// first animation that we will show
-	currentAnimation = idles.begin()->first;
-	//currentAnimation = &turnRight;
+	currentAnimation = tempAnim;
 }
 
 ModulePlayer::~ModulePlayer()
 {
 	// Homework : check for memory leaks
+	delete tempAnim;
+	tempAnim = nullptr;
 }
 
 // Load assets
@@ -102,10 +104,9 @@ update_status ModulePlayer::Update()
 
 	for (map<Animation*, vector<int>>::iterator it = idles.begin(); it != idles.end(); ++it)
 	{
-		if (SDL_RectEquals(&(it)->first->frames[0], &currentAnimation->GetCurrentFrame()))
+		if (SDL_RectEquals(&it->first->frames[0], &currentAnimation->GetCurrentFrame()))
 		{
-			Animation anim = *it->first;
-			currentAnimation = &anim;
+			currentAnimation = it->first;
 			x = it->second[0];
 			y = it->second[1];
 			break;
@@ -128,18 +129,16 @@ update_status ModulePlayer::Update()
 	{
 		for (map<Animation*, vector<int>>::iterator it = idles.begin(); it != idles.end(); ++it)
 		{
-			if (SDL_RectEquals(&(it)->first->frames[0], &currentAnimation->GetCurrentFrame()))
+			if (SDL_RectEquals(&it->first->frames[0], &currentAnimation->GetCurrentFrame()))
 			{
-				Animation anim = *it->first;
-				currentAnimation = &anim;
+				currentAnimation = it->first;
 				x = it->second[0];
 				y = it->second[1];
+				position.x += x;
+				position.y += y;
 				break;
 			}
 		}
-
-		position.x = x;
-		position.y = y;
 	}
 	
 	App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame(), 0.0f);
