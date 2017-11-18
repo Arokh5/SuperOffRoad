@@ -1,3 +1,14 @@
-﻿  ModulePlayer.cpp
+﻿  ModuleWindow.cpp
+  ModuleTextures.cpp
+  ModuleStage.cpp
+  ModuleRender.cpp
+  ModulePlayer.cpp
+  ModuleInput.cpp
+  ModuleFadeToBlack.cpp
+  ModuleAudio.cpp
+  Main.cpp
+  Log.cpp
+  Application.cpp
+  Generando código...
   SDL Game.vcxproj -> D:\MasterUPC\3DGame\SuperOffRoad\Debug\SuperOffRoad.exe
   SDL Game.vcxproj -> D:\MasterUPC\3DGame\SuperOffRoad\Debug\SuperOffRoad.pdb (Partial PDB)
