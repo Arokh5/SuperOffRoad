@@ -19,8 +19,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-public:
+	vector<int> SetDirection(int cont);
 
+public:
 	SDL_Texture* graphics = nullptr;
 	map<Animation*, vector<int>> idles;
 	Animation turnRight;

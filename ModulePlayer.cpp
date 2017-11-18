@@ -14,38 +14,38 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	position.y = 100;
 
 	// turn right
-	turnRight.frames.push_back({ 736, 14, 15, 9 });
-	turnRight.frames.push_back({ 712, 13, 14, 10 });
-	turnRight.frames.push_back({ 688, 12, 13, 11 });
-	turnRight.frames.push_back({ 664, 12, 12, 11 });
-	turnRight.frames.push_back({ 640, 12, 9, 11 });
-	turnRight.frames.push_back({ 624, 11, 8, 12 });
-	turnRight.frames.push_back({ 600, 11, 9, 12 });
-	turnRight.frames.push_back({ 576, 11, 11, 12 });
-	turnRight.frames.push_back({ 552, 11, 12, 12 });
-	turnRight.frames.push_back({ 528, 11, 12, 12 });
-	turnRight.frames.push_back({ 504, 11, 14, 12 });
-	turnRight.frames.push_back({ 480, 12, 14, 11 });
-	turnRight.frames.push_back({ 456, 13, 14, 10 });
-	turnRight.frames.push_back({ 432, 13, 13, 10 });
-	turnRight.frames.push_back({ 408, 14, 14, 9 });
-	turnRight.frames.push_back({ 384, 15, 14, 8 });
-	turnRight.frames.push_back({ 360, 15, 14, 8 });
-	turnRight.frames.push_back({ 336, 14, 14, 9 });
-	turnRight.frames.push_back({ 312, 13, 13, 10 });
-	turnRight.frames.push_back({ 288, 12, 11, 11 });
-	turnRight.frames.push_back({ 264, 12, 10, 11 });
-	turnRight.frames.push_back({ 248, 12, 8, 11 });
-	turnRight.frames.push_back({ 224, 12, 9, 11 });
-	turnRight.frames.push_back({ 200, 12, 11, 11 });
-	turnRight.frames.push_back({ 176, 12, 13, 11 });
-	turnRight.frames.push_back({ 152, 12, 13, 11 });
-	turnRight.frames.push_back({ 128, 12, 14, 11 });
-	turnRight.frames.push_back({ 104, 13, 15, 10 });
-	turnRight.frames.push_back({ 80, 13, 15, 10 });
-	turnRight.frames.push_back({ 56, 14, 15, 9 });
-	turnRight.frames.push_back({ 32, 15, 15, 8 });
-	turnRight.frames.push_back({ 8, 15, 14, 8 });
+	turnRight.frames.push_back({ 35, 12, 16, 9 });
+	turnRight.frames.push_back({ 11, 12, 15, 9 });
+	turnRight.frames.push_back({ 739, 11, 16, 10 });
+	turnRight.frames.push_back({ 715, 10, 15, 11 });
+	turnRight.frames.push_back({ 691, 9, 14, 12 });
+	turnRight.frames.push_back({ 667, 9, 13, 12 });
+	turnRight.frames.push_back({ 643, 9, 10, 12 });
+	turnRight.frames.push_back({ 627, 8, 9, 13 });
+	turnRight.frames.push_back({ 603, 8, 10, 13 });
+	turnRight.frames.push_back({ 579, 8, 12, 13 });
+	turnRight.frames.push_back({ 555, 8, 13, 13 });
+	turnRight.frames.push_back({ 531, 8, 13, 13 });
+	turnRight.frames.push_back({ 507, 8, 15, 13 });
+	turnRight.frames.push_back({ 483, 9, 15, 12 });
+	turnRight.frames.push_back({ 459, 10, 15, 11 });
+	turnRight.frames.push_back({ 435, 10, 14, 11 });
+	turnRight.frames.push_back({ 411, 11, 15, 10 });
+	turnRight.frames.push_back({ 387, 12, 15, 9 });
+	turnRight.frames.push_back({ 363, 12, 15, 9 });
+	turnRight.frames.push_back({ 339, 11, 15, 10 });
+	turnRight.frames.push_back({ 315, 10, 14, 11 });
+	turnRight.frames.push_back({ 291, 9, 12, 12 });
+	turnRight.frames.push_back({ 267, 9, 11, 12 });
+	turnRight.frames.push_back({ 251, 9, 9, 12 });
+	turnRight.frames.push_back({ 227, 9, 10, 12 });
+	turnRight.frames.push_back({ 203, 9, 12, 12 });
+	turnRight.frames.push_back({ 179, 9, 14, 12 });
+	turnRight.frames.push_back({ 155, 9, 14, 12 });
+	turnRight.frames.push_back({ 131, 9, 15, 12 });
+	turnRight.frames.push_back({ 107, 10, 16, 11 });
+	turnRight.frames.push_back({ 83, 10, 16, 11 });
+	turnRight.frames.push_back({ 59, 11, 16, 10 });
 	turnRight.speed = speed;
 
 	// turn left
@@ -55,15 +55,15 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	}
 	turnLeft.speed = speed;
 
-	int x = -1;
-	int y = -1;
+	int cont = 0;
 
 	// fill animation idles with each turn animation frame
 	for (vector<SDL_Rect>::iterator it = turnRight.frames.begin(); it != turnRight.frames.end(); ++it)
 	{
 		tempAnim = new Animation();
 		tempAnim->frames.push_back(*it);
-		idles.insert(pair<Animation*, vector<int>>(tempAnim, { x, y }));
+		idles.insert(pair<Animation*, vector<int>>(tempAnim, SetDirection(cont)));
+		cont++;
 	}
 
 	// first animation that we will show
@@ -125,7 +125,7 @@ update_status ModulePlayer::Update()
 		turnRight.current_frame = turnLeft.frames.size() - 1 - turnLeft.current_frame;
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
 		for (map<Animation*, vector<int>>::iterator it = idles.begin(); it != idles.end(); ++it)
 		{
@@ -144,4 +144,94 @@ update_status ModulePlayer::Update()
 	App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame(), 0.0f);
 
 	return UPDATE_CONTINUE;
+}
+
+vector<int> ModulePlayer::SetDirection(int cont)
+{
+	vector<int> direction;
+
+	switch (cont)
+	{
+		case 0:
+		case 1:
+		case 2:
+			direction = { 1, 0 };
+			break;
+
+		case 3:
+			direction = { 2, 1 };
+			break;
+
+		case 4:
+		case 5:
+			direction = { 1, 1 };
+			break;
+
+		case 6:
+			direction = { 1, 2 };
+			break;
+
+		case 7:
+			direction = { 0, 1 };
+			break;
+
+		case 8:
+		case 9:
+		case 10:
+			direction = { -1, 2 };
+			break;
+		
+		case 11:
+		case 12:
+		case 13:
+			direction = { -1, 1 };
+			break;
+
+		case 14:
+		case 15:
+			direction = { -2, 1 };
+			break;
+
+		case 16:
+		case 17:
+		case 18:
+			direction = { -1, 0 };
+			break;
+
+		case 19:
+			direction = { -2, -1 };
+			break;
+
+		case 20:
+		case 21:
+			direction = { -1, -1 };
+			break;
+
+		case 22:
+			direction = { -1, -2 };
+			break;
+
+		case 23:
+		case 24:
+			direction = { 0, -1 };
+			break;
+
+		case 25:
+		case 26:
+		case 27:
+			direction = { 1, -2 };
+			break;
+
+		case 28:
+		case 29:
+			direction = { 1, -1 };
+			break;
+
+		case 30:
+		case 31:
+			direction = { 2, -1 };
+			break;
+	}
+
+	return direction;
 }
