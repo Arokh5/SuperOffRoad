@@ -10,8 +10,8 @@
 
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
-	position.x = 100;
-	position.y = 100;
+	position.x = 177;
+	position.y = 176;
 
 	// turn right
 	turnRight.frames.push_back({ 35, 12, 16, 9 });
@@ -63,16 +63,21 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 		tempAnim = new Animation();
 		tempAnim->frames.push_back(*it);
 		idles.insert(pair<Animation*, vector<int>>(tempAnim, SetDirection(cont)));
+
+		if (cont == 17)
+		{
+			// first animation that we will show
+			currentAnimation = tempAnim;
+			turnRight.current_frame = cont;
+			turnLeft.current_frame = cont;
+		}
+
 		cont++;
 	}
-
-	// first animation that we will show
-	currentAnimation = tempAnim;
 }
 
 ModulePlayer::~ModulePlayer()
 {
-	// Homework : check for memory leaks
 	delete tempAnim;
 	tempAnim = nullptr;
 }
@@ -107,8 +112,6 @@ update_status ModulePlayer::Update()
 		if (SDL_RectEquals(&it->first->frames[0], &currentAnimation->GetCurrentFrame()))
 		{
 			currentAnimation = it->first;
-			x = it->second[0];
-			y = it->second[1];
 			break;
 		}
 	}
@@ -134,8 +137,11 @@ update_status ModulePlayer::Update()
 				currentAnimation = it->first;
 				x = it->second[0];
 				y = it->second[1];
-				position.x += x;
-				position.y += y;
+
+				if (position.x + x >= 0 && position.x + x <= 305) position.x += x;
+				if (position.y + y >= 0 && position.y + y <= 180) position.y += y;
+				LOG("positionX: %u", position.x);
+				LOG("positionY: %u", position.y);
 				break;
 			}
 		}

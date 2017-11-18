@@ -52,7 +52,12 @@
     <ClInclude Include="ModuleInput.h">
       <Filter>Core Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleStage.h" />
+    <ClInclude Include="ModuleCollision.h">
+      <Filter>Core Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleStage.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -85,8 +90,11 @@
     <ClCompile Include="ModuleInput.cpp">
       <Filter>Core Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleCollision.cpp">
+      <Filter>Core Modules</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleStage.cpp">
-      <Filter>Main</Filter>
+      <Filter>Game Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

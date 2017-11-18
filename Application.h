@@ -11,6 +11,7 @@ class ModuleTextures;
 class ModuleInput;
 class ModuleAudio;
 class ModuleFadeToBlack;
+class ModuleCollision;
 class ModulePlayer;
 class ModuleStage;
 
@@ -32,6 +33,7 @@ public:
 	ModuleInput* input = nullptr;
 	ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade = nullptr;
+	ModuleCollision* collision;
 	ModulePlayer* player = nullptr;
 	ModuleStage* stage = nullptr;
 

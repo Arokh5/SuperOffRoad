@@ -1,13 +1,4 @@
-﻿  ModuleWindow.cpp
-  ModuleTextures.cpp
-  ModuleStage.cpp
-  ModuleRender.cpp
-  ModulePlayer.cpp
-  ModuleInput.cpp
-  ModuleFadeToBlack.cpp
-  ModuleAudio.cpp
-  Main.cpp
-  Log.cpp
+﻿  ModuleCollision.cpp
   Application.cpp
   Generando código...
   SDL Game.vcxproj -> D:\MasterUPC\3DGame\SuperOffRoad\Debug\SuperOffRoad.exe
