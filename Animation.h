@@ -23,4 +23,17 @@ public:
 			current_frame = 0.0f;
 		return frames[(int)current_frame];
 	}
+
+	SDL_Rect& GetCurrentInverseFrame()
+	{
+		current_frame -= speed;
+		if (current_frame <= 0)
+			current_frame = frames.size() - 1;
+		return frames[(int)current_frame];
+	}
+
+	SDL_Rect& GetCurrentStaticFrame()
+	{
+		return frames[(int)current_frame];
+	}
 };

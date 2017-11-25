@@ -1,5 +1,4 @@
-﻿  ModuleCollision.cpp
-  Application.cpp
-  Generando código...
+﻿  ModulePlayer.cpp
+d:\masterupc\3dgame\superoffroad\animation.h(31): warning C4244: '=': conversión de 'unsigned int' a 'float'; posible pérdida de datos
   SDL Game.vcxproj -> D:\MasterUPC\3DGame\SuperOffRoad\Debug\SuperOffRoad.exe
   SDL Game.vcxproj -> D:\MasterUPC\3DGame\SuperOffRoad\Debug\SuperOffRoad.pdb (Partial PDB)

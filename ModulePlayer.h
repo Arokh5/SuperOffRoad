@@ -12,24 +12,26 @@ struct SDL_Texture;
 class ModulePlayer : public Module
 {
 public:
-	ModulePlayer(bool start_enabled = true);
+	ModulePlayer(bool start_enabled = true, const float speed = 0.3f);
 	~ModulePlayer();
 
 	bool Start();
 	update_status Update();
 	bool CleanUp();
 
-	vector<int> SetDirection(int cont);
+private:
+	void SetDirection();
 
-public:
+private:
 	SDL_Texture* graphics = nullptr;
-	map<Animation*, vector<int>> idles;
-	Animation turnRight;
-	Animation* tempAnim;
-	Animation turnLeft;
+	Animation turn;
 	iPoint position;
+	const float speed;
 	Animation* currentAnimation;
-	const float speed = 0.05f;
+	bool still;
+	bool right;
+	vector<int> currentDirection { 0, 0 };
+	vector<int> movementsDone;
 };
 
 #endif // __MODULEPLAYER_H__

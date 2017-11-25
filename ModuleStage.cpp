@@ -52,7 +52,7 @@ bool ModuleStage::CleanUp()
 // Update: draw background
 update_status ModuleStage::Update()
 {
-	App->renderer->Blit(graphics, 0, 0, &background, 0.0f);
+	App->renderer->Blit(graphics, 0, 0, &background);
 	//App->renderer->Blit(graphics, 560, 8, &(flag.GetCurrentFrame()), 2.0f); // flag animation
 	//App->renderer->Blit(graphics, 0, AnimateShip(), &foreground, 2.0f);
 
