@@ -28,7 +28,7 @@ private:
 	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
-	Animation normalShadows;
+	Animation standardShadows;
 	Animation* currentAnimation;
 	Animation* currentShadowsAnimation;
 	iPoint position;

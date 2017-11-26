@@ -51,46 +51,46 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	turn.frames.push_back({ 59, 11, 16, 10 });
 	turn.speed = speed;
 
-	// fill normal shadows vector
-	normalShadows.frames.push_back({ 35, 324, 15, 8 });
-	normalShadows.frames.push_back({ 11, 324, 14, 8 });
-	normalShadows.frames.push_back({ 739, 323, 16, 10 });
-	normalShadows.frames.push_back({ 715, 322, 15, 11 });
-	normalShadows.frames.push_back({ 691, 322, 14, 12 });
-	normalShadows.frames.push_back({ 667, 321, 13, 12 });
-	normalShadows.frames.push_back({ 643, 321, 10, 12 });
-	normalShadows.frames.push_back({ 627, 320, 9, 13 });
-	normalShadows.frames.push_back({ 603, 320, 10, 13 });
-	normalShadows.frames.push_back({ 579, 320, 12, 13 });
-	normalShadows.frames.push_back({ 555, 320, 13, 13 });
-	normalShadows.frames.push_back({ 531, 320, 13, 13 });
-	normalShadows.frames.push_back({ 507, 320, 15, 13 });
-	normalShadows.frames.push_back({ 483, 321, 15, 12 });
-	normalShadows.frames.push_back({ 459, 322, 15, 11 });
-	normalShadows.frames.push_back({ 435, 322, 14, 11 });
-	normalShadows.frames.push_back({ 411, 323, 15, 10 });
-	normalShadows.frames.push_back({ 387, 324, 15, 9 });
-	normalShadows.frames.push_back({ 363, 324, 15, 9 });
-	normalShadows.frames.push_back({ 339, 323, 15, 10 });
-	normalShadows.frames.push_back({ 315, 322, 14, 11 });
-	normalShadows.frames.push_back({ 291, 321, 12, 12 });
-	normalShadows.frames.push_back({ 267, 321, 11, 12 });
-	normalShadows.frames.push_back({ 251, 321, 9, 12 });
-	normalShadows.frames.push_back({ 227, 321, 10, 12 });
-	normalShadows.frames.push_back({ 203, 321, 12, 12 });
-	normalShadows.frames.push_back({ 179, 321, 14, 12 });
-	normalShadows.frames.push_back({ 155, 321, 14, 12 });
-	normalShadows.frames.push_back({ 131, 321, 15, 12 });
-	normalShadows.frames.push_back({ 107, 322, 16, 11 });
-	normalShadows.frames.push_back({ 83, 322, 16, 11 });
-	normalShadows.frames.push_back({ 59, 323, 16, 10 });
-	normalShadows.speed = speed;
+	// fill standard shadows vector
+	standardShadows.frames.push_back({ 35, 324, 15, 8 });
+	standardShadows.frames.push_back({ 11, 324, 14, 8 });
+	standardShadows.frames.push_back({ 739, 323, 16, 10 });
+	standardShadows.frames.push_back({ 715, 322, 15, 11 });
+	standardShadows.frames.push_back({ 691, 322, 14, 12 });
+	standardShadows.frames.push_back({ 667, 321, 13, 12 });
+	standardShadows.frames.push_back({ 643, 321, 10, 12 });
+	standardShadows.frames.push_back({ 627, 320, 9, 13 });
+	standardShadows.frames.push_back({ 603, 320, 10, 13 });
+	standardShadows.frames.push_back({ 579, 320, 12, 13 });
+	standardShadows.frames.push_back({ 555, 320, 13, 13 });
+	standardShadows.frames.push_back({ 531, 320, 13, 13 });
+	standardShadows.frames.push_back({ 507, 320, 15, 13 });
+	standardShadows.frames.push_back({ 483, 321, 15, 12 });
+	standardShadows.frames.push_back({ 459, 322, 15, 11 });
+	standardShadows.frames.push_back({ 435, 322, 14, 11 });
+	standardShadows.frames.push_back({ 411, 323, 15, 10 });
+	standardShadows.frames.push_back({ 387, 324, 15, 9 });
+	standardShadows.frames.push_back({ 363, 324, 15, 9 });
+	standardShadows.frames.push_back({ 339, 323, 15, 10 });
+	standardShadows.frames.push_back({ 315, 322, 14, 11 });
+	standardShadows.frames.push_back({ 291, 321, 12, 12 });
+	standardShadows.frames.push_back({ 267, 321, 11, 12 });
+	standardShadows.frames.push_back({ 251, 321, 9, 12 });
+	standardShadows.frames.push_back({ 227, 321, 10, 12 });
+	standardShadows.frames.push_back({ 203, 321, 12, 12 });
+	standardShadows.frames.push_back({ 179, 321, 14, 12 });
+	standardShadows.frames.push_back({ 155, 321, 14, 12 });
+	standardShadows.frames.push_back({ 131, 321, 15, 12 });
+	standardShadows.frames.push_back({ 107, 322, 16, 11 });
+	standardShadows.frames.push_back({ 83, 322, 16, 11 });
+	standardShadows.frames.push_back({ 59, 323, 16, 10 });
+	standardShadows.speed = speed;
 
 	// define start rotation of the car
 	turn.current_frame = 17.0f;
-	normalShadows.current_frame = 17.0f;
+	standardShadows.current_frame = 17.0f;
 	currentAnimation = &turn;
-	currentShadowsAnimation = &normalShadows;
+	currentShadowsAnimation = &standardShadows;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -142,7 +142,7 @@ update_status ModulePlayer::Update()
 		/***** Debug *****/
 		//LOG("positionX: %d", position.x);
 		//LOG("positionY: %d", position.y);
-		/****************/
+		/*****************/
 
 		position.x += currentDirection[0];
 		position.y += currentDirection[1];
