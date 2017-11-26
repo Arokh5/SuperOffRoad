@@ -21,6 +21,7 @@ public:
 
 private:
 	void SetDirection();
+	void MoveCar();
 
 private:
 	const int limitScreenX = 305;
@@ -34,6 +35,10 @@ private:
 	iPoint position;
 	bool still;
 	bool right;
+	const int initialAcceleration = 0;
+	int acceleration;
+	const int initialAccelerationCondition = 7;
+	int accelerationCondition;
 	vector<int> currentDirection { 0, 0 };
 	vector<int> movementsDone;
 };

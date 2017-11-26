@@ -11,6 +11,8 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	const float speed = 0.3f;
+	acceleration = initialAcceleration;
+	accelerationCondition = initialAccelerationCondition;
 	position.x = 177;
 	position.y = 176;
 	right = true;
@@ -135,22 +137,36 @@ update_status ModulePlayer::Update()
 		still = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		SetDirection();
+		if (acceleration == accelerationCondition)
+		{
+			/***** Debug *****/
+			//LOG("positionX: %d", position.x);
+			//LOG("positionY: %d", position.y);
+			/*****************/
 
-		/***** Debug *****/
-		//LOG("positionX: %d", position.x);
-		//LOG("positionY: %d", position.y);
-		/*****************/
+			SetDirection();
+			MoveCar();
 
-		position.x += currentDirection[0];
-		position.y += currentDirection[1];
+			acceleration = initialAcceleration;
+			if (accelerationCondition > 1) accelerationCondition--;
+		}
 
-		if (position.x < 0) position.x = 0;
-		if (position.x > limitScreenX) position.x = limitScreenX;
-		if (position.y < 0) position.y = 0;
-		if (position.y > limitScreenY) position.y = limitScreenY;
+		acceleration++;
+	}
+	else
+	{
+		if (acceleration == accelerationCondition)
+		{
+			SetDirection();
+			MoveCar();
+
+			acceleration = initialAcceleration;
+			if (accelerationCondition < initialAccelerationCondition) accelerationCondition++;
+		}
+
+		if (accelerationCondition < initialAccelerationCondition) acceleration++;
 	}
 
 	if (still)
@@ -666,5 +682,17 @@ void ModulePlayer::SetDirection()
 			movementsDone[31] = 0;
 			break;
 		}
+	}
+}
+
+void ModulePlayer::MoveCar()
+{
+	if (position.x + currentDirection[0] >= 0 && position.x + currentDirection[0] <= limitScreenX)
+	{
+		position.x += currentDirection[0];
+	}
+	if (position.y + currentDirection[1] >= 0 && position.y + currentDirection[1] <= limitScreenY)
+	{
+		position.y += currentDirection[1];
 	}
 }
