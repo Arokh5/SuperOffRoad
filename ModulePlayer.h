@@ -25,10 +25,13 @@ private:
 private:
 	const int limitScreenX = 305;
 	const int limitScreenY = 180;
+	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
-	iPoint position;
+	Animation normalShadows;
 	Animation* currentAnimation;
+	Animation* currentShadowsAnimation;
+	iPoint position;
 	bool still;
 	bool right;
 	vector<int> currentDirection { 0, 0 };
