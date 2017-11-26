@@ -8,8 +8,9 @@
 #include "ModuleStage.h"
 #include "SDL/include/SDL.h"
 
-ModulePlayer::ModulePlayer(bool start_enabled, const float speed) : speed(speed), Module(start_enabled)
+ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
+	const float speed = 0.3f;
 	position.x = 177;
 	position.y = 176;
 	right = true;
@@ -100,8 +101,19 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
 		SetDirection();
+
+		/***** Debug *****/
+		LOG("positionX: %d", position.x);
+		LOG("positionY: %d", position.y);
+		/****************/
+
 		position.x += currentDirection[0];
 		position.y += currentDirection[1];
+
+		if (position.x < 0) position.x = 0;
+		if (position.x > limitScreenX) position.x = limitScreenX;
+		if (position.y < 0) position.y = 0;
+		if (position.y > limitScreenY) position.y = limitScreenY;
 	}
 
 	if (still)

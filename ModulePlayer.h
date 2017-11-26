@@ -12,7 +12,7 @@ struct SDL_Texture;
 class ModulePlayer : public Module
 {
 public:
-	ModulePlayer(bool start_enabled = true, const float speed = 0.3f);
+	ModulePlayer(bool start_enabled = true);
 	~ModulePlayer();
 
 	bool Start();
@@ -23,10 +23,11 @@ private:
 	void SetDirection();
 
 private:
+	const int limitScreenX = 305;
+	const int limitScreenY = 180;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
 	iPoint position;
-	const float speed;
 	Animation* currentAnimation;
 	bool still;
 	bool right;
