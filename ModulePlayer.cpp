@@ -17,6 +17,8 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	position.y = 176;
 	right = true;
 	repeater = 0;
+	shock = false;
+	shockRecoil = 0;
 	movementsDone.assign(32, 0);
 
 	// turn animation
@@ -152,7 +154,10 @@ update_status ModulePlayer::PreUpdate()
 			MoveCar();
 
 			acceleration = initialAcceleration;
-			if (accelerationCondition > 1 && repeater % 2 == 0) accelerationCondition--;
+			if (accelerationCondition > 1 && repeater % 2 == 0)
+			{
+				accelerationCondition--;
+			}
 		}
 
 		acceleration++;
@@ -166,11 +171,22 @@ update_status ModulePlayer::PreUpdate()
 			MoveCar();
 
 			acceleration = initialAcceleration;
-			if (accelerationCondition < initialAccelerationCondition && repeater % 2 == 0) accelerationCondition++;
+			if (accelerationCondition < initialAccelerationCondition && repeater % 2 == 0)
+			{
+				accelerationCondition++;
+			}
 		}
 
-		if (accelerationCondition < initialAccelerationCondition) acceleration++;
-		else repeater = 0;
+		if (accelerationCondition < initialAccelerationCondition)
+		{
+			acceleration++;
+		}
+		else 
+		{ 
+			repeater = 0;
+			shock = false;
+			shockRecoil = 0;
+		}
 	}
 
 	if (still)
@@ -691,12 +707,42 @@ void ModulePlayer::SetDirection()
 
 void ModulePlayer::MoveCar()
 {
-	if (position.x + currentDirection[0] >= 0 && position.x + currentDirection[0] <= limitScreenX)
+	if (!shock)
 	{
-		position.x += currentDirection[0];
+		if (position.x + currentDirection[0] >= 0 && position.x + currentDirection[0] <= limitScreenX)
+		{
+			position.x += currentDirection[0];
+		}
+		if (position.y + currentDirection[1] >= 0 && position.y + currentDirection[1] <= limitScreenY)
+		{
+			position.y += currentDirection[1];
+		}
+
+		if (position.y == limitScreenY && currentDirection[1] != 0)
+		{
+			if (currentDirection[0] > 0) right = false;
+			else right = true;
+
+			if (currentDirection[0] == 0)
+			{
+				shock = true;
+			}
+
+			still = false;
+		}
 	}
-	if (position.y + currentDirection[1] >= 0 && position.y + currentDirection[1] <= limitScreenY)
+	else
 	{
-		position.y += currentDirection[1];
+		position.y -= 1;
+		shockRecoil++;
+
+		if (shockRecoil == 10)
+		{
+			shock = false;
+			shockRecoil = 0;
+			acceleration = initialAcceleration;
+			accelerationCondition = initialAccelerationCondition;
+			repeater = 0;
+		}
 	}
 }

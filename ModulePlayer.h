@@ -25,7 +25,7 @@ private:
 
 private:
 	const int limitScreenX = 305;
-	const int limitScreenY = 180;
+	const int limitScreenY = 176;
 	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
@@ -39,6 +39,8 @@ private:
 	int acceleration;
 	const int initialAccelerationCondition = 6;
 	int repeater;
+	bool shock;
+	int shockRecoil;
 	int accelerationCondition;
 	vector<int> currentDirection { 0, 0 };
 	vector<int> movementsDone;
