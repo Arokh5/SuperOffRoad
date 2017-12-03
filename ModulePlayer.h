@@ -16,7 +16,7 @@ public:
 	~ModulePlayer();
 
 	bool Start();
-	update_status Update();
+	update_status PreUpdate();
 	bool CleanUp();
 
 private:
@@ -37,7 +37,8 @@ private:
 	bool right;
 	const int initialAcceleration = 0;
 	int acceleration;
-	const int initialAccelerationCondition = 7;
+	const int initialAccelerationCondition = 6;
+	int repeater;
 	int accelerationCondition;
 	vector<int> currentDirection { 0, 0 };
 	vector<int> movementsDone;

@@ -16,6 +16,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	position.x = 177;
 	position.y = 176;
 	right = true;
+	repeater = 0;
 	movementsDone.assign(32, 0);
 
 	// turn animation
@@ -119,8 +120,8 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
-// Update
-update_status ModulePlayer::Update()
+// PreUpdate
+update_status ModulePlayer::PreUpdate()
 {
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
@@ -146,11 +147,12 @@ update_status ModulePlayer::Update()
 			//LOG("positionY: %d", position.y);
 			/*****************/
 
+			repeater++;
 			SetDirection();
 			MoveCar();
 
 			acceleration = initialAcceleration;
-			if (accelerationCondition > 1) accelerationCondition--;
+			if (accelerationCondition > 1 && repeater % 2 == 0) accelerationCondition--;
 		}
 
 		acceleration++;
@@ -159,14 +161,16 @@ update_status ModulePlayer::Update()
 	{
 		if (acceleration == accelerationCondition)
 		{
+			repeater--;
 			SetDirection();
 			MoveCar();
 
 			acceleration = initialAcceleration;
-			if (accelerationCondition < initialAccelerationCondition) accelerationCondition++;
+			if (accelerationCondition < initialAccelerationCondition && repeater % 2 == 0) accelerationCondition++;
 		}
 
 		if (accelerationCondition < initialAccelerationCondition) acceleration++;
+		else repeater = 0;
 	}
 
 	if (still)
