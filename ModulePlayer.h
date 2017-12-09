@@ -5,7 +5,6 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "Point.h"
-#include <map>
 
 struct SDL_Texture;
 
@@ -24,8 +23,6 @@ private:
 	void MoveCar();
 
 private:
-	const int limitScreenX = 305;
-	const int limitScreenY = 176;
 	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
@@ -33,17 +30,20 @@ private:
 	Animation* currentAnimation;
 	Animation* currentShadowsAnimation;
 	iPoint position;
+	iPoint lastFramePosition;
 	bool still;
 	bool right;
 	const int initialAcceleration = 0;
 	int acceleration;
 	const int initialAccelerationCondition = 6;
 	int repeater;
-	bool shock;
-	int shockRecoil;
+	bool collision;
+	bool bounce;
+	int bounceRecoil;
 	int accelerationCondition;
 	vector<int> currentDirection { 0, 0 };
 	vector<int> movementsDone;
+	ModuleCollision* moduleCollision;
 };
 
 #endif // __MODULEPLAYER_H__

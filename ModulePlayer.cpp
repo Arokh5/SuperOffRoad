@@ -7,6 +7,7 @@
 #include "ModuleTextures.h"
 #include "ModuleStage.h"
 #include "SDL/include/SDL.h"
+#include "ModuleCollision.h"
 
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
@@ -15,11 +16,14 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	accelerationCondition = initialAccelerationCondition;
 	position.x = 177;
 	position.y = 176;
+	lastFramePosition = position;
 	right = true;
 	repeater = 0;
-	shock = false;
-	shockRecoil = 0;
+	bounce = false;
+	collision = false;
+	bounceRecoil = 0;
 	movementsDone.assign(32, 0);
+	moduleCollision = new ModuleCollision();
 
 	// turn animation
 	turn.frames.push_back({ 35, 12, 16, 9 });
@@ -100,6 +104,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 
 ModulePlayer::~ModulePlayer()
 {
+	delete moduleCollision;
 }
 
 // Load assets
@@ -144,10 +149,8 @@ update_status ModulePlayer::PreUpdate()
 	{
 		if (acceleration == accelerationCondition)
 		{
-			/***** Debug *****/
-			//LOG("positionX: %d", position.x);
-			//LOG("positionY: %d", position.y);
-			/*****************/
+			/*LOG("positionX: %d", position.x);
+			LOG("positionY: %d", position.y);*/
 
 			repeater++;
 			SetDirection();
@@ -184,8 +187,8 @@ update_status ModulePlayer::PreUpdate()
 		else 
 		{ 
 			repeater = 0;
-			shock = false;
-			shockRecoil = 0;
+			bounce = false;
+			bounceRecoil = 0;
 		}
 	}
 
@@ -707,39 +710,61 @@ void ModulePlayer::SetDirection()
 
 void ModulePlayer::MoveCar()
 {
-	if (!shock)
+	collision = false;
+
+	for (int i = 0; i < moduleCollision->fence1_1.size(); i++)
 	{
-		if (position.x + currentDirection[0] >= 0 && position.x + currentDirection[0] <= limitScreenX)
+		if (position.x == moduleCollision->fence1_1[i][0] && position.y == moduleCollision->fence1_1[i][1])
 		{
-			position.x += currentDirection[0];
-		}
-		if (position.y + currentDirection[1] >= 0 && position.y + currentDirection[1] <= limitScreenY)
-		{
-			position.y += currentDirection[1];
-		}
+			float intersection_carLastFrame = sqrt(pow(position.x - lastFramePosition.x, 2) + pow(position.y - lastFramePosition.y, 2));
+			float intersection_colliderOrigin = sqrt(pow(position.x - moduleCollision->fence1_1.front()[0], 2) + pow(position.y - moduleCollision->fence1_1.front()[1], 2));
+			float carLastFrame_colliderOrigin = sqrt(pow(lastFramePosition.x - moduleCollision->fence1_1.front()[0], 2) + pow(lastFramePosition.y - moduleCollision->fence1_1.front()[1], 2));
 
-		if (position.y == limitScreenY && currentDirection[1] != 0)
-		{
-			if (currentDirection[0] > 0) right = false;
-			else right = true;
+			float radianAngle = acos((pow(intersection_carLastFrame, 2) + pow(intersection_colliderOrigin, 2) - pow(carLastFrame_colliderOrigin, 2)) / (2 * intersection_carLastFrame * intersection_colliderOrigin));
+			float angle = radianAngle * 180 / M_PI;
 
-			if (currentDirection[0] == 0)
+			LOG("intersection_carLastFrame: %f", intersection_carLastFrame);
+			LOG("intersection_colliderOrigin: %f", intersection_colliderOrigin);
+			LOG("carLastFrame_colliderOrigin: %f", carLastFrame_colliderOrigin);
+			LOG("angle: %f", angle);
+
+			collision = true;
+
+			if (angle >= 89 && angle <= 91)
 			{
-				shock = true;
+				bounce = true;
 			}
-
-			still = false;
+			else if (angle > 0 && angle < 89)
+			{
+				right = false;
+				still = false;
+			}
+			else if (angle < 180 && angle > 91)
+			{
+				right = true;
+				still = false;
+			}
+			
+			break;
 		}
+	}
+
+	lastFramePosition = position;
+
+	if (!bounce && !collision)
+	{
+		position.x += currentDirection[0];
+		position.y += currentDirection[1];
 	}
 	else
 	{
 		position.y -= 1;
-		shockRecoil++;
+		bounceRecoil++;
 
-		if (shockRecoil == 10)
+		if (bounceRecoil == 10)
 		{
-			shock = false;
-			shockRecoil = 0;
+			bounce = false;
+			bounceRecoil = 0;
 			acceleration = initialAcceleration;
 			accelerationCondition = initialAccelerationCondition;
 			repeater = 0;

@@ -8,6 +8,7 @@ using namespace std;
 
 ModuleCollision::ModuleCollision()
 {
+	fence1_1 = FillCollider(88, 247, 180, 180);
 }
 
 // Destructor
@@ -15,71 +16,55 @@ ModuleCollision::~ModuleCollision()
 {
 }
 
-update_status ModuleCollision::PreUpdate()
+vector<vector<int>> ModuleCollision::FillCollider(int minX, int maxX, int minY, int maxY)
 {
-	// Remove all colliders scheduled for deletion
-	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end();)
+	vector<vector<int>> collider;
+	int difX = maxX - minX;
+	int difY = maxY - minY;
+	int split;
+
+	if (difX >= difY)
 	{
-		if ((*it)->to_delete == true)
+		if (difY == 0)
 		{
-			RELEASE(*it);
-			it = colliders.erase(it);
+			split = 1;
 		}
 		else
-			++it;
+		{
+			split = difX / difY;
+		}
+
+		for (int i = minX, j = minY; i <= maxX; i++)
+		{
+			if (i % split == 0 && j < maxY)
+			{
+				j++;
+			}
+
+			collider.push_back({ i, j });
+		}
+	}
+	else
+	{
+		if (difX == 0)
+		{
+			split = 1;
+		}
+		else
+		{
+			split = difY / difX;
+		}
+
+		for (int i = minY, j = minX; i <= maxY; i++)
+		{
+			if (i % split == 0 && j < maxX)
+			{
+				j++;
+			}
+
+			collider.push_back({ j, i });
+		}
 	}
 
-	return UPDATE_CONTINUE;
-}
-
-update_status ModuleCollision::Update()
-{
-	// TODO 8: Check collisions between all colliders. 
-	// After making it work, review that you are doing the minumum checks possible
-
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		debug = !debug;
-
-	if (debug == true)
-		DebugDraw();
-
-	return UPDATE_CONTINUE;
-}
-
-void ModuleCollision::DebugDraw()
-{
-	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
-		App->renderer->DrawQuad((*it)->rect, 255, 0, 0, 80);
-}
-
-// Called before quitting
-bool ModuleCollision::CleanUp()
-{
-	LOG("Freeing all colliders");
-
-	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
-		RELEASE(*it);
-
-	colliders.clear();
-
-	return true;
-}
-
-Collider* ModuleCollision::AddCollider(const SDL_Rect& rect)
-{
-	Collider* ret = new Collider(rect);
-
-	colliders.push_back(ret);
-
-	return ret;
-}
-
-// -----------------------------------------------------
-
-bool Collider::CheckCollision(const SDL_Rect& r) const
-{
-	// TODO 7: Create by hand (avoid consulting the internet) a simple collision test
-	// Return true if rectangle argument "r" if intersecting with "this->rect"
-
-	return false;
+	return collider;
 }
