@@ -10,6 +10,7 @@ public:
 	ModuleCollision();
 	~ModuleCollision();
 
+	std::vector<std::vector<std::vector<int>>> fenceContainer;
 	std::vector<std::vector<int>> fence1_1;
 	std::vector<std::vector<int>> fence1_2;
 

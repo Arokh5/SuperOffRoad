@@ -10,6 +10,8 @@ ModuleCollision::ModuleCollision()
 {
 	fence1_1 = FillCollider(88, 247, 178, 178);
 	fence1_2 = FillCollider(283, 220, 96, 180);
+	fenceContainer.push_back(fence1_1);
+	fenceContainer.push_back(fence1_2);
 }
 
 // Destructor

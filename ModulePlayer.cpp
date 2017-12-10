@@ -712,77 +712,43 @@ void ModulePlayer::MoveCar()
 {
 	collision = false;
 
-	for (int i = 0; i < moduleCollision->fence1_1.size(); i++)
+	for each (std::vector<std::vector<int>> fences in moduleCollision->fenceContainer)
 	{
-		if (position.x == moduleCollision->fence1_1[i][0] && position.y == moduleCollision->fence1_1[i][1])
+		for (int i = 0; i < fences.size(); i++)
 		{
-			float intersection_carLastFrame = sqrt(pow(position.x - lastFramePosition.x, 2) + pow(position.y - lastFramePosition.y, 2));
-			float intersection_colliderOrigin = sqrt(pow(position.x - moduleCollision->fence1_1.front()[0], 2) + pow(position.y - moduleCollision->fence1_1.front()[1], 2));
-			float carLastFrame_colliderOrigin = sqrt(pow(lastFramePosition.x - moduleCollision->fence1_1.front()[0], 2) + pow(lastFramePosition.y - moduleCollision->fence1_1.front()[1], 2));
-
-			float radianAngle = acos((pow(intersection_carLastFrame, 2) + pow(intersection_colliderOrigin, 2) - pow(carLastFrame_colliderOrigin, 2)) / (2 * intersection_carLastFrame * intersection_colliderOrigin));
-			float angle = radianAngle * 180 / M_PI;
-
-			LOG("intersection_carLastFrame: %f", intersection_carLastFrame);
-			LOG("intersection_colliderOrigin: %f", intersection_colliderOrigin);
-			LOG("carLastFrame_colliderOrigin: %f", carLastFrame_colliderOrigin);
-			LOG("angle: %f", angle);
-
-			collision = true;
-
-			if (angle >= 89 && angle <= 91)
+			if (position.x == fences[i][0] && position.y == fences[i][1])
 			{
-				bounce = true;
-			}
-			else if (angle > 0 && angle < 89)
-			{
-				right = false;
-				still = false;
-			}
-			else if (angle < 180 && angle > 91)
-			{
-				right = true;
-				still = false;
-			}
-			
-			break;
-		}
-	}
+				float intersection_carLastFrame = sqrt(pow(position.x - lastFramePosition.x, 2) + pow(position.y - lastFramePosition.y, 2));
+				float intersection_colliderOrigin = sqrt(pow(position.x - fences.front()[0], 2) + pow(position.y - fences.front()[1], 2));
+				float carLastFrame_colliderOrigin = sqrt(pow(lastFramePosition.x - fences.front()[0], 2) + pow(lastFramePosition.y - fences.front()[1], 2));
 
-	for (int i = 0; i < moduleCollision->fence1_2.size(); i++)
-	{
-		if (position.x == moduleCollision->fence1_2[i][0] && position.y == moduleCollision->fence1_2[i][1])
-		{
-			float intersection_carLastFrame = sqrt(pow(position.x - lastFramePosition.x, 2) + pow(position.y - lastFramePosition.y, 2));
-			float intersection_colliderOrigin = sqrt(pow(position.x - moduleCollision->fence1_2.front()[0], 2) + pow(position.y - moduleCollision->fence1_2.front()[1], 2));
-			float carLastFrame_colliderOrigin = sqrt(pow(lastFramePosition.x - moduleCollision->fence1_2.front()[0], 2) + pow(lastFramePosition.y - moduleCollision->fence1_2.front()[1], 2));
+				float radianAngle = acos((pow(intersection_carLastFrame, 2) + pow(intersection_colliderOrigin, 2) - pow(carLastFrame_colliderOrigin, 2)) / (2 * intersection_carLastFrame * intersection_colliderOrigin));
+				float angle = radianAngle * 180 / M_PI;
 
-			float radianAngle = acos((pow(intersection_carLastFrame, 2) + pow(intersection_colliderOrigin, 2) - pow(carLastFrame_colliderOrigin, 2)) / (2 * intersection_carLastFrame * intersection_colliderOrigin));
-			float angle = radianAngle * 180 / M_PI;
+				LOG("intersection_carLastFrame: %f", intersection_carLastFrame);
+				LOG("intersection_colliderOrigin: %f", intersection_colliderOrigin);
+				LOG("carLastFrame_colliderOrigin: %f", carLastFrame_colliderOrigin);
+				LOG("angle: %f", angle);
 
-			LOG("intersection_carLastFrame: %f", intersection_carLastFrame);
-			LOG("intersection_colliderOrigin: %f", intersection_colliderOrigin);
-			LOG("carLastFrame_colliderOrigin: %f", carLastFrame_colliderOrigin);
-			LOG("angle: %f", angle);
+				collision = true;
 
-			collision = true;
+				if (angle >= 89 && angle <= 91)
+				{
+					bounce = true;
+				}
+				else if (angle > 0 && angle < 89)
+				{
+					right = fences == moduleCollision->fence1_1 ? false : true;
+					still = false;
+				}
+				else if (angle < 180 && angle > 91)
+				{
+					right = fences == moduleCollision->fence1_1 ? true : false;
+					still = false;
+				}
 
-			if (angle >= 89 && angle <= 91)
-			{
-				bounce = true;
+				break;
 			}
-			else if (angle > 0 && angle < 89)
-			{
-				right = true;
-				still = false;
-			}
-			else if (angle < 180 && angle > 91)
-			{
-				right = false;
-				still = false;
-			}
-
-			break;
 		}
 	}
 
