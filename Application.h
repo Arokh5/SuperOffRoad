@@ -33,7 +33,6 @@ public:
 	ModuleInput* input = nullptr;
 	ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade = nullptr;
-	ModuleCollision* collision;
 	ModulePlayer* player = nullptr;
 	ModuleStage* stage = nullptr;
 

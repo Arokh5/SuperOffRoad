@@ -27,8 +27,8 @@ private:
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
 	Animation standardShadows;
-	Animation* currentAnimation;
-	Animation* currentShadowsAnimation;
+	Animation* currentAnimation = nullptr;
+	Animation* currentShadowsAnimation = nullptr;
 	iPoint position;
 	iPoint lastFramePosition;
 	bool still;
@@ -43,7 +43,7 @@ private:
 	int accelerationCondition;
 	vector<int> currentDirection { 0, 0 };
 	vector<int> movementsDone;
-	ModuleCollision* moduleCollision;
+	ModuleCollision* moduleCollision = nullptr;
 };
 
 #endif // __MODULEPLAYER_H__

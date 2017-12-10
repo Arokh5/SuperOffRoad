@@ -11,9 +11,10 @@ public:
 	~ModuleCollision();
 
 	std::vector<std::vector<int>> fence1_1;
+	std::vector<std::vector<int>> fence1_2;
 
 private:
-	std::vector<std::vector<int>> FillCollider(int minX, int maxX, int minY, int maxY);
+	std::vector<std::vector<int>> FillCollider(int initialX, int finalX, int initialY, int finalY);
 };
 
 #endif // __ModuleCollision_H__
