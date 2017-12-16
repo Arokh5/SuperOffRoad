@@ -149,8 +149,8 @@ update_status ModulePlayer::PreUpdate()
 	{
 		if (acceleration == accelerationCondition)
 		{
-			/*LOG("positionX: %d", position.x);
-			LOG("positionY: %d", position.y);*/
+			LOG("positionX: %d", position.x);
+			LOG("positionY: %d", position.y);
 
 			repeater++;
 			SetDirection();
@@ -712,6 +712,47 @@ void ModulePlayer::MoveCar()
 {
 	collision = false;
 
+	if (!DetectFences(position))
+	{
+		lastFramePosition = position;
+	}
+
+	if (!bounce && !collision)
+	{
+		position.x += currentDirection[0];
+		position.y += currentDirection[1];
+	}
+	else if (collision && !bounce)
+	{
+		iPoint tempPos;
+		tempPos.x = position.x + currentDirection[0];
+		tempPos.y = position.y + currentDirection[1];
+
+		if (!DetectFences(tempPos))
+		{
+			position = tempPos;
+		}
+	}
+	else
+	{
+		ApplyBounceEffect();
+		bounceRecoil++;
+
+		if (bounceRecoil == 10)
+		{
+			bounce = false;
+			bounceRecoil = 0;
+			acceleration = initialAcceleration;
+			accelerationCondition = initialAccelerationCondition;
+			repeater = 0;
+		}
+	}
+}
+
+bool ModulePlayer::DetectFences(iPoint position)
+{
+	bool fenceDetected = false;
+
 	for each (std::vector<std::vector<int>> fences in moduleCollision->fenceContainer)
 	{
 		for (int i = 0; i < fences.size(); i++)
@@ -725,52 +766,90 @@ void ModulePlayer::MoveCar()
 				float radianAngle = acos((pow(intersection_carLastFrame, 2) + pow(intersection_colliderOrigin, 2) - pow(carLastFrame_colliderOrigin, 2)) / (2 * intersection_carLastFrame * intersection_colliderOrigin));
 				float angle = radianAngle * 180 / M_PI;
 
-				LOG("intersection_carLastFrame: %f", intersection_carLastFrame);
+				/*LOG("intersection_carLastFrame: %f", intersection_carLastFrame);
 				LOG("intersection_colliderOrigin: %f", intersection_colliderOrigin);
 				LOG("carLastFrame_colliderOrigin: %f", carLastFrame_colliderOrigin);
-				LOG("angle: %f", angle);
+				LOG("angle: %f", angle);*/
 
 				collision = true;
 
-				if (angle >= 89 && angle <= 91)
+				if (angle >= 88 && angle <= 92)
 				{
 					bounce = true;
+					SetBounceDirection(fences);
 				}
-				else if (angle > 0 && angle < 89)
+				else if (angle >= 0 && angle < 88)
 				{
-					right = fences == moduleCollision->fence1_1 ? false : true;
-					still = false;
+					right = SetRotationDirection(fences);
 				}
-				else if (angle < 180 && angle > 91)
+				else if (angle <= 180 && angle > 92)
 				{
-					right = fences == moduleCollision->fence1_1 ? true : false;
-					still = false;
+					right = !SetRotationDirection(fences);
 				}
 
+				fenceDetected = true;
 				break;
 			}
 		}
 	}
 
-	lastFramePosition = position;
+	return fenceDetected;
+}
 
-	if (!bounce && !collision)
+bool ModulePlayer::SetRotationDirection(std::vector<std::vector<int>> fences)
+{
+	bool rotationRight = true;
+
+	if (fences == moduleCollision->fence1_1 || fences == moduleCollision->fence2_1 || fences == moduleCollision->fence3_1 || fences == moduleCollision->fence3_4)
 	{
-		position.x += currentDirection[0];
-		position.y += currentDirection[1];
+		rotationRight = false;
 	}
-	else
-	{
-		position.y -= 1;
-		bounceRecoil++;
 
-		if (bounceRecoil == 10)
-		{
-			bounce = false;
-			bounceRecoil = 0;
-			acceleration = initialAcceleration;
-			accelerationCondition = initialAccelerationCondition;
-			repeater = 0;
-		}
+	still = false;
+
+	return rotationRight;
+}
+
+void ModulePlayer::SetBounceDirection(std::vector<std::vector<int>> fences)
+{
+	if (fences == moduleCollision->fence1_1 || fences == moduleCollision->fence2_1 || fences == moduleCollision->fence3_1)
+	{
+		// position.y--
+		bounceType = 0;
+	}
+	else if (fences == moduleCollision->fence1_2 || fences == moduleCollision->fence2_2 || fences == moduleCollision->fence3_2)
+	{
+		// position.x--
+		bounceType = 1;
+	}
+	else if (fences == moduleCollision->fence3_3)
+	{
+		// position.y++
+		bounceType = 2;
+	}
+	else if (fences == moduleCollision->fence3_4)
+	{
+		// position.x++
+		bounceType = 3;
+	}
+}
+
+void ModulePlayer::ApplyBounceEffect()
+{
+	switch (bounceType)
+	{
+		case 0:
+			position.y--;
+			break;
+
+		case 1:
+			position.x--;
+			break;
+
+		case 2:
+			position.y++;
+
+		case 3:
+			position.x++;
 	}
 }

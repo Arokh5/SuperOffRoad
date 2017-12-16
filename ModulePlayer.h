@@ -20,6 +20,10 @@ public:
 
 private:
 	void SetDirection();
+	bool DetectFences(iPoint position);
+	bool SetRotationDirection(std::vector<std::vector<int>> fences);
+	void SetBounceDirection(std::vector<std::vector<int>> fences);
+	void ApplyBounceEffect();
 	void MoveCar();
 
 private:
@@ -44,6 +48,7 @@ private:
 	vector<int> currentDirection { 0, 0 };
 	vector<int> movementsDone;
 	ModuleCollision* moduleCollision = nullptr;
+	int bounceType;
 };
 
 #endif // __MODULEPLAYER_H__
