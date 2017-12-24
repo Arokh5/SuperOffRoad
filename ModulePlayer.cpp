@@ -800,7 +800,17 @@ bool ModulePlayer::SetRotationDirection(std::vector<std::vector<int>> fences)
 {
 	bool rotationRight = true;
 
-	if (fences == moduleCollision->fence1_1 || fences == moduleCollision->fence2_1 || fences == moduleCollision->fence3_1 || fences == moduleCollision->fence3_4)
+	if (fences == moduleCollision->fence1_1 ||
+		fences == moduleCollision->fence2_1 ||
+		fences == moduleCollision->fence2_3 ||
+		fences == moduleCollision->fence3_1 ||
+		fences == moduleCollision->fence3_4 ||
+		fences == moduleCollision->fence4_1 ||
+		fences == moduleCollision->fence4_2 ||
+		fences == moduleCollision->fence4_3 ||
+		fences == moduleCollision->fence5_2 ||
+		fences == moduleCollision->fence5_4 ||
+		fences == moduleCollision->fence5_6)
 	{
 		rotationRight = false;
 	}
@@ -812,25 +822,52 @@ bool ModulePlayer::SetRotationDirection(std::vector<std::vector<int>> fences)
 
 void ModulePlayer::SetBounceDirection(std::vector<std::vector<int>> fences)
 {
-	if (fences == moduleCollision->fence1_1 || fences == moduleCollision->fence2_1 || fences == moduleCollision->fence3_1)
+	if (fences == moduleCollision->fence1_1 ||
+		fences == moduleCollision->fence2_1 ||
+		fences == moduleCollision->fence3_1 ||
+		fences == moduleCollision->fence4_1 ||
+		fences == moduleCollision->fence5_2)
 	{
 		// position.y--
 		bounceType = 0;
 	}
-	else if (fences == moduleCollision->fence1_2 || fences == moduleCollision->fence2_2 || fences == moduleCollision->fence3_2)
+	else if (fences == moduleCollision->fence1_2 ||
+		fences == moduleCollision->fence1_4 ||
+		fences == moduleCollision->fence2_2 ||
+		fences == moduleCollision->fence3_2 ||
+		fences == moduleCollision->fence5_1)
 	{
 		// position.x--
 		bounceType = 1;
 	}
 	else if (fences == moduleCollision->fence3_3)
 	{
+		// position.x--
 		// position.y++
 		bounceType = 2;
 	}
-	else if (fences == moduleCollision->fence3_4)
+	else if (fences == moduleCollision->fence3_4 ||
+		fences == moduleCollision->fence2_3 ||
+		fences == moduleCollision->fence4_3 ||
+		fences == moduleCollision->fence5_4 ||
+		fences == moduleCollision->fence5_6)
 	{
 		// position.x++
 		bounceType = 3;
+	}
+	else if (fences == moduleCollision->fence4_2)
+	{
+		// position.x++
+		// position.y--
+		bounceType = 4;
+	}
+	else if (fences == moduleCollision->fence1_3 ||
+		fences == moduleCollision->fence4_4 ||
+		fences == moduleCollision->fence5_3 ||
+		fences == moduleCollision->fence5_5)
+	{
+		// position.y++
+		bounceType = 5;
 	}
 }
 
@@ -847,9 +884,17 @@ void ModulePlayer::ApplyBounceEffect()
 			break;
 
 		case 2:
+			position.x--;
 			position.y++;
 
 		case 3:
 			position.x++;
+
+		case 4:
+			position.x++;
+			position.y--;
+
+		case 5:
+			position.y++;
 	}
 }
