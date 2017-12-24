@@ -7,6 +7,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleCollision.h"
 #include "ModulePlayer.h"
+#include "ModuleIA.h"
 #include "ModuleStage.h"
 #include "ModuleTitleScreen.h"
 
@@ -26,6 +27,7 @@ Application::Application()
 	modules.push_back(titleScreen = new ModuleTitleScreen(false));
 	modules.push_back(stage = new ModuleStage(false));
 	modules.push_back(player = new ModulePlayer(false));
+	modules.push_back(IA = new ModuleIA(false));
 
 	// Modules to draw on top of game logic
 	modules.push_back(fade = new ModuleFadeToBlack());

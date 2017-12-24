@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModulePlayer.h"
+#include "ModuleIA.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 #include "SDL/include/SDL.h"
@@ -72,6 +73,7 @@ bool ModuleStage::Start()
 
 	// TODO 7: Enable the player module
 	App->player->Enable();
+	App->IA->Enable();
 
 	// TODO 0: trigger background music
 	//App->audio->PlayMusic("ken.ogg");
@@ -86,6 +88,7 @@ bool ModuleStage::CleanUp()
 
 	App->textures->Unload(graphics);
 	App->player->Disable();
+	App->IA->Disable();
 
 	return true;
 }

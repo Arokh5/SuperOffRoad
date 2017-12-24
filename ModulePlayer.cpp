@@ -10,10 +10,10 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	const float speed = 0.3f;
-	acceleration = initialAcceleration;
-	accelerationCondition = initialAccelerationCondition;
 	position.x = 177;
 	position.y = 176;
+	acceleration = initialAcceleration;
+	accelerationCondition = initialAccelerationCondition;
 	lastFramePosition = position;
 	right = true;
 	repeater = 0;

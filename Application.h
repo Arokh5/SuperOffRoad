@@ -13,6 +13,7 @@ class ModuleAudio;
 class ModuleFadeToBlack;
 class ModuleCollision;
 class ModulePlayer;
+class ModuleIA;
 class ModuleTitleScreen;
 class ModuleStage;
 
@@ -35,6 +36,7 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade = nullptr;
 	ModulePlayer* player = nullptr;
+	ModuleIA* IA = nullptr;
 	ModuleTitleScreen* titleScreen = nullptr;
 	ModuleStage* stage = nullptr;
 

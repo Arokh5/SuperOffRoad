@@ -18,7 +18,7 @@ public:
 	update_status PreUpdate();
 	bool CleanUp();
 
-private:
+protected:
 	void SetDirection();
 	bool DetectFences(iPoint position);
 	bool SetRotationDirection(std::vector<std::vector<int>> fences);
@@ -26,7 +26,7 @@ private:
 	void ApplyBounceEffect();
 	void MoveCar();
 
-private:
+protected:
 	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
