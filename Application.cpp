@@ -8,6 +8,7 @@
 #include "ModuleCollision.h"
 #include "ModulePlayer.h"
 #include "ModuleStage.h"
+#include "ModuleTitleScreen.h"
 
 using namespace std;
 
@@ -22,6 +23,7 @@ Application::Application()
 	modules.push_back(audio = new ModuleAudio());
 
 	// Game Modules
+	modules.push_back(titleScreen = new ModuleTitleScreen(false));
 	modules.push_back(stage = new ModuleStage(false));
 	modules.push_back(player = new ModulePlayer(false));
 
@@ -49,7 +51,7 @@ bool Application::Init()
 	}
 
 	// Start first scene
-	fade->FadeToBlack(stage, nullptr, 3.0f);
+	fade->FadeToBlack(titleScreen, nullptr, 2.0f);
 
 	return ret;
 }

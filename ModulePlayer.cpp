@@ -2,10 +2,8 @@
 #include "Application.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
-#include "ModuleStage.h"
 #include "SDL/include/SDL.h"
 #include "ModuleCollision.h"
 

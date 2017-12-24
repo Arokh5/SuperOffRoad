@@ -19,6 +19,7 @@ public:
 
 	bool CleanUp();
 
+private:
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect background;
 	SDL_Rect fence1_1;
