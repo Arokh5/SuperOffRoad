@@ -2,7 +2,6 @@
 #define __MODULEIA_H__
 
 #include "Module.h"
-#include "ModulePlayer.h"
 #include "Animation.h"
 #include "Globals.h"
 #include "Point.h"
@@ -20,8 +19,14 @@ public:
 	bool CleanUp();
 
 private:
+	const int carsNumber = 3;
+	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
-	vector<ModulePlayer*> cars;
+	vector<Animation> turn;
+	vector<Animation> standardShadows;
+	vector<Animation*> currentAnimation;
+	vector<Animation*> currentShadowsAnimation;
+	vector<iPoint> position;
 };
 
 #endif // __MODULEPLAYER_H__
