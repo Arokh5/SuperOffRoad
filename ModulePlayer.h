@@ -49,6 +49,14 @@ public:
 	vector<int> movementsDone;
 	ModuleCollision* moduleCollision = nullptr;
 	int bounceType;
+	bool checkpoint1;
+	bool checkpoint2;
+	bool checkpoint3;
+	bool checkpoint4;
+	bool checkpoint5;
+	bool checkpoint6;
+	bool checkpoint7;
+	bool checkpoint8;
 };
 
 #endif // __MODULEPLAYER_H__

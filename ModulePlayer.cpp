@@ -23,6 +23,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	bounceRecoil = 0;
 	movementsDone.assign(32, 0);
 	moduleCollision = new ModuleCollision();
+	checkpoint1 = false;
 
 	// turn animation
 	turn.frames.push_back({ 35, 12, 16, 9 });

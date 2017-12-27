@@ -21,12 +21,29 @@ public:
 	vector<ModulePlayer*> cars;
 
 private:
-	int GetRandomCheckpoint();
+	int GetRandomCheckpoint(int lot);
 	void DetectCheckpoints(ModulePlayer* car);
+	void OnCheckpointExit(ModulePlayer* car);
 
 private:
 	SDL_Texture* graphics = nullptr;
+	const float distanceOffset = 1.0f;
+	const int checkpoint1Lot = 6;
+	const int checkpoint2Lot = 4;
+	const int checkpoint3Lot = 5;
+	const int checkpoint4Lot = 4;
+	const int checkpoint5Lot = 5;
+	const int checkpoint6Lot = 4;
+	const int checkpoint7Lot = 5;
+	const int checkpoint8Lot = 3;
 	vector<vector<iPoint>> checkpointContainer1;
+	vector<vector<iPoint>> checkpointContainer2;
+	vector<vector<iPoint>> checkpointContainer3;
+	vector<vector<iPoint>> checkpointContainer4;
+	vector<vector<iPoint>> checkpointContainer5;
+	vector<vector<iPoint>> checkpointContainer6;
+	vector<vector<iPoint>> checkpointContainer7;
+	vector<vector<iPoint>> checkpointContainer8;
 };
 
 #endif // __MODULEPLAYER_H__

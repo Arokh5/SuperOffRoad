@@ -23,16 +23,93 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 	cars[2]->position.x = 195;
 	cars[2]->position.y = 177;
 
-	// Add checkpoints to checkpoint container (4 in total)
-	for (int i = 130; i < 150; i+=5)
+	// Add checkpoints to checkpoints containers
+	for (int i = 115; i < 141; i+=5)
 	{
 		vector<iPoint> tempCheckpoint;
-		for (int j = 158; j < 179; j++)
+		for (int j = 160; j < 179; j++)
 		{
 			tempCheckpoint.push_back({ i, j });
 		}
 
 		checkpointContainer1.push_back(tempCheckpoint);
+	}
+
+	for (int i = 75; i < 91; i+=5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 112; j < 177; j++)
+		{
+			tempCheckpoint.push_back({ j, i });
+		}
+
+		checkpointContainer2.push_back(tempCheckpoint);
+	}
+
+	for (int i = 220; i < 241; i += 5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 58; j < 81; j++)
+		{
+			tempCheckpoint.push_back({ i, j });
+		}
+
+		checkpointContainer3.push_back(tempCheckpoint);
+	}
+
+	for (int i = 35; i < 51; i += 5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 228; j < 268; j++)
+		{
+			tempCheckpoint.push_back({ j, i });
+		}
+
+		checkpointContainer4.push_back(tempCheckpoint);
+	}
+
+	for (int i = 75; i < 96; i += 5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 22; j < 44; j++)
+		{
+			tempCheckpoint.push_back({ i, j });
+		}
+
+		checkpointContainer5.push_back(tempCheckpoint);
+	}
+
+	for (int i = 90; i < 106; i += 5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 26; j < 66; j++)
+		{
+			tempCheckpoint.push_back({ j, i });
+		}
+
+		checkpointContainer6.push_back(tempCheckpoint);
+	}
+
+	for (int i = 220; i < 241; i += 5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 100; j < 130; j++)
+		{
+			tempCheckpoint.push_back({ i, j });
+		}
+
+		checkpointContainer7.push_back(tempCheckpoint);
+	}
+
+	for (int i = 150; i < 161; i += 5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 220; j < 253; j++)
+		{
+			tempCheckpoint.push_back({ j, i });
+		}
+
+		checkpointContainer8.push_back(tempCheckpoint);
 	}
 }
 
@@ -70,7 +147,7 @@ update_status ModuleIA::PreUpdate()
 	for each (ModulePlayer* car in cars)
 	{
 		DetectCheckpoints(car);
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[25]) car->still = true;
+		OnCheckpointExit(car);
 
 		if (car->acceleration == car->accelerationCondition)
 		{
@@ -110,19 +187,158 @@ update_status ModuleIA::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-int ModuleIA::GetRandomCheckpoint()
+int ModuleIA::GetRandomCheckpoint(int lot)
 {
-	return rand() % 3 + 0;
+	return rand() % lot + 0;
 }
 
 void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 {
-	for each (iPoint checkpoint in checkpointContainer1[GetRandomCheckpoint()])
+	for each (iPoint checkpoint in checkpointContainer1[GetRandomCheckpoint(checkpoint1Lot)])
 	{
-		if (car->position.x <= checkpoint.x)
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
 		{
 			car->right = true;
 			car->still = false;
+			car->checkpoint1 = true;
+		}
+	}
+
+	for each (iPoint checkpoint in checkpointContainer2[GetRandomCheckpoint(checkpoint2Lot)])
+	{
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		{
+			car->right = true;
+			car->still = false;
+			car->checkpoint2 = true;
+		}
+	}
+
+	for each (iPoint checkpoint in checkpointContainer3[GetRandomCheckpoint(checkpoint3Lot)])
+	{
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		{
+			car->right = false;
+			car->still = false;
+			car->checkpoint3 = true;
+		}
+	}
+
+	for each (iPoint checkpoint in checkpointContainer4[GetRandomCheckpoint(checkpoint4Lot)])
+	{
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		{
+			car->right = false;
+			car->still = false;
+			car->checkpoint4 = true;
+		}
+	}
+
+	for each (iPoint checkpoint in checkpointContainer5[GetRandomCheckpoint(checkpoint5Lot)])
+	{
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		{
+			car->right = false;
+			car->still = false;
+			car->checkpoint5 = true;
+		}
+	}
+
+	for each (iPoint checkpoint in checkpointContainer6[GetRandomCheckpoint(checkpoint6Lot)])
+	{
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		{
+			car->right = false;
+			car->still = false;
+			car->checkpoint6 = true;
+		}
+	}
+
+	for each (iPoint checkpoint in checkpointContainer7[GetRandomCheckpoint(checkpoint7Lot)])
+	{
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		{
+			car->right = true;
+			car->still = false;
+			car->checkpoint7 = true;
+		}
+	}
+
+	for each (iPoint checkpoint in checkpointContainer8[GetRandomCheckpoint(checkpoint8Lot)])
+	{
+		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		{
+			car->right = true;
+			car->still = false;
+			car->checkpoint8 = true;
+		}
+	}
+}
+
+void ModuleIA::OnCheckpointExit(ModulePlayer* car)
+{
+	if (car->checkpoint1)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[25])
+		{
+			car->still = true;
+			car->checkpoint1 = false;
+		}
+	}
+	else if (car->checkpoint2)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[0])
+		{
+			car->still = true;
+			car->checkpoint2 = false;
+		}
+	}
+	else if (car->checkpoint3)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[23])
+		{
+			car->still = true;
+			car->checkpoint3 = false;
+		}
+	}
+	else if (car->checkpoint4)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[17])
+		{
+			car->still = true;
+			car->checkpoint4 = false;
+		}
+	}
+	else if (car->checkpoint5)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[8])
+		{
+			car->still = true;
+			car->checkpoint5 = false;
+		}
+	}
+	else if (car->checkpoint6)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[0])
+		{
+			car->still = true;
+			car->checkpoint6 = false;
+		}
+	}
+	else if (car->checkpoint7)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[8])
+		{
+			car->still = true;
+			car->checkpoint7 = false;
+		}
+	}
+	else if (car->checkpoint8)
+	{
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[17])
+		{
+			car->still = true;
+			car->checkpoint8 = false;
 		}
 	}
 }
