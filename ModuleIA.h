@@ -21,7 +21,12 @@ public:
 	vector<ModulePlayer*> cars;
 
 private:
+	int GetRandomCheckpoint();
+	void DetectCheckpoints(ModulePlayer* car);
+
+private:
 	SDL_Texture* graphics = nullptr;
+	vector<vector<iPoint>> checkpointContainer1;
 };
 
 #endif // __MODULEPLAYER_H__

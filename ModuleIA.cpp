@@ -22,6 +22,18 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 	cars[1]->position.y = 165;
 	cars[2]->position.x = 195;
 	cars[2]->position.y = 177;
+
+	// Add checkpoints to checkpoint container (4 in total)
+	for (int i = 130; i < 150; i+=5)
+	{
+		vector<iPoint> tempCheckpoint;
+		for (int j = 158; j < 179; j++)
+		{
+			tempCheckpoint.push_back({ i, j });
+		}
+
+		checkpointContainer1.push_back(tempCheckpoint);
+	}
 }
 
 ModuleIA::~ModuleIA()
@@ -57,6 +69,9 @@ update_status ModuleIA::PreUpdate()
 {
 	for each (ModulePlayer* car in cars)
 	{
+		DetectCheckpoints(car);
+		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[25]) car->still = true;
+
 		if (car->acceleration == car->accelerationCondition)
 		{
 			car->repeater++;
@@ -93,4 +108,21 @@ update_status ModuleIA::PreUpdate()
 	}
 
 	return UPDATE_CONTINUE;
+}
+
+int ModuleIA::GetRandomCheckpoint()
+{
+	return rand() % 3 + 0;
+}
+
+void ModuleIA::DetectCheckpoints(ModulePlayer* car)
+{
+	for each (iPoint checkpoint in checkpointContainer1[GetRandomCheckpoint()])
+	{
+		if (car->position.x <= checkpoint.x)
+		{
+			car->right = true;
+			car->still = false;
+		}
+	}
 }
