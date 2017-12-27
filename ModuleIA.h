@@ -18,15 +18,10 @@ public:
 	update_status PreUpdate();
 	bool CleanUp();
 
+	vector<ModulePlayer*> cars;
+
 private:
-	const int carsNumber = 3;
-	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
-	vector<Animation> turn;
-	vector<Animation> standardShadows;
-	vector<Animation*> currentAnimation;
-	vector<Animation*> currentShadowsAnimation;
-	vector<iPoint> position;
 };
 
 #endif // __MODULEPLAYER_H__

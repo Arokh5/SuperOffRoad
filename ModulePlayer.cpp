@@ -19,6 +19,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	repeater = 0;
 	bounce = false;
 	collision = false;
+	still = true;
 	bounceRecoil = 0;
 	movementsDone.assign(32, 0);
 	moduleCollision = new ModuleCollision();
