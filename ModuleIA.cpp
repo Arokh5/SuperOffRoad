@@ -200,7 +200,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = true;
 			car->still = false;
-			car->checkpoint1 = true;
+			car->frameReference = 25;
 		}
 	}
 
@@ -210,7 +210,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = true;
 			car->still = false;
-			car->checkpoint2 = true;
+			car->frameReference = 0;
 		}
 	}
 
@@ -220,7 +220,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = false;
 			car->still = false;
-			car->checkpoint3 = true;
+			car->frameReference = 23;
 		}
 	}
 
@@ -230,7 +230,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = false;
 			car->still = false;
-			car->checkpoint4 = true;
+			car->frameReference = 17;
 		}
 	}
 
@@ -240,7 +240,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = false;
 			car->still = false;
-			car->checkpoint5 = true;
+			car->frameReference = 8;
 		}
 	}
 
@@ -250,7 +250,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = false;
 			car->still = false;
-			car->checkpoint6 = true;
+			car->frameReference = 0;
 		}
 	}
 
@@ -260,7 +260,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = true;
 			car->still = false;
-			car->checkpoint7 = true;
+			car->frameReference = 8;
 		}
 	}
 
@@ -270,75 +270,15 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 		{
 			car->right = true;
 			car->still = false;
-			car->checkpoint8 = true;
+			car->frameReference = 17;
 		}
 	}
 }
 
 void ModuleIA::OnCheckpointExit(ModulePlayer* car)
 {
-	if (car->checkpoint1)
+	if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[car->frameReference])
 	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[25])
-		{
-			car->still = true;
-			car->checkpoint1 = false;
-		}
-	}
-	else if (car->checkpoint2)
-	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[0])
-		{
-			car->still = true;
-			car->checkpoint2 = false;
-		}
-	}
-	else if (car->checkpoint3)
-	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[23])
-		{
-			car->still = true;
-			car->checkpoint3 = false;
-		}
-	}
-	else if (car->checkpoint4)
-	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[17])
-		{
-			car->still = true;
-			car->checkpoint4 = false;
-		}
-	}
-	else if (car->checkpoint5)
-	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[8])
-		{
-			car->still = true;
-			car->checkpoint5 = false;
-		}
-	}
-	else if (car->checkpoint6)
-	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[0])
-		{
-			car->still = true;
-			car->checkpoint6 = false;
-		}
-	}
-	else if (car->checkpoint7)
-	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[8])
-		{
-			car->still = true;
-			car->checkpoint7 = false;
-		}
-	}
-	else if (car->checkpoint8)
-	{
-		if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[17])
-		{
-			car->still = true;
-			car->checkpoint8 = false;
-		}
+		car->still = true;
 	}
 }

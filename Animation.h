@@ -27,7 +27,7 @@ public:
 	SDL_Rect& GetCurrentInverseFrame()
 	{
 		current_frame -= speed;
-		if (current_frame <= 0)
+		if (current_frame < 0)
 			current_frame = frames.size() - 1;
 		return frames[(int)current_frame];
 	}
