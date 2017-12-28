@@ -24,7 +24,8 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 	cars[2]->position.y = 177;
 
 	// Add checkpoints to checkpoints containers
-	for (int i = 115; i < 141; i+=5)
+	/*1*/
+	for (int i = 120; i < 141; i+=5)
 	{
 		vector<iPoint> tempCheckpoint;
 		for (int j = 160; j < 179; j++)
@@ -34,7 +35,7 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 		checkpointContainer1.push_back(tempCheckpoint);
 	}
-
+	/*2*/
 	for (int i = 75; i < 91; i+=5)
 	{
 		vector<iPoint> tempCheckpoint;
@@ -45,7 +46,7 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 		checkpointContainer2.push_back(tempCheckpoint);
 	}
-
+	/*3*/
 	for (int i = 220; i < 241; i += 5)
 	{
 		vector<iPoint> tempCheckpoint;
@@ -56,7 +57,7 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 		checkpointContainer3.push_back(tempCheckpoint);
 	}
-
+	/*4*/
 	for (int i = 35; i < 51; i += 5)
 	{
 		vector<iPoint> tempCheckpoint;
@@ -67,8 +68,8 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 		checkpointContainer4.push_back(tempCheckpoint);
 	}
-
-	for (int i = 75; i < 96; i += 5)
+	/*5*/
+	for (int i = 80; i < 96; i += 5)
 	{
 		vector<iPoint> tempCheckpoint;
 		for (int j = 22; j < 44; j++)
@@ -78,8 +79,8 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 		checkpointContainer5.push_back(tempCheckpoint);
 	}
-
-	for (int i = 90; i < 106; i += 5)
+	/*6*/
+	for (int i = 95; i < 101; i += 5)
 	{
 		vector<iPoint> tempCheckpoint;
 		for (int j = 26; j < 66; j++)
@@ -89,8 +90,8 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 		checkpointContainer6.push_back(tempCheckpoint);
 	}
-
-	for (int i = 220; i < 241; i += 5)
+	/*7*/
+	for (int i = 220; i < 246; i += 5)
 	{
 		vector<iPoint> tempCheckpoint;
 		for (int j = 100; j < 130; j++)
@@ -100,7 +101,7 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 		checkpointContainer7.push_back(tempCheckpoint);
 	}
-
+	/*8*/
 	for (int i = 150; i < 161; i += 5)
 	{
 		vector<iPoint> tempCheckpoint;
@@ -280,5 +281,44 @@ void ModuleIA::OnCheckpointExit(ModulePlayer* car)
 	if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[car->frameReference])
 	{
 		car->still = true;
+	}
+	else
+	{
+		car->still = false;
+
+		int cont1 = 0;
+		for (int i = (int)car->currentAnimation->current_frame; i != car->frameReference;)
+		{
+			i++;
+
+			if (i == car->turn.frames.size())
+			{
+				i = 0;
+			}
+
+			cont1++;
+		}
+
+		int cont2 = 0;
+		for (int i = (int)car->currentAnimation->current_frame; i != car->frameReference;)
+		{
+			i--;
+
+			if (i < 0)
+			{
+				i = car->turn.frames.size() - 1;
+			}
+
+			cont2++;
+		}
+
+		if (cont1 < cont2)
+		{
+			car->right = true;
+		}
+		else
+		{
+			car->right = false;
+		}
 	}
 }

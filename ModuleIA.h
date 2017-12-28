@@ -27,14 +27,14 @@ private:
 
 private:
 	SDL_Texture* graphics = nullptr;
-	const float distanceOffset = 1.0f;
-	const int checkpoint1Lot = 6;
+	const float distanceOffset = 2.0f;
+	const int checkpoint1Lot = 5;
 	const int checkpoint2Lot = 4;
 	const int checkpoint3Lot = 5;
 	const int checkpoint4Lot = 4;
-	const int checkpoint5Lot = 5;
-	const int checkpoint6Lot = 4;
-	const int checkpoint7Lot = 5;
+	const int checkpoint5Lot = 4;
+	const int checkpoint6Lot = 2;
+	const int checkpoint7Lot = 6;
 	const int checkpoint8Lot = 3;
 	vector<vector<iPoint>> checkpointContainer1;
 	vector<vector<iPoint>> checkpointContainer2;
