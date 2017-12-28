@@ -41,6 +41,7 @@ public:
 	ModuleStage* stage = nullptr;
 
 private:
+	void DetectCollisions();
 	std::list<Module*> modules;
 };
 

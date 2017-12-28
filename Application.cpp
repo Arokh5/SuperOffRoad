@@ -66,6 +66,8 @@ update_status Application::Update()
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->PreUpdate();
 
+	DetectCollisions();
+
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->Update();
@@ -88,3 +90,28 @@ bool Application::CleanUp()
 	return ret;
 }
 
+void Application::DetectCollisions()
+{
+	SDL_Rect playerCar;
+	playerCar.x = player->position.x;
+	playerCar.y = player->position.y;
+	playerCar.w = player->currentAnimation->GetCurrentStaticFrame().w;
+	playerCar.h = player->currentAnimation->GetCurrentStaticFrame().h;
+
+	for each (ModulePlayer* car in IA->cars)
+	{
+		SDL_Rect carIA;
+		carIA.x = car->position.x;
+		carIA.y = car->position.y;
+		carIA.w = car->currentAnimation->GetCurrentStaticFrame().w;
+		carIA.h = car->currentAnimation->GetCurrentStaticFrame().h;
+
+		App->renderer->DrawQuad(playerCar, 0, 0, 255, 80);
+		App->renderer->DrawQuad(carIA, 0, 255, 0, 80);
+
+		if (SDL_HasIntersection(&playerCar, &carIA))
+		{
+			LOG("Collision.");
+		}
+	}
+}
