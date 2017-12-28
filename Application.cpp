@@ -106,8 +106,8 @@ void Application::DetectCollisions()
 		carIA.w = car->currentAnimation->GetCurrentStaticFrame().w;
 		carIA.h = car->currentAnimation->GetCurrentStaticFrame().h;
 
-		App->renderer->DrawQuad(playerCar, 0, 0, 255, 80);
-		App->renderer->DrawQuad(carIA, 0, 255, 0, 80);
+		/*App->renderer->DrawQuad(playerCar, 0, 0, 255, 80);
+		App->renderer->DrawQuad(carIA, 0, 255, 0, 80);*/
 
 		if (SDL_HasIntersection(&playerCar, &carIA))
 		{

@@ -127,7 +127,9 @@ bool ModuleIA::Start()
 {
 	LOG("Loading IA");
 
-	graphics = App->textures->Load("general_sprites.png");
+	graphics.push_back(App->textures->Load("general_sprites_blue.png"));
+	graphics.push_back(App->textures->Load("general_sprites_yellow.png"));
+	graphics.push_back(App->textures->Load("general_sprites_grey.png"));
 
 	return true;
 }
@@ -137,7 +139,10 @@ bool ModuleIA::CleanUp()
 {
 	LOG("Unloading IA");
 
-	App->textures->Unload(graphics);
+	for each (SDL_Texture* graphic in graphics)
+	{
+		App->textures->Unload(graphic);
+	}
 
 	return true;
 }
@@ -145,42 +150,42 @@ bool ModuleIA::CleanUp()
 // PreUpdate
 update_status ModuleIA::PreUpdate()
 {
-	for each (ModulePlayer* car in cars)
+	for (int i = 0; i < cars.size(); i++)
 	{
-		DetectCheckpoints(car);
-		OnCheckpointExit(car);
+		DetectCheckpoints(cars[i]);
+		OnCheckpointExit(cars[i]);
 
-		if (car->acceleration == car->accelerationCondition)
+		if (cars[i]->acceleration == cars[i]->accelerationCondition)
 		{
-			car->repeater++;
-			car->SetDirection();
-			car->MoveCar();
+			cars[i]->repeater++;
+			cars[i]->SetDirection();
+			cars[i]->MoveCar();
 
-			car->acceleration = car->initialAcceleration;
-			if (car->accelerationCondition > 1 && car->repeater % 2 == 0)
+			cars[i]->acceleration = cars[i]->initialAcceleration;
+			if (cars[i]->accelerationCondition > 1 && cars[i]->repeater % 2 == 0)
 			{
-				car->accelerationCondition--;
+				cars[i]->accelerationCondition--;
 			}
 		}
 
-		car->acceleration++;
+		cars[i]->acceleration++;
 
-		if (car->still)
+		if (cars[i]->still)
 		{
-			App->renderer->Blit(graphics, car->position.x, car->position.y + car->shadowsOffset, &car->currentShadowsAnimation->GetCurrentStaticFrame());
-			App->renderer->Blit(graphics, car->position.x, car->position.y, &car->currentAnimation->GetCurrentStaticFrame());
+			App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y + cars[i]->shadowsOffset, &cars[i]->currentShadowsAnimation->GetCurrentStaticFrame());
+			App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y, &cars[i]->currentAnimation->GetCurrentStaticFrame());
 		}
 		else
 		{
-			if (car->right)
+			if (cars[i]->right)
 			{
-				App->renderer->Blit(graphics, car->position.x, car->position.y + car->shadowsOffset, &car->currentShadowsAnimation->GetCurrentFrame());
-				App->renderer->Blit(graphics, car->position.x, car->position.y, &car->currentAnimation->GetCurrentFrame());
+				App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y + cars[i]->shadowsOffset, &cars[i]->currentShadowsAnimation->GetCurrentFrame());
+				App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y, &cars[i]->currentAnimation->GetCurrentFrame());
 			}
 			else
 			{
-				App->renderer->Blit(graphics, car->position.x, car->position.y + car->shadowsOffset, &car->currentShadowsAnimation->GetCurrentInverseFrame());
-				App->renderer->Blit(graphics, car->position.x, car->position.y, &car->currentAnimation->GetCurrentInverseFrame());
+				App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y + cars[i]->shadowsOffset, &cars[i]->currentShadowsAnimation->GetCurrentInverseFrame());
+				App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y, &cars[i]->currentAnimation->GetCurrentInverseFrame());
 			}
 		}
 	}
