@@ -25,7 +25,7 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 	// Add checkpoints to checkpoints containers
 	/*1*/
-	for (int i = 120; i < 141; i+=5)
+	for (int i = 120; i < 136; i+=5)
 	{
 		vector<iPoint> tempCheckpoint;
 		for (int j = 160; j < 179; j++)
