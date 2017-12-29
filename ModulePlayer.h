@@ -25,6 +25,7 @@ public:
 	void SetBounceDirection(std::vector<std::vector<int>> fences);
 	void ApplyBounceEffect();
 	void MoveCar();
+	void ApplyCarCollisionEffect();
 
 public:
 	const int shadowsOffset = 2;
@@ -50,6 +51,8 @@ public:
 	ModuleCollision* moduleCollision = nullptr;
 	int bounceType;
 	int frameReference;
+	bool carCollision;
+	int carCollisionType;
 };
 
 #endif // __MODULEPLAYER_H__

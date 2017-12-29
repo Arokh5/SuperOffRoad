@@ -98,6 +98,8 @@ void Application::DetectCollisions()
 	playerCar.w = player->currentAnimation->GetCurrentStaticFrame().w;
 	playerCar.h = player->currentAnimation->GetCurrentStaticFrame().h;
 
+	vector<SDL_Rect> carsIA;
+
 	for each (ModulePlayer* car in IA->cars)
 	{
 		SDL_Rect carIA;
@@ -106,12 +108,64 @@ void Application::DetectCollisions()
 		carIA.w = car->currentAnimation->GetCurrentStaticFrame().w;
 		carIA.h = car->currentAnimation->GetCurrentStaticFrame().h;
 
+		carsIA.push_back(carIA);
+
 		/*App->renderer->DrawQuad(playerCar, 0, 0, 255, 80);
 		App->renderer->DrawQuad(carIA, 0, 255, 0, 80);*/
 
 		if (SDL_HasIntersection(&playerCar, &carIA))
 		{
-			LOG("Collision.");
+			if (car->position.x == player->position.x && car->position.y < player->position.y)
+			{
+				player->carCollisionType = 1;
+			}
+			else if (car->position.x > player->position.x && car->position.y < player->position.y)
+			{
+				player->carCollisionType = 2;
+			}
+			else if (car->position.x > player->position.x && car->position.y == player->position.y)
+			{
+				player->carCollisionType = 3;
+			}
+			else if (car->position.x > player->position.x && car->position.y > player->position.y)
+			{
+				player->carCollisionType = 4;
+			}
+			else if (car->position.x == player->position.x && car->position.y > player->position.y)
+			{
+				player->carCollisionType = 5;
+			}
+			else if (car->position.x < player->position.x && car->position.y > player->position.y)
+			{
+				player->carCollisionType = 6;
+			}
+			else if (car->position.x < player->position.x && car->position.y == player->position.y)
+			{
+				player->carCollisionType = 7;
+			}
+			else if (car->position.x < player->position.x && car->position.y < player->position.y)
+			{
+				player->carCollisionType = 8;
+			}
+
+			player->carCollision = true;
+			car->carCollision = true;
 		}
+	}
+
+	if (SDL_HasIntersection(&carsIA[0], &carsIA[1]))
+	{
+		IA->cars[0]->carCollision = true;
+		IA->cars[1]->carCollision = true;
+	}
+	if (SDL_HasIntersection(&carsIA[0], &carsIA[2]))
+	{
+		IA->cars[0]->carCollision = true;
+		IA->cars[2]->carCollision = true;
+	}
+	if (SDL_HasIntersection(&carsIA[1], &carsIA[2]))
+	{
+		IA->cars[1]->carCollision = true;
+		IA->cars[2]->carCollision = true;
 	}
 }

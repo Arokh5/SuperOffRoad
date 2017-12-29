@@ -24,6 +24,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	movementsDone.assign(32, 0);
 	moduleCollision = new ModuleCollision();
 	frameReference = 17;
+	carCollision = false;
 
 	// turn animation
 	turn.frames.push_back({ 35, 12, 16, 9 });
@@ -130,6 +131,8 @@ bool ModulePlayer::CleanUp()
 // PreUpdate
 update_status ModulePlayer::PreUpdate()
 {
+	if (carCollision) ApplyCarCollisionEffect();
+
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		right = true;
@@ -897,4 +900,73 @@ void ModulePlayer::ApplyBounceEffect()
 		case 5:
 			position.y++;
 	}
+}
+
+void ModulePlayer::ApplyCarCollisionEffect()
+{
+	iPoint tempPos;
+
+	switch (carCollisionType)
+	{
+		case 1:
+			tempPos.x = position.x;
+			tempPos.y = position.y + 1;
+			break;
+
+		case 2:
+			tempPos.x = position.x - 1;
+			tempPos.y = position.y + 1;
+			break;
+
+		case 3:
+			tempPos.x = position.x - 1;
+			tempPos.y = position.y;
+			break;
+
+		case 4:
+			tempPos.x = position.x - 1;
+			tempPos.y = position.y - 1;
+			break;
+
+		case 5:
+			tempPos.x = position.x;
+			tempPos.y = position.y - 1;
+			break;
+
+		case 6:
+			tempPos.x = position.x + 1;
+			tempPos.y = position.y - 1;
+			break;
+
+		case 7:
+			tempPos.x = position.x + 1;
+			tempPos.y = position.y;
+			break;
+
+		case 8:
+			tempPos.x = position.x + 1;
+			tempPos.y = position.y + 1;
+			break;
+	}
+
+	bool fenceDetected = false;
+
+	for each (std::vector<std::vector<int>> fences in moduleCollision->fenceContainer)
+	{
+		for (int i = 0; i < fences.size(); i++)
+		{
+			if (tempPos.x == fences[i][0] && tempPos.y == fences[i][1])
+			{
+				fenceDetected = true;
+				break;
+			}
+		}
+	}
+
+	if (!fenceDetected)
+	{
+		position = tempPos;
+	}
+
+	carCollision = false;
 }
