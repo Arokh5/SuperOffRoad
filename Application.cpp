@@ -115,57 +115,67 @@ void Application::DetectCollisions()
 
 		if (SDL_HasIntersection(&playerCar, &carIA))
 		{
-			if (car->position.x == player->position.x && car->position.y < player->position.y)
-			{
-				player->carCollisionType = 1;
-			}
-			else if (car->position.x > player->position.x && car->position.y < player->position.y)
-			{
-				player->carCollisionType = 2;
-			}
-			else if (car->position.x > player->position.x && car->position.y == player->position.y)
-			{
-				player->carCollisionType = 3;
-			}
-			else if (car->position.x > player->position.x && car->position.y > player->position.y)
-			{
-				player->carCollisionType = 4;
-			}
-			else if (car->position.x == player->position.x && car->position.y > player->position.y)
-			{
-				player->carCollisionType = 5;
-			}
-			else if (car->position.x < player->position.x && car->position.y > player->position.y)
-			{
-				player->carCollisionType = 6;
-			}
-			else if (car->position.x < player->position.x && car->position.y == player->position.y)
-			{
-				player->carCollisionType = 7;
-			}
-			else if (car->position.x < player->position.x && car->position.y < player->position.y)
-			{
-				player->carCollisionType = 8;
-			}
-
-			player->carCollision = true;
-			car->carCollision = true;
+			DefineCollisionType(player, car);
 		}
 	}
 
 	if (SDL_HasIntersection(&carsIA[0], &carsIA[1]))
 	{
-		IA->cars[0]->carCollision = true;
-		IA->cars[1]->carCollision = true;
+		DefineCollisionType(IA->cars[0], IA->cars[1]);
 	}
 	if (SDL_HasIntersection(&carsIA[0], &carsIA[2]))
 	{
-		IA->cars[0]->carCollision = true;
-		IA->cars[2]->carCollision = true;
+		DefineCollisionType(IA->cars[0], IA->cars[2]);
 	}
 	if (SDL_HasIntersection(&carsIA[1], &carsIA[2]))
 	{
-		IA->cars[1]->carCollision = true;
-		IA->cars[2]->carCollision = true;
+		DefineCollisionType(IA->cars[1], IA->cars[2]);
 	}
+}
+
+void Application::DefineCollisionType(ModulePlayer* car1, ModulePlayer* car2)
+{
+	if (car1->position.x == car2->position.x && car1->position.y < car2->position.y)
+	{
+		car1->carCollisionType = 5;
+		car2->carCollisionType = 1;
+	}
+	else if (car1->position.x > car2->position.x && car1->position.y < car2->position.y)
+	{
+		car1->carCollisionType = 6;
+		car2->carCollisionType = 2;
+	}
+	else if (car1->position.x > car2->position.x && car1->position.y == car2->position.y)
+	{
+		car1->carCollisionType = 7;
+		car2->carCollisionType = 3;
+	}
+	else if (car1->position.x > car2->position.x && car1->position.y > car2->position.y)
+	{
+		car1->carCollisionType = 8;
+		car2->carCollisionType = 4;
+	}
+	else if (car1->position.x == car2->position.x && car1->position.y > car2->position.y)
+	{
+		car1->carCollisionType = 1;
+		car2->carCollisionType = 5;
+	}
+	else if (car1->position.x < car2->position.x && car1->position.y > car2->position.y)
+	{
+		car1->carCollisionType = 2;
+		car2->carCollisionType = 6;
+	}
+	else if (car1->position.x < car2->position.x && car1->position.y == car2->position.y)
+	{
+		car1->carCollisionType = 3;
+		car2->carCollisionType = 7;
+	}
+	else if (car1->position.x < car2->position.x && car1->position.y < car2->position.y)
+	{
+		car1->carCollisionType = 4;
+		car2->carCollisionType = 8;
+	}
+
+	car1->carCollision = true;
+	car2->carCollision = true;
 }

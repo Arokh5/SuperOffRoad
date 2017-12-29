@@ -152,6 +152,7 @@ update_status ModuleIA::PreUpdate()
 {
 	for (int i = 0; i < cars.size(); i++)
 	{
+		if (cars[i]->carCollision) cars[i]->ApplyCarCollisionEffect();
 		DetectCheckpoints(cars[i]);
 		OnCheckpointExit(cars[i]);
 

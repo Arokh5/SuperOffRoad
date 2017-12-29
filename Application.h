@@ -42,6 +42,7 @@ public:
 
 private:
 	void DetectCollisions();
+	void DefineCollisionType(ModulePlayer* car1, ModulePlayer* car2);
 	std::list<Module*> modules;
 };
 
