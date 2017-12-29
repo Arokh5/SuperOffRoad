@@ -760,6 +760,9 @@ bool ModulePlayer::DetectFences(iPoint position)
 	{
 		for (int i = 0; i < fences.size(); i++)
 		{
+			/* Debug fences */
+			//SDL_RenderDrawPoint(App->renderer->renderer, fences[i][0], fences[i][1]);
+
 			if (position.x == fences[i][0] && position.y == fences[i][1])
 			{
 				float intersection_carLastFrame = sqrt(pow(position.x - lastFramePosition.x, 2) + pow(position.y - lastFramePosition.y, 2));
