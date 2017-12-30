@@ -9,7 +9,8 @@
 
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
-	const float speed = 0.3f;
+	const float turnSpeed = 0.3f;
+	const float jumpSpeed = 0.1f;
 	position.x = 177;
 	position.y = 176;
 	acceleration = initialAcceleration;
@@ -25,6 +26,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	moduleCollision = new ModuleCollision();
 	frameReference = 17;
 	carCollision = false;
+	jumping = false;
 
 	// turn animation
 	turn.frames.push_back({ 35, 12, 16, 9 });
@@ -59,7 +61,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	turn.frames.push_back({ 107, 10, 16, 11 });
 	turn.frames.push_back({ 83, 10, 16, 11 });
 	turn.frames.push_back({ 59, 11, 16, 10 });
-	turn.speed = speed;
+	turn.speed = turnSpeed;
 
 	// fill standard shadows vector
 	standardShadows.frames.push_back({ 35, 324, 15, 8 });
@@ -94,9 +96,31 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	standardShadows.frames.push_back({ 107, 322, 16, 11 });
 	standardShadows.frames.push_back({ 83, 322, 16, 11 });
 	standardShadows.frames.push_back({ 59, 323, 16, 10 });
-	standardShadows.speed = speed;
+	standardShadows.speed = turnSpeed;
 
-	// define start rotation of the car
+	// jump right animation
+	jumpRight.frames.push_back({ 35, 37, 15, 7 });
+	jumpRight.frames.push_back({ 59, 35, 15, 9 });
+	jumpRight.frames.push_back({ 83, 34, 12, 10 });
+	jumpRight.frames.push_back({ 371, 250, 15, 10 });
+	jumpRight.frames.push_back({ 355, 272, 14, 12 });
+	jumpRight.frames.push_back({ 331, 271, 12, 13 });
+	jumpRight.frames.push_back({ 355, 272, 14, 12 });
+	jumpRight.frames.push_back({ 371, 250, 15, 10 });
+	jumpRight.speed = jumpSpeed;
+
+	// jump left animation
+	jumpLeft.frames.push_back({ 219, 132, 15, 8 });
+	jumpLeft.frames.push_back({ 195, 131, 14, 9 });
+	jumpLeft.frames.push_back({ 171, 129, 14, 11 });
+	jumpLeft.frames.push_back({ 243, 133, 15, 7 });
+	jumpLeft.frames.push_back({ 267, 131, 15, 9 });
+	jumpLeft.frames.push_back({ 291, 131, 11, 9 });
+	jumpLeft.frames.push_back({ 267, 131, 15, 9 });
+	jumpLeft.frames.push_back({ 243, 133, 15, 7 });
+	jumpLeft.speed = jumpSpeed;
+
+	// define car start rotation
 	turn.current_frame = 17.0f;
 	standardShadows.current_frame = 17.0f;
 	currentAnimation = &turn;
@@ -131,6 +155,7 @@ bool ModulePlayer::CleanUp()
 // PreUpdate
 update_status ModulePlayer::PreUpdate()
 {
+	DetectBumps();
 	if (carCollision) ApplyCarCollisionEffect();
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
@@ -195,22 +220,30 @@ update_status ModulePlayer::PreUpdate()
 		}
 	}
 
-	if (still)
+	if (jumping)
 	{
 		App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentStaticFrame());
-		App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentStaticFrame());
+		App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame());
 	}
 	else
 	{
-		if (right)
+		if (still)
 		{
-			App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentFrame());
-			App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame());
+			App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentStaticFrame());
+			App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentStaticFrame());
 		}
 		else
 		{
-			App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentInverseFrame());
-			App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentInverseFrame());
+			if (right)
+			{
+				App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentFrame());
+				App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame());
+			}
+			else
+			{
+				App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentInverseFrame());
+				App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentInverseFrame());
+			}
 		}
 	}
 	
@@ -972,4 +1005,59 @@ void ModulePlayer::ApplyCarCollisionEffect()
 	}
 
 	carCollision = false;
+}
+
+void ModulePlayer::DetectBumps()
+{
+	bool bumpDetected = false;
+
+	SDL_Rect playerCar;
+	playerCar.x = position.x;
+	playerCar.y = position.y;
+	playerCar.w = currentAnimation->GetCurrentStaticFrame().w;
+	playerCar.h = currentAnimation->GetCurrentStaticFrame().h;
+
+	for each (SDL_Rect littleBump in moduleCollision->littleBumpContainer)
+	{
+		App->renderer->DrawQuad(littleBump, 255, 0, 0, 80);
+
+		if (SDL_HasIntersection(&playerCar, &littleBump))
+		{
+			bumpDetected = true;
+			jumping = true;
+
+			LOG("currentAnimation->current_frame: %d", (int)currentAnimation->current_frame);
+
+			if (currentAnimation == &turn)
+			{
+				if (((int)currentAnimation->current_frame) >= 29 || (((int)currentAnimation->current_frame) >= 0 && ((int)currentAnimation->current_frame) <= 3))
+				{
+					currentAnimation = &jumpRight;
+				}
+				else if (((int)currentAnimation->current_frame) >= 12 && ((int)currentAnimation->current_frame) <= 19)
+				{
+					currentAnimation = &jumpLeft;
+				}
+			}
+
+			break;
+		}
+	}
+
+	if (!bumpDetected)
+	{
+		if (currentAnimation == &jumpRight)
+		{
+			turn.current_frame = 0;
+			standardShadows.current_frame = 0;
+		}
+		else if (currentAnimation == &jumpLeft)
+		{
+			turn.current_frame = 17;
+			standardShadows.current_frame = 17;
+		}
+
+		currentAnimation = &turn;
+		jumping = false;
+	}
 }

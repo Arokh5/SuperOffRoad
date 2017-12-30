@@ -41,7 +41,7 @@ public:
 	ModuleStage* stage = nullptr;
 
 private:
-	void DetectCollisions();
+	void DetectCarCollisions();
 	void DefineCollisionType(ModulePlayer* car1, ModulePlayer* car2);
 	std::list<Module*> modules;
 };

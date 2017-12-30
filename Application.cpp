@@ -66,7 +66,7 @@ update_status Application::Update()
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->PreUpdate();
 
-	DetectCollisions();
+	DetectCarCollisions();
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
@@ -90,7 +90,7 @@ bool Application::CleanUp()
 	return ret;
 }
 
-void Application::DetectCollisions()
+void Application::DetectCarCollisions()
 {
 	SDL_Rect playerCar;
 	playerCar.x = player->position.x;

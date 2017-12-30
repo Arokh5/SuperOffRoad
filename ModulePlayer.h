@@ -21,6 +21,7 @@ public:
 public:
 	void SetDirection();
 	bool DetectFences(iPoint position);
+	void DetectBumps();
 	bool SetRotationDirection(std::vector<std::vector<int>> fences);
 	void SetBounceDirection(std::vector<std::vector<int>> fences);
 	void ApplyBounceEffect();
@@ -31,6 +32,8 @@ public:
 	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
+	Animation jumpRight;
+	Animation jumpLeft;
 	Animation standardShadows;
 	Animation* currentAnimation = nullptr;
 	Animation* currentShadowsAnimation = nullptr;
@@ -53,6 +56,7 @@ public:
 	int frameReference;
 	bool carCollision;
 	int carCollisionType;
+	bool jumping;
 };
 
 #endif // __MODULEPLAYER_H__
