@@ -34,6 +34,8 @@ public:
 	Animation turn;
 	Animation jumpRight;
 	Animation jumpLeft;
+	Animation jumpDown;
+	Animation jumpUp;
 	Animation standardShadows;
 	Animation* currentAnimation = nullptr;
 	Animation* currentShadowsAnimation = nullptr;

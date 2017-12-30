@@ -120,6 +120,21 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	jumpLeft.frames.push_back({ 243, 133, 15, 7 });
 	jumpLeft.speed = jumpSpeed;
 
+	// jump down animation
+	jumpDown.frames.push_back({ 619, 198, 10, 14 });
+	jumpDown.frames.push_back({ 595, 197, 11, 15 });
+	jumpDown.frames.push_back({ 643, 221, 9, 15 });
+	jumpDown.frames.push_back({ 667, 221, 12, 15 });
+	jumpDown.frames.push_back({ 675, 246, 8, 14 });
+	jumpDown.speed = jumpSpeed;
+
+	// jump up animation
+	jumpUp.frames.push_back({ 107, 173, 10, 15 });
+	jumpUp.frames.push_back({ 115, 150, 9, 14 });
+	jumpUp.frames.push_back({ 123, 101, 9, 15 });
+	jumpUp.frames.push_back({ 107, 55, 11, 13 });
+	jumpUp.speed = jumpSpeed;
+
 	// define car start rotation
 	turn.current_frame = 17.0f;
 	standardShadows.current_frame = 17.0f;
@@ -1038,6 +1053,14 @@ void ModulePlayer::DetectBumps()
 				{
 					currentAnimation = &jumpLeft;
 				}
+				else if (((int)currentAnimation->current_frame) >= 4 && ((int)currentAnimation->current_frame) <= 11)
+				{
+					currentAnimation = &jumpDown;
+				}
+				else if (((int)currentAnimation->current_frame) >= 20 && ((int)currentAnimation->current_frame) <= 28)
+				{
+					currentAnimation = &jumpUp;
+				}
 			}
 
 			break;
@@ -1055,6 +1078,16 @@ void ModulePlayer::DetectBumps()
 		{
 			turn.current_frame = 17;
 			standardShadows.current_frame = 17;
+		}
+		else if (currentAnimation == &jumpDown)
+		{
+			turn.current_frame = 7;
+			standardShadows.current_frame = 7;
+		}
+		else if (currentAnimation == &jumpUp)
+		{
+			turn.current_frame = 23;
+			standardShadows.current_frame = 23;
 		}
 
 		currentAnimation = &turn;
