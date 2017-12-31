@@ -27,7 +27,6 @@ public:
 	void ApplyBounceEffect();
 	void MoveCar();
 	void ApplyCarCollisionEffect();
-	Animation GetCurrentAnimation();
 
 public:
 	const int shadowsOffset = 2;
@@ -35,6 +34,7 @@ public:
 	Animation turn;
 	Animation standardShadows;
 	Animation littleBumpRightSide;
+	Animation littleBumpLeftSide;
 	Animation* currentAnimation = nullptr;
 	Animation* currentShadowsAnimation = nullptr;
 	iPoint position;

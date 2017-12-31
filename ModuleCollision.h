@@ -34,6 +34,7 @@ public:
 	std::vector<std::vector<int>> fence5_6;
 
 	std::vector<SDL_Rect> littleBumpRightSideContainer;
+	std::vector<SDL_Rect> littleBumpLeftSideContainer;
 
 private:
 	std::vector<std::vector<int>> FillCollider(int initialX, int finalX, int initialY, int finalY);

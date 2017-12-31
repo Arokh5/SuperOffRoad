@@ -1014,6 +1014,7 @@ void ModulePlayer::ApplyCarCollisionEffect()
 void ModulePlayer::DetectBumps()
 {
 	bool littleBumpRightSideDetected = false;
+	bool littleBumpLeftSideDetected = false;
 
 	SDL_Rect playerCar;
 	playerCar.x = position.x;
@@ -1032,10 +1033,26 @@ void ModulePlayer::DetectBumps()
 		}
 	}
 
+	for each (SDL_Rect bump in moduleCollision->littleBumpLeftSideContainer)
+	{
+		App->renderer->DrawQuad(bump, 0, 255, 0, 80);
+
+		if (SDL_HasIntersection(&playerCar, &bump))
+		{
+			littleBumpLeftSideDetected = true;
+			break;
+		}
+	}
+
 	if (littleBumpRightSideDetected)
 	{
 		littleBumpRightSide.current_frame = currentAnimation->current_frame;
 		currentAnimation = &littleBumpRightSide;
+	}
+	else if (littleBumpLeftSideDetected)
+	{
+		//littleBumpLeftSide.current_frame = currentAnimation->current_frame;
+		//currentAnimation = &littleBumpLeftSide;
 	}
 	else
 	{
