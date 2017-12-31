@@ -27,16 +27,14 @@ public:
 	void ApplyBounceEffect();
 	void MoveCar();
 	void ApplyCarCollisionEffect();
+	Animation GetCurrentAnimation();
 
 public:
 	const int shadowsOffset = 2;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
-	Animation jumpRight;
-	Animation jumpLeft;
-	Animation jumpDown;
-	Animation jumpUp;
 	Animation standardShadows;
+	Animation littleBumpRightSide;
 	Animation* currentAnimation = nullptr;
 	Animation* currentShadowsAnimation = nullptr;
 	iPoint position;
@@ -58,7 +56,6 @@ public:
 	int frameReference;
 	bool carCollision;
 	int carCollisionType;
-	bool jumping;
 };
 
 #endif // __MODULEPLAYER_H__

@@ -26,7 +26,6 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	moduleCollision = new ModuleCollision();
 	frameReference = 17;
 	carCollision = false;
-	jumping = false;
 
 	// turn animation
 	turn.frames.push_back({ 35, 12, 16, 9 });
@@ -63,6 +62,41 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	turn.frames.push_back({ 59, 11, 16, 10 });
 	turn.speed = turnSpeed;
 
+	// little bump right side animation
+	littleBumpRightSide.frames.push_back({ 11, 62, 14, 6 });
+	littleBumpRightSide.frames.push_back({ 379, 299, 14, 9 });
+	littleBumpRightSide.frames.push_back({ 35, 251, 14, 9 });
+	littleBumpRightSide.frames.push_back({ 11, 249, 14, 11 });
+	littleBumpRightSide.frames.push_back({ 347, 248, 14, 12 });
+	littleBumpRightSide.frames.push_back({ 331, 271, 12, 13 });
+	littleBumpRightSide.frames.push_back({ 331, 221, 10, 15 });
+	littleBumpRightSide.frames.push_back({ 307, 221, 9, 15 });
+	littleBumpRightSide.frames.push_back({ 283, 221, 10, 15 });
+	littleBumpRightSide.frames.push_back({ 259, 221, 12, 15 });
+	littleBumpRightSide.frames.push_back({ 659, 30, 12, 14 });
+	littleBumpRightSide.frames.push_back({ 635, 31, 13, 13 });
+	littleBumpRightSide.frames.push_back({ 611, 33, 13, 11 });
+	littleBumpRightSide.frames.push_back({ 243, 105, 14, 11 });
+	littleBumpRightSide.frames.push_back({ 587, 35, 13, 9 });
+	littleBumpRightSide.frames.push_back({ 219, 108, 15, 8 });
+	littleBumpRightSide.frames.push_back({ 619, 82, 15, 10 });
+	littleBumpRightSide.frames.push_back({ 627, 132, 14, 8 });
+	littleBumpRightSide.frames.push_back({ 603, 130, 14, 10 });
+	littleBumpRightSide.frames.push_back({ 579, 128, 14, 12 });
+	littleBumpRightSide.frames.push_back({ 555, 126, 14, 14 });
+	littleBumpRightSide.frames.push_back({ 531, 125, 12, 15 });
+	littleBumpRightSide.frames.push_back({ 515, 173, 11, 15 });
+	littleBumpRightSide.frames.push_back({ 499, 102, 7, 14 });
+	littleBumpRightSide.frames.push_back({ 475, 101, 12, 15 });
+	littleBumpRightSide.frames.push_back({ 107, 55, 11, 13 });
+	littleBumpRightSide.frames.push_back({ 83, 55, 13, 13 });
+	littleBumpRightSide.frames.push_back({ 59, 56, 14, 12 });
+	littleBumpRightSide.frames.push_back({ 107, 298, 9, 10 });
+	littleBumpRightSide.frames.push_back({ 83, 299, 13, 9 });
+	littleBumpRightSide.frames.push_back({ 59, 299, 14, 9 });
+	littleBumpRightSide.frames.push_back({ 35, 300, 14, 8 });
+	littleBumpRightSide.speed = turnSpeed;
+
 	// fill standard shadows vector
 	standardShadows.frames.push_back({ 35, 324, 15, 8 });
 	standardShadows.frames.push_back({ 11, 324, 14, 8 });
@@ -97,43 +131,6 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	standardShadows.frames.push_back({ 83, 322, 16, 11 });
 	standardShadows.frames.push_back({ 59, 323, 16, 10 });
 	standardShadows.speed = turnSpeed;
-
-	// jump right animation
-	jumpRight.frames.push_back({ 35, 37, 15, 7 });
-	jumpRight.frames.push_back({ 59, 35, 15, 9 });
-	jumpRight.frames.push_back({ 83, 34, 12, 10 });
-	jumpRight.frames.push_back({ 371, 250, 15, 10 });
-	jumpRight.frames.push_back({ 355, 272, 14, 12 });
-	jumpRight.frames.push_back({ 331, 271, 12, 13 });
-	jumpRight.frames.push_back({ 355, 272, 14, 12 });
-	jumpRight.frames.push_back({ 371, 250, 15, 10 });
-	jumpRight.speed = jumpSpeed;
-
-	// jump left animation
-	jumpLeft.frames.push_back({ 219, 132, 15, 8 });
-	jumpLeft.frames.push_back({ 195, 131, 14, 9 });
-	jumpLeft.frames.push_back({ 171, 129, 14, 11 });
-	jumpLeft.frames.push_back({ 243, 133, 15, 7 });
-	jumpLeft.frames.push_back({ 267, 131, 15, 9 });
-	jumpLeft.frames.push_back({ 291, 131, 11, 9 });
-	jumpLeft.frames.push_back({ 267, 131, 15, 9 });
-	jumpLeft.frames.push_back({ 243, 133, 15, 7 });
-	jumpLeft.speed = jumpSpeed;
-
-	// jump down animation
-	jumpDown.frames.push_back({ 619, 198, 10, 14 });
-	jumpDown.frames.push_back({ 595, 197, 11, 15 });
-	jumpDown.frames.push_back({ 643, 221, 9, 15 });
-	jumpDown.frames.push_back({ 667, 221, 12, 15 });
-	jumpDown.frames.push_back({ 675, 246, 8, 14 });
-	jumpDown.speed = jumpSpeed;
-
-	// jump up animation
-	jumpUp.frames.push_back({ 107, 173, 10, 15 });
-	jumpUp.frames.push_back({ 115, 150, 9, 14 });
-	jumpUp.frames.push_back({ 123, 101, 9, 15 });
-	jumpUp.frames.push_back({ 107, 55, 11, 13 });
-	jumpUp.speed = jumpSpeed;
 
 	// define car start rotation
 	turn.current_frame = 17.0f;
@@ -235,30 +232,22 @@ update_status ModulePlayer::PreUpdate()
 		}
 	}
 
-	if (jumping)
+	if (still)
 	{
 		App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentStaticFrame());
-		App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame());
+		App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentStaticFrame());
 	}
 	else
 	{
-		if (still)
+		if (right)
 		{
-			App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentStaticFrame());
-			App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentStaticFrame());
+			App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentFrame());
+			App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame());
 		}
 		else
 		{
-			if (right)
-			{
-				App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentFrame());
-				App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentFrame());
-			}
-			else
-			{
-				App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentInverseFrame());
-				App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentInverseFrame());
-			}
+			App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentShadowsAnimation->GetCurrentInverseFrame());
+			App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentInverseFrame());
 		}
 	}
 	
@@ -267,11 +256,11 @@ update_status ModulePlayer::PreUpdate()
 
 void ModulePlayer::SetDirection()
 {
-	if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[0])
+	if (((int)currentAnimation->current_frame) == 0)
 	{
 		currentDirection = { 1, 0 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[1])
+	else if (((int)currentAnimation->current_frame) == 1)
 	{
 		switch (movementsDone[1])
 		{
@@ -295,7 +284,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[2])
+	else if (((int)currentAnimation->current_frame) == 2)
 	{
 		switch (movementsDone[2])
 		{
@@ -314,7 +303,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[3])
+	else if (((int)currentAnimation->current_frame) == 3)
 	{
 		switch (movementsDone[3])
 		{
@@ -329,11 +318,11 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[4])
+	else if (((int)currentAnimation->current_frame) == 4)
 	{
 		currentDirection = { 1, 1 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[5])
+	else if (((int)currentAnimation->current_frame) == 5)
 	{
 		switch (movementsDone[5])
 		{
@@ -353,7 +342,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[6])
+	else if (((int)currentAnimation->current_frame) == 6)
 	{
 		switch (movementsDone[6])
 		{
@@ -368,7 +357,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[7])
+	else if (((int)currentAnimation->current_frame) == 7)
 	{
 		switch (movementsDone[7])
 		{
@@ -388,7 +377,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[8])
+	else if (((int)currentAnimation->current_frame) == 8)
 	{
 		switch (movementsDone[8])
 		{
@@ -408,7 +397,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[9])
+	else if (((int)currentAnimation->current_frame) == 9)
 	{
 		switch (movementsDone[9])
 		{
@@ -423,7 +412,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[10])
+	else if (((int)currentAnimation->current_frame) == 10)
 	{
 		switch (movementsDone[10])
 		{
@@ -443,11 +432,11 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[11])
+	else if (((int)currentAnimation->current_frame) == 11)
 	{
 		currentDirection = { -1, 1 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[12])
+	else if (((int)currentAnimation->current_frame) == 12)
 	{
 		switch (movementsDone[12])
 		{
@@ -467,7 +456,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[13])
+	else if (((int)currentAnimation->current_frame) == 13)
 	{
 		switch (movementsDone[13])
 		{
@@ -482,7 +471,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[14])
+	else if (((int)currentAnimation->current_frame) == 14)
 	{
 		switch (movementsDone[14])
 		{
@@ -502,7 +491,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[15])
+	else if (((int)currentAnimation->current_frame) == 15)
 	{
 		switch (movementsDone[15])
 		{
@@ -527,15 +516,15 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[16])
+	else if (((int)currentAnimation->current_frame) == 16)
 	{
 		currentDirection = { -1, 0 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[17])
+	else if (((int)currentAnimation->current_frame) == 17)
 	{
 		currentDirection = { -1, 0 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[18])
+	else if (((int)currentAnimation->current_frame) == 18)
 	{
 		switch (movementsDone[18])
 		{
@@ -560,7 +549,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[19])
+	else if (((int)currentAnimation->current_frame) == 19)
 	{
 		switch (movementsDone[19])
 		{
@@ -580,7 +569,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[20])
+	else if (((int)currentAnimation->current_frame) == 20)
 	{
 		switch (movementsDone[20])
 		{
@@ -595,11 +584,11 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[21])
+	else if (((int)currentAnimation->current_frame) == 21)
 	{
 		currentDirection = { -1, -1 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[22])
+	else if (((int)currentAnimation->current_frame) == 22)
 	{
 		switch (movementsDone[22])
 		{
@@ -614,7 +603,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[23])
+	else if (((int)currentAnimation->current_frame) == 23)
 	{
 		switch (movementsDone[23])
 		{
@@ -634,7 +623,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[24])
+	else if (((int)currentAnimation->current_frame) == 24)
 	{
 		switch (movementsDone[24])
 		{
@@ -654,7 +643,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[25])
+	else if (((int)currentAnimation->current_frame) == 25)
 	{
 		switch (movementsDone[25])
 		{
@@ -669,15 +658,15 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[26])
+	else if (((int)currentAnimation->current_frame) == 26)
 	{
 		currentDirection = { 1, -1 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[27])
+	else if (((int)currentAnimation->current_frame) == 27)
 	{
 		currentDirection = { 1, -1 };
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[28])
+	else if (((int)currentAnimation->current_frame) == 28)
 	{
 		switch (movementsDone[28])
 		{
@@ -697,7 +686,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[29])
+	else if (((int)currentAnimation->current_frame) == 29)
 	{
 		switch (movementsDone[29])
 		{
@@ -712,7 +701,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[30])
+	else if (((int)currentAnimation->current_frame) == 30)
 	{
 		switch (movementsDone[30])
 		{
@@ -732,7 +721,7 @@ void ModulePlayer::SetDirection()
 			break;
 		}
 	}
-	else if (&currentAnimation->GetCurrentStaticFrame() == &turn.frames[31])
+	else if (((int)currentAnimation->current_frame) == 31)
 	{
 		switch (movementsDone[31])
 		{
@@ -1024,7 +1013,7 @@ void ModulePlayer::ApplyCarCollisionEffect()
 
 void ModulePlayer::DetectBumps()
 {
-	bool bumpDetected = false;
+	bool littleBumpRightSideDetected = false;
 
 	SDL_Rect playerCar;
 	playerCar.x = position.x;
@@ -1032,65 +1021,25 @@ void ModulePlayer::DetectBumps()
 	playerCar.w = currentAnimation->GetCurrentStaticFrame().w;
 	playerCar.h = currentAnimation->GetCurrentStaticFrame().h;
 
-	for each (SDL_Rect littleBump in moduleCollision->littleBumpContainer)
+	for each (SDL_Rect bump in moduleCollision->littleBumpRightSideContainer)
 	{
-		App->renderer->DrawQuad(littleBump, 255, 0, 0, 80);
+		App->renderer->DrawQuad(bump, 255, 0, 0, 80);
 
-		if (SDL_HasIntersection(&playerCar, &littleBump))
+		if (SDL_HasIntersection(&playerCar, &bump))
 		{
-			bumpDetected = true;
-			jumping = true;
-
-			LOG("currentAnimation->current_frame: %d", (int)currentAnimation->current_frame);
-
-			if (currentAnimation == &turn)
-			{
-				if (((int)currentAnimation->current_frame) >= 29 || (((int)currentAnimation->current_frame) >= 0 && ((int)currentAnimation->current_frame) <= 3))
-				{
-					currentAnimation = &jumpRight;
-				}
-				else if (((int)currentAnimation->current_frame) >= 12 && ((int)currentAnimation->current_frame) <= 19)
-				{
-					currentAnimation = &jumpLeft;
-				}
-				else if (((int)currentAnimation->current_frame) >= 4 && ((int)currentAnimation->current_frame) <= 11)
-				{
-					currentAnimation = &jumpDown;
-				}
-				else if (((int)currentAnimation->current_frame) >= 20 && ((int)currentAnimation->current_frame) <= 28)
-				{
-					currentAnimation = &jumpUp;
-				}
-			}
-
+			littleBumpRightSideDetected = true;
 			break;
 		}
 	}
 
-	if (!bumpDetected)
+	if (littleBumpRightSideDetected)
 	{
-		if (currentAnimation == &jumpRight)
-		{
-			turn.current_frame = 0;
-			standardShadows.current_frame = 0;
-		}
-		else if (currentAnimation == &jumpLeft)
-		{
-			turn.current_frame = 17;
-			standardShadows.current_frame = 17;
-		}
-		else if (currentAnimation == &jumpDown)
-		{
-			turn.current_frame = 7;
-			standardShadows.current_frame = 7;
-		}
-		else if (currentAnimation == &jumpUp)
-		{
-			turn.current_frame = 23;
-			standardShadows.current_frame = 23;
-		}
-
+		littleBumpRightSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &littleBumpRightSide;
+	}
+	else
+	{
+		turn.current_frame = currentAnimation->current_frame;
 		currentAnimation = &turn;
-		jumping = false;
 	}
 }
