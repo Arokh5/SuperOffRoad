@@ -71,7 +71,7 @@ bool ModuleStage::Start()
 
 	graphics = App->textures->Load("stage.png");
 
-	// TODO 7: Enable the player module
+	// Enable player and IA modules
 	App->player->Enable();
 	App->IA->Enable();
 
@@ -110,19 +110,6 @@ update_status ModuleStage::Update()
 	App->renderer->Blit(graphics, 25, 112, &fence4);
 	App->renderer->Blit(graphics, 77, 51, &fence5_1);
 	App->renderer->Blit(graphics, 100, 51, &fence5_2);
-
-	//App->renderer->Blit(graphics, 560, 8, &(flag.GetCurrentFrame()), 2.0f); // flag animation
-	//App->renderer->Blit(graphics, 0, AnimateShip(), &foreground, 2.0f);
-
-	// TODO 6: Draw the girl. Make sure it follows the ship movement!
-	//App->renderer->Blit(graphics, 193, 106 + actualY, &(girl.GetCurrentFrame()), 2.0f);
-	//App->renderer->Blit(graphics, 0, 170, &ground);
-
-	// TODO 10: Build an entire new scene "honda", you can find its
-	// and music in the Game/ folder
-
-	// TODO 11: Make that pressing space triggers a switch to honda logic module
-	// using FadeToBlack module
 
 	return UPDATE_CONTINUE;
 }

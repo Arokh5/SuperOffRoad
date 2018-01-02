@@ -285,7 +285,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 
 void ModuleIA::OnCheckpointExit(ModulePlayer* car)
 {
-	if (&car->currentAnimation->GetCurrentStaticFrame() == &car->turn.frames[car->frameReference])
+	if (((int)car->currentAnimation->current_frame) == car->frameReference)
 	{
 		car->still = true;
 	}
@@ -294,7 +294,7 @@ void ModuleIA::OnCheckpointExit(ModulePlayer* car)
 		car->still = false;
 
 		int cont1 = 0;
-		for (int i = (int)car->currentAnimation->current_frame; i != car->frameReference;)
+		for (int i = ((int)car->currentAnimation->current_frame); i != car->frameReference;)
 		{
 			i++;
 
@@ -307,7 +307,7 @@ void ModuleIA::OnCheckpointExit(ModulePlayer* car)
 		}
 
 		int cont2 = 0;
-		for (int i = (int)car->currentAnimation->current_frame; i != car->frameReference;)
+		for (int i = ((int)car->currentAnimation->current_frame); i != car->frameReference;)
 		{
 			i--;
 

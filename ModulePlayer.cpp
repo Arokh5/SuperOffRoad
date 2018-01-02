@@ -1054,8 +1054,8 @@ void ModulePlayer::DetectBumps()
 	SDL_Rect playerCar;
 	playerCar.x = position.x;
 	playerCar.y = position.y;
-	playerCar.w = currentAnimation->GetCurrentStaticFrame().w;
-	playerCar.h = currentAnimation->GetCurrentStaticFrame().h;
+	playerCar.w = 15;
+	playerCar.h = 11;
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpRightSideContainer)
 	{
@@ -1084,12 +1084,12 @@ void ModulePlayer::DetectBumps()
 		littleBumpRightSide.current_frame = currentAnimation->current_frame;
 		currentAnimation = &littleBumpRightSide;
 	}
-	else if (littleBumpLeftSideDetected)
+	if (littleBumpLeftSideDetected)
 	{
 		littleBumpLeftSide.current_frame = currentAnimation->current_frame;
 		currentAnimation = &littleBumpLeftSide;
 	}
-	else
+	if (!littleBumpRightSideDetected && !littleBumpLeftSideDetected)
 	{
 		turn.current_frame = currentAnimation->current_frame;
 		currentAnimation = &turn;
