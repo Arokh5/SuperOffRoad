@@ -97,6 +97,41 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	littleBumpRightSide.frames.push_back({ 35, 300, 14, 8 });
 	littleBumpRightSide.speed = turnSpeed;
 
+	// little bump left side animation
+	littleBumpLeftSide.frames.push_back({ 11, 83, 14, 9 });
+	littleBumpLeftSide.frames.push_back({ 11, 132, 12, 8 });
+	littleBumpLeftSide.frames.push_back({ 731, 85, 12, 7 });
+	littleBumpLeftSide.frames.push_back({ 723, 107, 12, 9 });
+	littleBumpLeftSide.frames.push_back({ 715, 247, 14, 13 });
+	littleBumpLeftSide.frames.push_back({ 691, 246, 12, 14 });
+	littleBumpLeftSide.frames.push_back({ 675, 246, 8, 14 });
+	littleBumpLeftSide.frames.push_back({ 683, 270, 8, 14 });
+	littleBumpLeftSide.frames.push_back({ 643, 197, 9, 15 });
+	littleBumpLeftSide.frames.push_back({ 619, 198, 10, 14 });
+	littleBumpLeftSide.frames.push_back({ 595, 197, 11, 15 });
+	littleBumpLeftSide.frames.push_back({ 571, 198, 11, 14 });
+	littleBumpLeftSide.frames.push_back({ 603, 247, 12, 13 });
+	littleBumpLeftSide.frames.push_back({ 579, 246, 12, 14 });
+	littleBumpLeftSide.frames.push_back({ 555, 199, 8, 13 });
+	littleBumpLeftSide.frames.push_back({ 555, 249, 12, 11 });
+	littleBumpLeftSide.frames.push_back({ 563, 275, 11, 9 });
+	littleBumpLeftSide.frames.push_back({ 531, 253, 11, 7 });
+	littleBumpLeftSide.frames.push_back({ 539, 276, 9, 8 });
+	littleBumpLeftSide.frames.push_back({ 539, 34, 11, 10 });
+	littleBumpLeftSide.frames.push_back({ 507, 253, 9, 7 });
+	littleBumpLeftSide.frames.push_back({ 523, 59, 11, 9 });
+	littleBumpLeftSide.frames.push_back({ 131, 32, 8, 12 });
+	littleBumpLeftSide.frames.push_back({ 483, 77, 8, 15 });
+	littleBumpLeftSide.frames.push_back({ 107, 33, 10, 11 });
+	littleBumpLeftSide.frames.push_back({ 483, 55, 11, 13 });
+	littleBumpLeftSide.frames.push_back({ 83, 34, 12, 10 });
+	littleBumpLeftSide.frames.push_back({ 59, 79, 13, 13 });
+	littleBumpLeftSide.frames.push_back({ 459, 55, 14, 13 });
+	littleBumpLeftSide.frames.push_back({ 435, 57, 15, 11 });
+	littleBumpLeftSide.frames.push_back({ 59, 35, 15, 9 });
+	littleBumpLeftSide.frames.push_back({ 35, 37, 15, 7 });
+	littleBumpLeftSide.speed = turnSpeed;
+
 	// fill standard shadows vector
 	standardShadows.frames.push_back({ 35, 324, 15, 8 });
 	standardShadows.frames.push_back({ 11, 324, 14, 8 });
@@ -1024,7 +1059,7 @@ void ModulePlayer::DetectBumps()
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpRightSideContainer)
 	{
-		App->renderer->DrawQuad(bump, 255, 0, 0, 80);
+		//App->renderer->DrawQuad(bump, 255, 0, 0, 80);
 
 		if (SDL_HasIntersection(&playerCar, &bump))
 		{
@@ -1035,7 +1070,7 @@ void ModulePlayer::DetectBumps()
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpLeftSideContainer)
 	{
-		App->renderer->DrawQuad(bump, 0, 255, 0, 80);
+		//App->renderer->DrawQuad(bump, 0, 255, 0, 80);
 
 		if (SDL_HasIntersection(&playerCar, &bump))
 		{
@@ -1051,8 +1086,8 @@ void ModulePlayer::DetectBumps()
 	}
 	else if (littleBumpLeftSideDetected)
 	{
-		//littleBumpLeftSide.current_frame = currentAnimation->current_frame;
-		//currentAnimation = &littleBumpLeftSide;
+		littleBumpLeftSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &littleBumpLeftSide;
 	}
 	else
 	{

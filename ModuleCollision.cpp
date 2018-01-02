@@ -51,8 +51,19 @@ ModuleCollision::ModuleCollision()
 	fenceContainer.push_back(fence5_5);
 	fenceContainer.push_back(fence5_6);
 
-	littleBumpRightSideContainer.push_back({ 235, 37, 15, 18 });
-	littleBumpLeftSideContainer.push_back({ 225, 37, 10, 18 });
+	littleBumpRightSideContainer.push_back({ 237, 37, 15, 18 });
+	littleBumpRightSideContainer.push_back({ 185, 37, 15, 18 });
+	littleBumpRightSideContainer.push_back({ 214, 20, 17, 15 });
+	littleBumpRightSideContainer.push_back({ 164, 18, 15, 18 });
+	littleBumpRightSideContainer.push_back({ 135, 37, 15, 18 });
+	littleBumpRightSideContainer.push_back({ 112, 18, 15, 18 });
+
+	littleBumpLeftSideContainer.push_back({ 223, 37, 12, 18 });
+	littleBumpLeftSideContainer.push_back({ 171, 37, 12, 18 });
+	littleBumpLeftSideContainer.push_back({ 203, 20, 10, 15 });
+	littleBumpLeftSideContainer.push_back({ 152, 18, 10, 18 });
+	littleBumpLeftSideContainer.push_back({ 123, 37, 10, 15 });
+	littleBumpLeftSideContainer.push_back({ 100, 18, 10, 18 });
 }
 
 // Destructor
