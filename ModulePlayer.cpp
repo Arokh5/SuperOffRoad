@@ -132,6 +132,41 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	littleBumpLeftSide.frames.push_back({ 35, 37, 15, 7 });
 	littleBumpLeftSide.speed = turnSpeed;
 
+	// little bump bottom side animation
+	littleBumpBottomSide.frames.push_back({ 403, 301, 14, 7 });
+	littleBumpBottomSide.frames.push_back({ 11, 300, 14, 8 });
+	littleBumpBottomSide.frames.push_back({ 731, 296, 14, 12 });
+	littleBumpBottomSide.frames.push_back({ 355, 297, 15, 11 });
+	littleBumpBottomSide.frames.push_back({ 715, 224, 15, 12 });
+	littleBumpBottomSide.frames.push_back({ 691, 223, 14, 13 });
+	littleBumpBottomSide.frames.push_back({ 683, 198, 10, 14 });
+	littleBumpBottomSide.frames.push_back({ 667, 197, 8, 15 });
+	littleBumpBottomSide.frames.push_back({ 643, 197, 9, 15 });
+	littleBumpBottomSide.frames.push_back({ 619, 198, 10, 14 });
+	littleBumpBottomSide.frames.push_back({ 659, 269, 11, 15 });
+	littleBumpBottomSide.frames.push_back({ 635, 270, 14, 14 });
+	littleBumpBottomSide.frames.push_back({ 611, 271, 15, 13 });
+	littleBumpBottomSide.frames.push_back({ 587, 274, 14, 10 });
+	littleBumpBottomSide.frames.push_back({ 587, 35, 13, 9 });
+	littleBumpBottomSide.frames.push_back({ 219, 108, 15, 8 });
+	littleBumpBottomSide.frames.push_back({ 595, 84, 15, 8 });
+	littleBumpBottomSide.frames.push_back({ 563, 38, 13, 6 });
+	littleBumpBottomSide.frames.push_back({ 571, 84, 14, 8 });
+	littleBumpBottomSide.frames.push_back({ 571, 154, 14, 10 });
+	littleBumpBottomSide.frames.push_back({ 547, 154, 15, 10 });
+	littleBumpBottomSide.frames.push_back({ 523, 151, 13, 13 });
+	littleBumpBottomSide.frames.push_back({ 507, 125, 10, 15 });
+	littleBumpBottomSide.frames.push_back({ 499, 174, 8, 14 });
+	littleBumpBottomSide.frames.push_back({ 483, 125, 9, 15 });
+	littleBumpBottomSide.frames.push_back({ 475, 174, 9, 14 });
+	littleBumpBottomSide.frames.push_back({ 451, 174, 11, 14 });
+	littleBumpBottomSide.frames.push_back({ 451, 102, 13, 14 });
+	littleBumpBottomSide.frames.push_back({ 427, 103, 14, 13 });
+	littleBumpBottomSide.frames.push_back({ 403, 106, 14, 10 });
+	littleBumpBottomSide.frames.push_back({ 411, 59, 15, 9 });
+	littleBumpBottomSide.frames.push_back({ 35, 300, 14, 8 });
+	littleBumpBottomSide.speed = turnSpeed;
+
 	// fill standard shadows vector
 	standardShadows.frames.push_back({ 35, 324, 15, 8 });
 	standardShadows.frames.push_back({ 11, 324, 14, 8 });
@@ -1050,6 +1085,7 @@ void ModulePlayer::DetectBumps()
 {
 	bool littleBumpRightSideDetected = false;
 	bool littleBumpLeftSideDetected = false;
+	bool littleBumpBottomSideDetected = false;
 
 	SDL_Rect playerCar;
 	playerCar.x = position.x;
@@ -1059,7 +1095,7 @@ void ModulePlayer::DetectBumps()
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpRightSideContainer)
 	{
-		//App->renderer->DrawQuad(bump, 255, 0, 0, 80);
+		App->renderer->DrawQuad(bump, 255, 0, 0, 80);
 
 		if (SDL_HasIntersection(&playerCar, &bump))
 		{
@@ -1070,11 +1106,22 @@ void ModulePlayer::DetectBumps()
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpLeftSideContainer)
 	{
-		//App->renderer->DrawQuad(bump, 0, 255, 0, 80);
+		App->renderer->DrawQuad(bump, 0, 255, 0, 80);
 
 		if (SDL_HasIntersection(&playerCar, &bump))
 		{
 			littleBumpLeftSideDetected = true;
+			break;
+		}
+	}
+
+	for each (SDL_Rect bump in moduleCollision->littleBumpBottomSideContainer)
+	{
+		App->renderer->DrawQuad(bump, 0, 0, 255, 80);
+
+		if (SDL_HasIntersection(&playerCar, &bump))
+		{
+			littleBumpBottomSideDetected = true;
 			break;
 		}
 	}
@@ -1089,7 +1136,12 @@ void ModulePlayer::DetectBumps()
 		littleBumpLeftSide.current_frame = currentAnimation->current_frame;
 		currentAnimation = &littleBumpLeftSide;
 	}
-	if (!littleBumpRightSideDetected && !littleBumpLeftSideDetected)
+	if (littleBumpBottomSideDetected)
+	{
+		littleBumpBottomSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &littleBumpBottomSide;
+	}
+	if (!littleBumpRightSideDetected && !littleBumpLeftSideDetected && !littleBumpBottomSideDetected)
 	{
 		turn.current_frame = currentAnimation->current_frame;
 		currentAnimation = &turn;

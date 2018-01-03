@@ -8,6 +8,7 @@ using namespace std;
 
 ModuleCollision::ModuleCollision()
 {
+	// Fill fences collider
 	fence1_1 = FillCollider(83, 247, 178, 178);
 	fence1_2 = FillCollider(283, 220, 96, 180);
 	fence1_3 = FillCollider(178, 284, 98, 98);
@@ -51,19 +52,36 @@ ModuleCollision::ModuleCollision()
 	fenceContainer.push_back(fence5_5);
 	fenceContainer.push_back(fence5_6);
 
+	// Fill little bump right side collider container
 	littleBumpRightSideContainer.push_back({ 234, 37, 15, 18 });
 	littleBumpRightSideContainer.push_back({ 181, 37, 15, 18 });
 	littleBumpRightSideContainer.push_back({ 214, 20, 17, 15 });
 	littleBumpRightSideContainer.push_back({ 162, 18, 15, 18 });
 	littleBumpRightSideContainer.push_back({ 133, 37, 15, 18 });
 	littleBumpRightSideContainer.push_back({ 110, 18, 15, 18 });
+	littleBumpRightSideContainer.push_back({ 175, 97, 25, 40 });
+	littleBumpRightSideContainer.push_back({ 165, 115, 10, 25 });
+	littleBumpRightSideContainer.push_back({ 170, 105, 5, 10 });
+	littleBumpRightSideContainer.push_back({ 160, 127, 5, 10 });
+	littleBumpRightSideContainer.push_back({ 105, 97, 20, 25 });
+	littleBumpRightSideContainer.push_back({ 100, 115, 10, 15 });
 
+	// Fill little bump left side collider container
 	littleBumpLeftSideContainer.push_back({ 222, 37, 12, 18 });
 	littleBumpLeftSideContainer.push_back({ 169, 37, 12, 18 });
 	littleBumpLeftSideContainer.push_back({ 204, 20, 10, 15 });
 	littleBumpLeftSideContainer.push_back({ 152, 18, 10, 18 });
 	littleBumpLeftSideContainer.push_back({ 123, 37, 10, 15 });
 	littleBumpLeftSideContainer.push_back({ 100, 18, 10, 18 });
+	littleBumpLeftSideContainer.push_back({ 154, 105, 12, 20 });
+	littleBumpLeftSideContainer.push_back({ 166, 105, 4, 10 });
+	littleBumpLeftSideContainer.push_back({ 78, 105, 20, 25 });
+	littleBumpLeftSideContainer.push_back({ 98, 105, 5, 15 });
+
+	// Fill little bump top side collider container
+	littleBumpBottomSideContainer.push_back({ 104, 128, 45, 18 });
+	littleBumpBottomSideContainer.push_back({ 149, 128, 10, 10 });
+	littleBumpBottomSideContainer.push_back({ 115, 95, 60, 13 });
 }
 
 // Destructor
