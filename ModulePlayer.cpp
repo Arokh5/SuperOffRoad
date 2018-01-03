@@ -167,6 +167,41 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	littleBumpBottomSide.frames.push_back({ 35, 300, 14, 8 });
 	littleBumpBottomSide.speed = turnSpeed;
 
+	// little bump bottom side animation
+	littleBumpTopSide.frames.push_back({ 11, 37, 15, 7 });
+	littleBumpTopSide.frames.push_back({ 35, 276, 15, 8 });
+	littleBumpTopSide.frames.push_back({ 355, 35, 15, 9 });
+	littleBumpTopSide.frames.push_back({ 739, 58, 14, 10 });
+	littleBumpTopSide.frames.push_back({ 339, 84, 11, 8 });
+	littleBumpTopSide.frames.push_back({ 331, 33, 10, 11 });
+	littleBumpTopSide.frames.push_back({ 707, 84, 11, 8 });
+	littleBumpTopSide.frames.push_back({ 691, 84, 7, 8 });
+	littleBumpTopSide.frames.push_back({ 299, 84, 11, 8 });
+	littleBumpTopSide.frames.push_back({ 299, 84, 11, 8 });
+	littleBumpTopSide.frames.push_back({ 667, 83, 11, 9 });
+	littleBumpTopSide.frames.push_back({ 667, 83, 11, 9 });
+	littleBumpTopSide.frames.push_back({ 643, 82, 14, 10 });
+	littleBumpTopSide.frames.push_back({ 643, 82, 14, 10 });
+	littleBumpTopSide.frames.push_back({ 275, 83, 15, 9 });
+	littleBumpTopSide.frames.push_back({ 251, 84, 15, 8 });
+	littleBumpTopSide.frames.push_back({ 243, 133, 15, 7 });
+	littleBumpTopSide.frames.push_back({ 571, 61, 15, 7 });
+	littleBumpTopSide.frames.push_back({ 547, 60, 13, 8 });
+	littleBumpTopSide.frames.push_back({ 547, 60, 13, 8 });
+	littleBumpTopSide.frames.push_back({ 523, 59, 11, 9 });
+	littleBumpTopSide.frames.push_back({ 515, 301, 10, 7 });
+	littleBumpTopSide.frames.push_back({ 507, 253, 9, 7 });
+	littleBumpTopSide.frames.push_back({ 499, 301, 7, 7 });
+	littleBumpTopSide.frames.push_back({ 491, 253, 8, 7 });
+	littleBumpTopSide.frames.push_back({ 491, 253, 8, 7 });
+	littleBumpTopSide.frames.push_back({ 467, 253, 12, 7 });
+	littleBumpTopSide.frames.push_back({ 467, 253, 12, 7 });
+	littleBumpTopSide.frames.push_back({ 475, 299, 11, 9 });
+	littleBumpTopSide.frames.push_back({ 451, 299, 14, 9 });
+	littleBumpTopSide.frames.push_back({ 443, 252, 14, 8 });
+	littleBumpTopSide.frames.push_back({ 419, 253, 15, 7 });
+	littleBumpTopSide.speed = turn.speed;
+
 	// fill standard shadows vector
 	standardShadows.frames.push_back({ 35, 324, 15, 8 });
 	standardShadows.frames.push_back({ 11, 324, 14, 8 });
@@ -1086,6 +1121,7 @@ void ModulePlayer::DetectBumps()
 	bool littleBumpRightSideDetected = false;
 	bool littleBumpLeftSideDetected = false;
 	bool littleBumpBottomSideDetected = false;
+	bool littleBumpTopSideDetected = false;
 
 	SDL_Rect playerCar;
 	playerCar.x = position.x;
@@ -1095,7 +1131,7 @@ void ModulePlayer::DetectBumps()
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpRightSideContainer)
 	{
-		App->renderer->DrawQuad(bump, 255, 0, 0, 80);
+		//App->renderer->DrawQuad(bump, 255, 0, 0, 80);
 
 		if (SDL_HasIntersection(&playerCar, &bump))
 		{
@@ -1106,7 +1142,7 @@ void ModulePlayer::DetectBumps()
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpLeftSideContainer)
 	{
-		App->renderer->DrawQuad(bump, 0, 255, 0, 80);
+		//App->renderer->DrawQuad(bump, 0, 255, 0, 80);
 
 		if (SDL_HasIntersection(&playerCar, &bump))
 		{
@@ -1117,11 +1153,22 @@ void ModulePlayer::DetectBumps()
 
 	for each (SDL_Rect bump in moduleCollision->littleBumpBottomSideContainer)
 	{
-		App->renderer->DrawQuad(bump, 0, 0, 255, 80);
+		//App->renderer->DrawQuad(bump, 0, 0, 255, 80);
 
 		if (SDL_HasIntersection(&playerCar, &bump))
 		{
 			littleBumpBottomSideDetected = true;
+			break;
+		}
+	}
+
+	for each (SDL_Rect bump in moduleCollision->littleBumpTopSideContainer)
+	{
+		//App->renderer->DrawQuad(bump, 255, 255, 0, 80);
+
+		if (SDL_HasIntersection(&playerCar, &bump))
+		{
+			littleBumpTopSideDetected = true;
 			break;
 		}
 	}
@@ -1141,7 +1188,12 @@ void ModulePlayer::DetectBumps()
 		littleBumpBottomSide.current_frame = currentAnimation->current_frame;
 		currentAnimation = &littleBumpBottomSide;
 	}
-	if (!littleBumpRightSideDetected && !littleBumpLeftSideDetected && !littleBumpBottomSideDetected)
+	if (littleBumpTopSideDetected)
+	{
+		littleBumpTopSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &littleBumpTopSide;
+	}
+	if (!littleBumpRightSideDetected && !littleBumpLeftSideDetected && !littleBumpBottomSideDetected && !littleBumpTopSideDetected)
 	{
 		turn.current_frame = currentAnimation->current_frame;
 		currentAnimation = &turn;

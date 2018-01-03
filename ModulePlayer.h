@@ -36,6 +36,7 @@ public:
 	Animation littleBumpRightSide;
 	Animation littleBumpLeftSide;
 	Animation littleBumpBottomSide;
+	Animation littleBumpTopSide;
 	Animation* currentAnimation = nullptr;
 	Animation* currentShadowsAnimation = nullptr;
 	iPoint position;

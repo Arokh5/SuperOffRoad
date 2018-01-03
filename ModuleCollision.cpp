@@ -78,10 +78,14 @@ ModuleCollision::ModuleCollision()
 	littleBumpLeftSideContainer.push_back({ 78, 105, 20, 25 });
 	littleBumpLeftSideContainer.push_back({ 98, 105, 5, 15 });
 
-	// Fill little bump top side collider container
+	// Fill little bump bottom side collider container
 	littleBumpBottomSideContainer.push_back({ 104, 128, 45, 18 });
 	littleBumpBottomSideContainer.push_back({ 149, 128, 10, 10 });
 	littleBumpBottomSideContainer.push_back({ 115, 95, 60, 13 });
+
+	// Fill little bump top side collider container
+	littleBumpTopSideContainer.push_back({ 110, 122, 45, 7 });
+	littleBumpTopSideContainer.push_back({ 116, 88, 65, 7 });
 }
 
 // Destructor
