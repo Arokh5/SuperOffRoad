@@ -10,7 +10,7 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	const float turnSpeed = 0.3f;
-	const float jumpSpeed = 0.1f;
+	const float splashSpeed = 0.1f;
 	position.x = 177;
 	position.y = 176;
 	acceleration = initialAcceleration;
@@ -377,11 +377,27 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	standardShadows.frames.push_back({ 59, 323, 16, 10 });
 	standardShadows.speed = turnSpeed;
 
+	// Define splash animation
+	splash.frames.push_back({ 203, 378, 8, 10 });
+	splash.frames.push_back({ 219, 378, 12, 10 });
+	splash.frames.push_back({ 243, 375, 15, 13 });
+	splash.frames.push_back({ 267, 374, 15, 14 });
+	splash.frames.push_back({ 291, 374, 15, 14 });
+	splash.frames.push_back({ 315, 376, 15, 12 });
+	splash.frames.push_back({ 339, 379, 13, 9 });
+	splash.frames.push_back({ 363, 381, 13, 7 });
+	splash.frames.push_back({ 387, 379, 12, 9 });
+	splash.frames.push_back({ 411, 378, 13, 10 });
+	splash.frames.push_back({ 435, 377, 15, 11 });
+	splash.frames.push_back({ 459, 377, 15, 11 });
+	splash.speed = splashSpeed;
+
 	// define car start rotation
 	turn.current_frame = 17.0f;
 	standardShadows.current_frame = 17.0f;
 	currentAnimation = &turn;
 	currentShadowsAnimation = &standardShadows;
+	currentSplashAnimation = &splash;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -470,11 +486,16 @@ update_status ModulePlayer::PreUpdate()
 			acceleration++;
 		}
 		else 
-		{ 
+		{
 			repeater = 0;
 			bounce = false;
 			bounceRecoil = 0;
 		}
+	}
+
+	if (DetectPool())
+	{
+		App->renderer->Blit(graphics, position.x, position.y + shadowsOffset, &currentSplashAnimation->GetCurrentFrame());
 	}
 
 	if (still)
@@ -1418,4 +1439,24 @@ void ModulePlayer::DetectBumps()
 		turn.current_frame = currentAnimation->current_frame;
 		currentAnimation = &turn;
 	}
+}
+
+bool ModulePlayer::DetectPool()
+{
+	bool overPool = false;
+
+	SDL_Rect playerCar;
+	playerCar.x = position.x;
+	playerCar.y = position.y;
+	playerCar.w = 15;
+	playerCar.h = 11;
+
+	//App->renderer->DrawQuad(moduleCollision->poolCollider, 255, 0, 0, 80);
+
+	if (SDL_HasIntersection(&playerCar, &moduleCollision->poolCollider))
+	{
+		overPool = true;
+	}
+	
+	return overPool;
 }

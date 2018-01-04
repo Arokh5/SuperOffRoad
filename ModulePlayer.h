@@ -22,6 +22,7 @@ public:
 	void SetDirection();
 	bool DetectFences(iPoint position);
 	void DetectBumps();
+	bool DetectPool();
 	bool SetRotationDirection(std::vector<std::vector<int>> fences);
 	void SetBounceDirection(std::vector<std::vector<int>> fences);
 	void ApplyBounceEffect();
@@ -41,8 +42,10 @@ public:
 	Animation bigBumpLeftSide;
 	Animation bigBumpBottomSide;
 	Animation bigBumpTopSide;
+	Animation splash;
 	Animation* currentAnimation = nullptr;
 	Animation* currentShadowsAnimation = nullptr;
+	Animation* currentSplashAnimation = nullptr;
 	iPoint position;
 	iPoint lastFramePosition;
 	bool still;

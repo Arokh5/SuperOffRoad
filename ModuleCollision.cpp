@@ -116,6 +116,9 @@ ModuleCollision::ModuleCollision()
 	bigBumpTopSideContainer.push_back({ 55, 83, 20, 8 });
 	bigBumpTopSideContainer.push_back({ 48, 51, 20, 8 });
 	bigBumpTopSideContainer.push_back({ 87, 35, 20, 8 });
+
+	// Define pool collider
+	poolCollider = { 121, 108, 35, 16 };
 }
 
 // Destructor

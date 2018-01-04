@@ -172,6 +172,11 @@ update_status ModuleIA::PreUpdate()
 
 		cars[i]->acceleration++;
 
+		if (cars[i]->DetectPool())
+		{
+			App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y + cars[i]->shadowsOffset, &cars[i]->currentSplashAnimation->GetCurrentFrame());
+		}
+
 		if (cars[i]->still)
 		{
 			App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y + cars[i]->shadowsOffset, &cars[i]->currentShadowsAnimation->GetCurrentStaticFrame());

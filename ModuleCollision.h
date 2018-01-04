@@ -47,6 +47,8 @@ public:
 	std::vector<SDL_Rect> bigBumpBottomSideContainer;
 	std::vector<SDL_Rect> bigBumpTopSideContainer;
 
+	SDL_Rect poolCollider;
+
 private:
 	std::vector<std::vector<int>> FillCollider(int initialX, int finalX, int initialY, int finalY);
 };
