@@ -1098,7 +1098,8 @@ bool ModulePlayer::SetRotationDirection(std::vector<std::vector<int>> fences)
 		fences == moduleCollision->fence4_3 ||
 		fences == moduleCollision->fence5_2 ||
 		fences == moduleCollision->fence5_4 ||
-		fences == moduleCollision->fence5_6)
+		fences == moduleCollision->fence5_6 ||
+		fences == moduleCollision->fenceDiagonalReinforcement1)
 	{
 		rotationRight = false;
 	}
@@ -1128,7 +1129,9 @@ void ModulePlayer::SetBounceDirection(std::vector<std::vector<int>> fences)
 		// position.x--
 		bounceType = 1;
 	}
-	else if (fences == moduleCollision->fence3_3)
+	else if (fences == moduleCollision->fence3_3 ||
+		fences == moduleCollision->fenceDiagonalReinforcement2 ||
+		fences == moduleCollision->fenceDiagonalReinforcement3)
 	{
 		// position.x--
 		// position.y++
@@ -1143,7 +1146,8 @@ void ModulePlayer::SetBounceDirection(std::vector<std::vector<int>> fences)
 		// position.x++
 		bounceType = 3;
 	}
-	else if (fences == moduleCollision->fence4_2)
+	else if (fences == moduleCollision->fence4_2 ||
+		fences == moduleCollision->fenceDiagonalReinforcement1)
 	{
 		// position.x++
 		// position.y--

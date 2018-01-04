@@ -33,6 +33,10 @@ public:
 	std::vector<std::vector<int>> fence5_5;
 	std::vector<std::vector<int>> fence5_6;
 
+	std::vector<std::vector<int>> fenceDiagonalReinforcement1;
+	std::vector<std::vector<int>> fenceDiagonalReinforcement2;
+	std::vector<std::vector<int>> fenceDiagonalReinforcement3;
+
 	std::vector<SDL_Rect> littleBumpRightSideContainer;
 	std::vector<SDL_Rect> littleBumpLeftSideContainer;
 	std::vector<SDL_Rect> littleBumpBottomSideContainer;
