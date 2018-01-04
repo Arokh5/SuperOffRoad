@@ -63,10 +63,10 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	turn.speed = turnSpeed;
 
 	// little bump right side animation
-	littleBumpRightSide.frames.push_back({ 11, 62, 14, 6 });
-	littleBumpRightSide.frames.push_back({ 379, 299, 14, 9 });
-	littleBumpRightSide.frames.push_back({ 35, 251, 14, 9 });
+	littleBumpRightSide.frames.push_back({ 403, 203, 14, 9 });
+	littleBumpRightSide.frames.push_back({ 35, 201, 14, 11 });
 	littleBumpRightSide.frames.push_back({ 11, 249, 14, 11 });
+	littleBumpRightSide.frames.push_back({ 11, 199, 15, 13 });
 	littleBumpRightSide.frames.push_back({ 347, 248, 14, 12 });
 	littleBumpRightSide.frames.push_back({ 331, 271, 12, 13 });
 	littleBumpRightSide.frames.push_back({ 331, 221, 10, 15 });
@@ -93,8 +93,8 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	littleBumpRightSide.frames.push_back({ 59, 56, 14, 12 });
 	littleBumpRightSide.frames.push_back({ 107, 298, 9, 10 });
 	littleBumpRightSide.frames.push_back({ 83, 299, 13, 9 });
-	littleBumpRightSide.frames.push_back({ 59, 299, 14, 9 });
-	littleBumpRightSide.frames.push_back({ 35, 300, 14, 8 });
+	littleBumpRightSide.frames.push_back({ 427, 204, 15, 8 });
+	littleBumpRightSide.frames.push_back({ 59, 203, 14, 9 });
 	littleBumpRightSide.speed = turnSpeed;
 
 	// little bump left side animation
@@ -167,7 +167,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	littleBumpBottomSide.frames.push_back({ 35, 300, 14, 8 });
 	littleBumpBottomSide.speed = turnSpeed;
 
-	// little bump bottom side animation
+	// little bump top side animation
 	littleBumpTopSide.frames.push_back({ 11, 37, 15, 7 });
 	littleBumpTopSide.frames.push_back({ 35, 276, 15, 8 });
 	littleBumpTopSide.frames.push_back({ 355, 35, 15, 9 });
@@ -201,6 +201,111 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	littleBumpTopSide.frames.push_back({ 443, 252, 14, 8 });
 	littleBumpTopSide.frames.push_back({ 419, 253, 15, 7 });
 	littleBumpTopSide.speed = turn.speed;
+
+	// big bump right side animation
+	bigBumpRightSide.frames.push_back({ 35, 226, 13, 10 });
+	bigBumpRightSide.frames.push_back({ 11, 224, 12, 12 });
+	bigBumpRightSide.frames.push_back({ 11, 224, 12, 12 });
+	bigBumpRightSide.frames.push_back({ 723, 274, 12, 10 });
+	bigBumpRightSide.frames.push_back({ 707, 198, 13, 14 });
+	bigBumpRightSide.frames.push_back({ 699, 271, 10, 13 });
+	bigBumpRightSide.frames.push_back({ 699, 271, 10, 13 });
+	bigBumpRightSide.frames.push_back({ 683, 270, 8, 14 });
+	bigBumpRightSide.frames.push_back({ 659, 269, 11, 15 });
+	bigBumpRightSide.frames.push_back({ 659, 30, 12, 14 });
+	bigBumpRightSide.frames.push_back({ 659, 30, 12, 14 });
+	bigBumpRightSide.frames.push_back({ 635, 31, 13, 13 });
+	bigBumpRightSide.frames.push_back({ 611, 33, 13, 11 });
+	bigBumpRightSide.frames.push_back({ 243, 105, 14, 11 });
+	bigBumpRightSide.frames.push_back({ 619, 156, 12, 8 });
+	bigBumpRightSide.frames.push_back({ 595, 156, 14, 8 });
+	bigBumpRightSide.frames.push_back({ 603, 130, 14, 10 });
+	bigBumpRightSide.frames.push_back({ 563, 176, 13, 12 });
+	bigBumpRightSide.frames.push_back({ 539, 174, 13, 14 });
+	bigBumpRightSide.frames.push_back({ 515, 173, 11, 15 });
+	bigBumpRightSide.frames.push_back({ 515, 104, 11, 12 });
+	bigBumpRightSide.frames.push_back({ 155, 59, 11, 9 });
+	bigBumpRightSide.frames.push_back({ 131, 55, 9, 13 });
+	bigBumpRightSide.frames.push_back({ 131, 300, 9, 8 });
+	bigBumpRightSide.frames.push_back({ 491, 228, 9, 8 });
+	bigBumpRightSide.frames.push_back({ 475, 229, 8, 7 });
+	bigBumpRightSide.frames.push_back({ 107, 298, 9, 10 });
+	bigBumpRightSide.frames.push_back({ 451, 228, 10, 8 });
+	bigBumpRightSide.frames.push_back({ 83, 253, 12, 7 });
+	bigBumpRightSide.frames.push_back({ 83, 253, 12, 7 });
+	bigBumpRightSide.frames.push_back({ 59, 251, 13, 9 });
+	bigBumpRightSide.frames.push_back({ 59, 251, 13, 9 });
+	bigBumpRightSide.speed = turnSpeed;
+
+	// big bump left side animation
+	bigBumpLeftSide.frames.push_back({ 35, 106, 14, 10 });
+	bigBumpLeftSide.frames.push_back({ 35, 80, 13, 12 });
+	bigBumpLeftSide.frames.push_back({ 35, 129, 12, 11 });
+	bigBumpLeftSide.frames.push_back({ 35, 58, 14, 10 });
+	bigBumpLeftSide.frames.push_back({ 739, 58, 14, 10 });
+	bigBumpLeftSide.frames.push_back({ 715, 55, 12, 13 });
+	bigBumpLeftSide.frames.push_back({ 691, 54, 9, 14 });
+	bigBumpLeftSide.frames.push_back({ 691, 54, 9, 14 });
+	bigBumpLeftSide.frames.push_back({ 259, 245, 7, 15 });
+	bigBumpLeftSide.frames.push_back({ 667, 55, 11, 13 });
+	bigBumpLeftSide.frames.push_back({ 667, 55, 11, 13 });
+	bigBumpLeftSide.frames.push_back({ 643, 57, 12, 11 });
+	bigBumpLeftSide.frames.push_back({ 643, 57, 12, 11 });
+	bigBumpLeftSide.frames.push_back({ 243, 245, 8, 15 });
+	bigBumpLeftSide.frames.push_back({ 219, 197, 9, 15 });
+	bigBumpLeftSide.frames.push_back({ 611, 295, 12, 13 });
+	bigBumpLeftSide.frames.push_back({ 611, 295, 12, 13 });
+	bigBumpLeftSide.frames.push_back({ 587, 296, 12, 12 });
+	bigBumpLeftSide.frames.push_back({ 563, 299, 13, 9 });
+	bigBumpLeftSide.frames.push_back({ 539, 302, 12, 6 });
+	bigBumpLeftSide.frames.push_back({ 515, 301, 10, 7 });
+	bigBumpLeftSide.frames.push_back({ 507, 253, 9, 7 });
+	bigBumpLeftSide.frames.push_back({ 523, 276, 7, 8 });
+	bigBumpLeftSide.frames.push_back({ 523, 276, 7, 8 });
+	bigBumpLeftSide.frames.push_back({ 499, 274, 9, 10 });
+	bigBumpLeftSide.frames.push_back({ 499, 274, 9, 10 });
+	bigBumpLeftSide.frames.push_back({ 475, 275, 13, 9 });
+	bigBumpLeftSide.frames.push_back({ 475, 275, 13, 9 });
+	bigBumpLeftSide.frames.push_back({ 83, 101, 10, 15 });
+	bigBumpLeftSide.frames.push_back({ 83, 101, 10, 15 });
+	bigBumpLeftSide.frames.push_back({ 59, 104, 12, 12 });
+	bigBumpLeftSide.frames.push_back({ 59, 104, 12, 12 });
+	bigBumpLeftSide.speed = turnSpeed;
+
+	// big bump bottom side animation
+	bigBumpBottomSide.frames.push_back({ 11, 62, 14, 6 });
+	bigBumpBottomSide.frames.push_back({ 11, 300, 14, 8 });
+	bigBumpBottomSide.frames.push_back({ 731, 296, 14, 12 });
+	bigBumpBottomSide.frames.push_back({ 355, 297, 15, 11 });
+	bigBumpBottomSide.frames.push_back({ 715, 224, 15, 12 });
+	bigBumpBottomSide.frames.push_back({ 691, 223, 14, 13 });
+	bigBumpBottomSide.frames.push_back({ 307, 197, 10, 15 });
+	bigBumpBottomSide.frames.push_back({ 667, 197, 8, 15 });
+	bigBumpBottomSide.frames.push_back({ 643, 197, 9, 15 });
+	bigBumpBottomSide.frames.push_back({ 619, 198, 10, 14 });
+	bigBumpBottomSide.frames.push_back({ 659, 269, 11, 15 });
+	bigBumpBottomSide.frames.push_back({ 635, 270, 14, 14 });
+	bigBumpBottomSide.frames.push_back({ 611, 271, 15, 13 });
+	bigBumpBottomSide.frames.push_back({ 587, 274, 14, 10 });
+	bigBumpBottomSide.frames.push_back({ 587, 35, 13, 9 });
+	bigBumpBottomSide.frames.push_back({ 219, 108, 15, 8 });
+	bigBumpBottomSide.frames.push_back({ 595, 84, 15, 8 });
+	bigBumpBottomSide.frames.push_back({ 563, 38, 13, 6 });
+	bigBumpBottomSide.frames.push_back({ 571, 84, 14, 8 });
+	bigBumpBottomSide.frames.push_back({ 571, 154, 14, 10 });
+	bigBumpBottomSide.frames.push_back({ 547, 154, 15, 10 });
+	bigBumpBottomSide.frames.push_back({ 523, 151, 13, 13 });
+	bigBumpBottomSide.frames.push_back({ 507, 125, 10, 15 });
+	bigBumpBottomSide.frames.push_back({ 499, 174, 8, 14 });
+	bigBumpBottomSide.frames.push_back({ 483, 125, 9, 15 });
+	bigBumpBottomSide.frames.push_back({ 475, 174, 9, 14 });
+	bigBumpBottomSide.frames.push_back({ 451, 174, 11, 14 });
+	bigBumpBottomSide.frames.push_back({ 451, 102, 13, 14 });
+	bigBumpBottomSide.frames.push_back({ 427, 103, 14, 13 });
+	bigBumpBottomSide.frames.push_back({ 403, 106, 14, 10 });
+	bigBumpBottomSide.frames.push_back({ 411, 59, 15, 9 });
+	bigBumpBottomSide.frames.push_back({ 35, 300, 14, 8 });
+	bigBumpBottomSide.speed = turnSpeed;
 
 	// fill standard shadows vector
 	standardShadows.frames.push_back({ 35, 324, 15, 8 });
@@ -1123,6 +1228,11 @@ void ModulePlayer::DetectBumps()
 	bool littleBumpBottomSideDetected = false;
 	bool littleBumpTopSideDetected = false;
 
+	bool bigBumpRightSideDetected = false;
+	bool bigBumpLeftSideDetected = false;
+	bool bigBumpBottomSideDetected = false;
+	bool bigBumpTopSideDetected = false;
+
 	SDL_Rect playerCar;
 	playerCar.x = position.x;
 	playerCar.y = position.y;
@@ -1173,6 +1283,50 @@ void ModulePlayer::DetectBumps()
 		}
 	}
 
+	for each (SDL_Rect bump in moduleCollision->bigBumpRightSideContainer)
+	{
+		//App->renderer->DrawQuad(bump, 255, 0, 0, 80);
+
+		if (SDL_HasIntersection(&playerCar, &bump))
+		{
+			bigBumpRightSideDetected = true;
+			break;
+		}
+	}
+
+	for each (SDL_Rect bump in moduleCollision->bigBumpLeftSideContainer)
+	{
+		//App->renderer->DrawQuad(bump, 0, 255, 0, 80);
+
+		if (SDL_HasIntersection(&playerCar, &bump))
+		{
+			bigBumpLeftSideDetected = true;
+			break;
+		}
+	}
+
+	for each (SDL_Rect bump in moduleCollision->bigBumpBottomSideContainer)
+	{
+		//App->renderer->DrawQuad(bump, 0, 0, 255, 80);
+
+		if (SDL_HasIntersection(&playerCar, &bump))
+		{
+			bigBumpBottomSideDetected = true;
+			break;
+		}
+	}
+
+	for each (SDL_Rect bump in moduleCollision->bigBumpTopSideContainer)
+	{
+		//App->renderer->DrawQuad(bump, 255, 255, 0, 80);
+
+		if (SDL_HasIntersection(&playerCar, &bump))
+		{
+			bigBumpTopSideDetected = true;
+			break;
+		}
+	}
+
 	if (littleBumpRightSideDetected)
 	{
 		littleBumpRightSide.current_frame = currentAnimation->current_frame;
@@ -1193,7 +1347,34 @@ void ModulePlayer::DetectBumps()
 		littleBumpTopSide.current_frame = currentAnimation->current_frame;
 		currentAnimation = &littleBumpTopSide;
 	}
-	if (!littleBumpRightSideDetected && !littleBumpLeftSideDetected && !littleBumpBottomSideDetected && !littleBumpTopSideDetected)
+	if (bigBumpBottomSideDetected)
+	{
+		bigBumpBottomSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &bigBumpBottomSide;
+	}
+	if (bigBumpRightSideDetected)
+	{
+		bigBumpRightSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &bigBumpRightSide;
+	}
+	if (bigBumpLeftSideDetected)
+	{
+		bigBumpLeftSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &bigBumpLeftSide;
+	}
+	if (bigBumpTopSideDetected)
+	{
+		//bigBumpTopSide.current_frame = currentAnimation->current_frame;
+		//currentAnimation = &bigBumpTopSide;
+	}
+	if (!littleBumpRightSideDetected &&
+		!littleBumpLeftSideDetected &&
+		!littleBumpBottomSideDetected &&
+		!littleBumpTopSideDetected &&
+		!bigBumpRightSideDetected &&
+		!bigBumpLeftSideDetected &&
+		!bigBumpBottomSideDetected &&
+		!bigBumpTopSideDetected)
 	{
 		turn.current_frame = currentAnimation->current_frame;
 		currentAnimation = &turn;

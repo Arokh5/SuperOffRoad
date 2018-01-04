@@ -86,6 +86,30 @@ ModuleCollision::ModuleCollision()
 	// Fill little bump top side collider container
 	littleBumpTopSideContainer.push_back({ 110, 122, 45, 7 });
 	littleBumpTopSideContainer.push_back({ 116, 88, 65, 7 });
+
+	// Fill big bump right side collider container
+	bigBumpRightSideContainer.push_back({ 255, 147, 10, 20 });
+	bigBumpRightSideContainer.push_back({ 70, 91, 10, 20 });
+	bigBumpRightSideContainer.push_back({ 63, 59, 10, 20 });
+	bigBumpRightSideContainer.push_back({ 102, 43, 10, 20 });
+
+	// Fill big bump left side collider container
+	bigBumpLeftSideContainer.push_back({ 235, 147, 10, 20 });
+	bigBumpLeftSideContainer.push_back({ 50, 91, 10, 20 });
+	bigBumpLeftSideContainer.push_back({ 43, 59, 10, 20 });
+	bigBumpLeftSideContainer.push_back({ 82, 43, 10, 20 });
+
+	// Fill big bump bottom side collider container
+	bigBumpBottomSideContainer.push_back({ 245, 147, 10, 20 });
+	bigBumpBottomSideContainer.push_back({ 60, 91, 10, 20 });
+	bigBumpBottomSideContainer.push_back({ 53, 59, 10, 20 });
+	bigBumpBottomSideContainer.push_back({ 92, 43, 10, 20 });
+
+	// Fill big bump top side collider container
+	bigBumpTopSideContainer.push_back({ 240, 137, 20, 10 });
+	bigBumpTopSideContainer.push_back({ 55, 81, 20, 10 });
+	bigBumpTopSideContainer.push_back({ 48, 49, 20, 10 });
+	bigBumpTopSideContainer.push_back({ 87, 33, 20, 10 });
 }
 
 // Destructor

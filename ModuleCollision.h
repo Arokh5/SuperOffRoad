@@ -38,6 +38,11 @@ public:
 	std::vector<SDL_Rect> littleBumpBottomSideContainer;
 	std::vector<SDL_Rect> littleBumpTopSideContainer;
 
+	std::vector<SDL_Rect> bigBumpRightSideContainer;
+	std::vector<SDL_Rect> bigBumpLeftSideContainer;
+	std::vector<SDL_Rect> bigBumpBottomSideContainer;
+	std::vector<SDL_Rect> bigBumpTopSideContainer;
+
 private:
 	std::vector<std::vector<int>> FillCollider(int initialX, int finalX, int initialY, int finalY);
 };
