@@ -106,10 +106,10 @@ ModuleCollision::ModuleCollision()
 	bigBumpBottomSideContainer.push_back({ 92, 43, 10, 20 });
 
 	// Fill big bump top side collider container
-	bigBumpTopSideContainer.push_back({ 240, 137, 20, 10 });
-	bigBumpTopSideContainer.push_back({ 55, 81, 20, 10 });
-	bigBumpTopSideContainer.push_back({ 48, 49, 20, 10 });
-	bigBumpTopSideContainer.push_back({ 87, 33, 20, 10 });
+	bigBumpTopSideContainer.push_back({ 240, 139, 20, 8 });
+	bigBumpTopSideContainer.push_back({ 55, 83, 20, 8 });
+	bigBumpTopSideContainer.push_back({ 48, 51, 20, 8 });
+	bigBumpTopSideContainer.push_back({ 87, 35, 20, 8 });
 }
 
 // Destructor

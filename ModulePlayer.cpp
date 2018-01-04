@@ -307,6 +307,41 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	bigBumpBottomSide.frames.push_back({ 35, 300, 14, 8 });
 	bigBumpBottomSide.speed = turnSpeed;
 
+	// big bump top side animation
+	bigBumpTopSide.frames.push_back({ 379, 38, 15, 6 });
+	bigBumpTopSide.frames.push_back({ 379, 38, 15, 6 });
+	bigBumpTopSide.frames.push_back({ 363, 85, 12, 7 });
+	bigBumpTopSide.frames.push_back({ 363, 85, 12, 7 });
+	bigBumpTopSide.frames.push_back({ 339, 84, 11, 8 });
+	bigBumpTopSide.frames.push_back({ 339, 84, 11, 8 });
+	bigBumpTopSide.frames.push_back({ 323, 83, 7, 9 });
+	bigBumpTopSide.frames.push_back({ 691, 84, 7, 8 });
+	bigBumpTopSide.frames.push_back({ 299, 84, 11, 8 });
+	bigBumpTopSide.frames.push_back({ 299, 84, 11, 8 });
+	bigBumpTopSide.frames.push_back({ 675, 134, 11, 6 });
+	bigBumpTopSide.frames.push_back({ 675, 134, 11, 6 });
+	bigBumpTopSide.frames.push_back({ 651, 132, 14, 8 });
+	bigBumpTopSide.frames.push_back({ 651, 132, 14, 8 });
+	bigBumpTopSide.frames.push_back({ 299, 180, 13, 8 });
+	bigBumpTopSide.frames.push_back({ 299, 180, 13, 8 });
+	bigBumpTopSide.frames.push_back({ 275, 181, 15, 7 });
+	bigBumpTopSide.frames.push_back({ 275, 181, 15, 7 });
+	bigBumpTopSide.frames.push_back({ 251, 180, 15, 8 });
+	bigBumpTopSide.frames.push_back({ 171, 201, 9, 11 });
+	bigBumpTopSide.frames.push_back({ 155, 204, 8, 8 });
+	bigBumpTopSide.frames.push_back({ 155, 204, 8, 8 });
+	bigBumpTopSide.frames.push_back({ 147, 252, 9, 8 });
+	bigBumpTopSide.frames.push_back({ 131, 254, 7, 6 });
+	bigBumpTopSide.frames.push_back({ 107, 252, 11, 8 });
+	bigBumpTopSide.frames.push_back({ 107, 206, 12, 6 });
+	bigBumpTopSide.frames.push_back({ 107, 206, 12, 6 });
+	bigBumpTopSide.frames.push_back({ 83, 205, 14, 7 });
+	bigBumpTopSide.frames.push_back({ 83, 205, 14, 7 });
+	bigBumpTopSide.frames.push_back({ 107, 229, 15, 7 });
+	bigBumpTopSide.frames.push_back({ 107, 229, 15, 7 });
+	bigBumpTopSide.frames.push_back({ 83, 228, 15, 8 });
+	bigBumpTopSide.speed = turnSpeed;
+
 	// fill standard shadows vector
 	standardShadows.frames.push_back({ 35, 324, 15, 8 });
 	standardShadows.frames.push_back({ 11, 324, 14, 8 });
@@ -1364,8 +1399,8 @@ void ModulePlayer::DetectBumps()
 	}
 	if (bigBumpTopSideDetected)
 	{
-		//bigBumpTopSide.current_frame = currentAnimation->current_frame;
-		//currentAnimation = &bigBumpTopSide;
+		bigBumpTopSide.current_frame = currentAnimation->current_frame;
+		currentAnimation = &bigBumpTopSide;
 	}
 	if (!littleBumpRightSideDetected &&
 		!littleBumpLeftSideDetected &&
