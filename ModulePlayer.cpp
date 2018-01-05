@@ -572,12 +572,18 @@ void ModulePlayer::StartingInitials()
 	lap = 1;
 	winner = false;
 
-	// define car start rotation and animation
+	// Define car start sprite and start animation
 	turn.current_frame = 17.0f;
 	standardShadows.current_frame = 17.0f;
 	currentAnimation = &turn;
 	currentShadowsAnimation = &standardShadows;
 	currentSplashAnimation = &splash;
+
+	// Put checkpoints to false
+	for (int i = 0; i < checkpoint.size(); i++)
+	{
+		checkpoint[i] = false;
+	}
 }
 
 void ModulePlayer::SetDirection()
