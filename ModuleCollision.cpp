@@ -119,6 +119,9 @@ ModuleCollision::ModuleCollision()
 
 	// Define pool collider
 	poolCollider = { 121, 108, 35, 15 };
+
+	// Define finish line
+	finishLine = FillCollider(163, 152, 160, 178);
 }
 
 // Destructor

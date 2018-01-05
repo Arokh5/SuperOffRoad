@@ -32,7 +32,6 @@ public:
 	std::vector<std::vector<int>> fence5_4;
 	std::vector<std::vector<int>> fence5_5;
 	std::vector<std::vector<int>> fence5_6;
-
 	std::vector<std::vector<int>> fenceDiagonalReinforcement1;
 	std::vector<std::vector<int>> fenceDiagonalReinforcement2;
 	std::vector<std::vector<int>> fenceDiagonalReinforcement3;
@@ -48,6 +47,8 @@ public:
 	std::vector<SDL_Rect> bigBumpTopSideContainer;
 
 	SDL_Rect poolCollider;
+
+	std::vector<std::vector<int>> finishLine;
 
 private:
 	std::vector<std::vector<int>> FillCollider(int initialX, int finalX, int initialY, int finalY);

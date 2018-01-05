@@ -214,6 +214,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = true;
 			car->still = false;
 			car->frameReference = 25;
+			car->checkpoint1 = true;
 		}
 	}
 
@@ -224,6 +225,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = true;
 			car->still = false;
 			car->frameReference = 0;
+			car->checkpoint2 = true;
 		}
 	}
 
@@ -234,6 +236,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = false;
 			car->still = false;
 			car->frameReference = 23;
+			car->checkpoint3 = true;
 		}
 	}
 
@@ -244,6 +247,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = false;
 			car->still = false;
 			car->frameReference = 17;
+			car->checkpoint4 = true;
 		}
 	}
 
@@ -254,6 +258,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = false;
 			car->still = false;
 			car->frameReference = 8;
+			car->checkpoint5 = true;
 		}
 	}
 
@@ -264,6 +269,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = false;
 			car->still = false;
 			car->frameReference = 0;
+			car->checkpoint6 = true;
 		}
 	}
 
@@ -274,6 +280,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = true;
 			car->still = false;
 			car->frameReference = 8;
+			car->checkpoint7 = true;
 		}
 	}
 
@@ -284,6 +291,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 			car->right = true;
 			car->still = false;
 			car->frameReference = 17;
+			car->checkpoint8 = true;
 		}
 	}
 }

@@ -27,6 +27,16 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	frameReference = 17;
 	carCollision = false;
 
+	// Put checkpoints to false
+	checkpoint1 = false;
+	checkpoint2 = false;
+	checkpoint3 = false;
+	checkpoint4 = false;
+	checkpoint5 = false;
+	checkpoint6 = false;
+	checkpoint7 = false;
+	checkpoint8 = false;
+
 	// turn animation
 	turn.frames.push_back({ 35, 12, 16, 9 });
 	turn.frames.push_back({ 11, 12, 15, 9 });
@@ -1459,4 +1469,41 @@ bool ModulePlayer::DetectPool()
 	}
 	
 	return overPool;
+}
+
+bool ModulePlayer::CheckIfFinishLine()
+{
+	bool flag = false;
+
+	for (int i = 0; i < moduleCollision->finishLine.size(); i++)
+	{
+		/* Debug finish line */
+		//SDL_RenderDrawPoint(App->renderer->renderer, moduleCollision->finishLine[i][0], moduleCollision->finishLine[i][1]);
+
+		if (position.x == moduleCollision->finishLine[i][0] && position.y == moduleCollision->finishLine[i][1])
+		{
+			flag = true;
+			break;
+		}
+	}
+
+	return flag;
+}
+
+bool ModulePlayer::CheckIfLapCompleted()
+{
+	if (checkpoint1 &&
+		checkpoint2 &&
+		checkpoint3 &&
+		checkpoint4 &&
+		checkpoint5 &&
+		checkpoint6 &&
+		checkpoint7 &&
+		checkpoint8 &&
+		CheckIfFinishLine())
+	{
+		LOG("LAP COMPLETED!!");
+	}
+
+	return false;
 }
