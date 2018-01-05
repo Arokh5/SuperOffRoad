@@ -30,8 +30,8 @@ bool ModuleTitleScreen::Start()
 
 	graphics = App->textures->Load("general_sprites.png");
 
-	// TODO 0: trigger background music
-	//App->audio->PlayMusic("ken.ogg");
+	// Trigger background music
+	App->audio->PlayMusic("01_Title_Demo.ogg");
 
 	return true;
 }

@@ -133,7 +133,7 @@ bool ModuleStage::Start()
 	App->IA->Enable();
 
 	// Trigger background music
-	//App->audio->PlayMusic("ken.ogg");
+	App->audio->PlayMusic("05_Fandango.ogg");
 
 	return true;
 }
