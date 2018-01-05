@@ -477,7 +477,7 @@ update_status ModulePlayer::PreUpdate()
 		still = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
 		if (acceleration == accelerationCondition)
 		{

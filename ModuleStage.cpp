@@ -21,8 +21,8 @@ ModuleStage::ModuleStage(bool start_enabled) : Module(start_enabled)
 	// Scoreboard
 	scoreboard.x = 8;
 	scoreboard.y = 3210;
-	scoreboard.w = 60;
-	scoreboard.h = 29;
+	scoreboard.w = 61;
+	scoreboard.h = 30;
 
 	// Player car numbers
 	playerCarNumbers.push_back({ 80, 3232, 4, 7 });
@@ -154,6 +154,19 @@ update_status ModuleStage::PreUpdate()
 {
 	App->renderer->Blit(graphics, 0, 0, &background);
 	App->renderer->Blit(graphics, 10, 150, &scoreboard);
+
+	App->renderer->Blit(graphics, 27, 170, &playerCarNumbers[0]);
+	App->renderer->Blit(graphics, 32, 170, &playerCarNumbers[0]);
+
+	App->renderer->Blit(graphics, 38, 170, &blueCarNumbers[0]);
+	App->renderer->Blit(graphics, 43, 170, &blueCarNumbers[0]);
+
+	App->renderer->Blit(graphics, 49, 170, &yellowCarNumbers[0]);
+	App->renderer->Blit(graphics, 54, 170, &yellowCarNumbers[0]);
+
+	App->renderer->Blit(graphics, 60, 170, &greyCarNumbers[0]);
+	App->renderer->Blit(graphics, 65, 170, &greyCarNumbers[0]);
+
 	App->renderer->Blit(graphics, 31, 162, &playerCarNumbers[App->player->lap]);
 	App->renderer->Blit(graphics, 42, 162, &blueCarNumbers[App->IA->cars[0]->lap]);
 	App->renderer->Blit(graphics, 53, 162, &yellowCarNumbers[App->IA->cars[1]->lap]);
