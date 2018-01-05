@@ -21,6 +21,7 @@ public:
 private:
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect title;
+	bool keyPressed;
 };
 
 #endif // __MODULETITLESCREEN_H__

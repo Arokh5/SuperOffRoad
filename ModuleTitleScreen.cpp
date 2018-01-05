@@ -11,6 +11,8 @@
 
 ModuleTitleScreen::ModuleTitleScreen(bool start_enabled) : Module(start_enabled)
 {
+	keyPressed = false;
+
 	title.x = 307;
 	title.y = 397;
 	title.w = 319;
@@ -51,7 +53,11 @@ update_status ModuleTitleScreen::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
-		App->fade->FadeToBlack(App->stage, App->titleScreen, 2.0f);
+		if (!keyPressed)
+		{
+			App->fade->FadeToBlack(App->stage, App->titleScreen, 2.0f);
+			keyPressed = true;
+		}
 	}
 
 	return UPDATE_CONTINUE;
