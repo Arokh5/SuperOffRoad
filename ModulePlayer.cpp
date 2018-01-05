@@ -439,6 +439,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::PreUpdate()
 {
 	DetectBumps();
+	moduleCollision->DetectCarCollisions();
 	if (carCollision) ApplyCarCollisionEffect();
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)

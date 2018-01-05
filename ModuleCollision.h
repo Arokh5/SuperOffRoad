@@ -50,8 +50,12 @@ public:
 
 	std::vector<std::vector<int>> finishLine;
 
+	void DetectCarCollisions();
+
 private:
 	std::vector<std::vector<int>> FillCollider(int initialX, int finalX, int initialY, int finalY);
+
+	void DefineCollisionType(ModulePlayer* car1, ModulePlayer* car2);
 };
 
 #endif // __ModuleCollision_H__

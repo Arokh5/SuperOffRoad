@@ -1,7 +1,7 @@
 #ifndef __APPLICATION_CPP__
 #define __APPLICATION_CPP__
 
-#include<list>
+#include <list>
 #include "Globals.h"
 #include "Module.h"
 
@@ -11,9 +11,9 @@ class ModuleTextures;
 class ModuleInput;
 class ModuleAudio;
 class ModuleFadeToBlack;
-class ModuleCollision;
 class ModulePlayer;
 class ModuleIA;
+class ModuleCollision;
 class ModuleTitleScreen;
 class ModuleStage;
 
@@ -41,8 +41,6 @@ public:
 	ModuleStage* stage = nullptr;
 
 private:
-	void DetectCarCollisions();
-	void DefineCollisionType(ModulePlayer* car1, ModulePlayer* car2);
 	std::list<Module*> modules;
 };
 
