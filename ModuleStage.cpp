@@ -7,6 +7,7 @@
 #include "ModuleIA.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleTitleScreen.h"
 #include "SDL/include/SDL.h"
 
 ModuleStage::ModuleStage(bool start_enabled) : Module(start_enabled)
@@ -16,6 +17,60 @@ ModuleStage::ModuleStage(bool start_enabled) : Module(start_enabled)
 	background.y = 208;
 	background.w = 319;
 	background.h = 191;
+
+	// Scoreboard
+	scoreboard.x = 8;
+	scoreboard.y = 3210;
+	scoreboard.w = 60;
+	scoreboard.h = 29;
+
+	// Player car numbers
+	playerCarNumbers.push_back({ 80, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 88, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 96, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 104, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 112, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 120, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 128, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 136, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 144, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 152, 3232, 4, 7 });
+
+	// Blue car numbers
+	blueCarNumbers.push_back({ 80, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 88, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 96, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 104, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 112, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 120, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 128, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 136, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 144, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 152, 3223, 4, 7 });
+
+	// Yellow car numbers
+	yellowCarNumbers.push_back({ 80, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 88, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 96, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 104, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 112, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 120, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 128, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 136, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 144, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 152, 3214, 4, 7 });
+
+	// Grey car numbers
+	greyCarNumbers.push_back({ 80, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 88, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 96, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 104, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 112, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 120, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 128, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 136, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 144, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 152, 3205, 4, 7 });
 
 	// Fence 1
 	fence1_1.x = 400;
@@ -67,6 +122,8 @@ ModuleStage::~ModuleStage()
 // Load assets
 bool ModuleStage::Start()
 {
+	titleScreen = false;
+
 	LOG("Loading Stage");
 
 	graphics = App->textures->Load("stage.png");
@@ -75,7 +132,7 @@ bool ModuleStage::Start()
 	App->player->Enable();
 	App->IA->Enable();
 
-	// TODO 0: trigger background music
+	// Trigger background music
 	//App->audio->PlayMusic("ken.ogg");
 
 	return true;
@@ -96,6 +153,12 @@ bool ModuleStage::CleanUp()
 update_status ModuleStage::PreUpdate()
 {
 	App->renderer->Blit(graphics, 0, 0, &background);
+	App->renderer->Blit(graphics, 10, 150, &scoreboard);
+	App->renderer->Blit(graphics, 31, 162, &playerCarNumbers[App->player->lap]);
+	App->renderer->Blit(graphics, 42, 162, &blueCarNumbers[App->IA->cars[0]->lap]);
+	App->renderer->Blit(graphics, 53, 162, &yellowCarNumbers[App->IA->cars[1]->lap]);
+	App->renderer->Blit(graphics, 64, 162, &greyCarNumbers[App->IA->cars[2]->lap]);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -111,5 +174,22 @@ update_status ModuleStage::Update()
 	App->renderer->Blit(graphics, 77, 51, &fence5_1);
 	App->renderer->Blit(graphics, 100, 51, &fence5_2);
 
+	GoTitleScreen();
+
 	return UPDATE_CONTINUE;
+}
+
+void ModuleStage::GoTitleScreen()
+{
+	if (App->player->winner ||
+		App->IA->cars[0]->winner ||
+		App->IA->cars[1]->winner ||
+		App->IA->cars[2]->winner)
+	{
+		if (!titleScreen)
+		{
+			titleScreen = true;
+			App->fade->FadeToBlack(App->titleScreen, App->stage, 3.0f);
+		}
+	}
 }

@@ -11,8 +11,6 @@
 
 ModuleTitleScreen::ModuleTitleScreen(bool start_enabled) : Module(start_enabled)
 {
-	keyPressed = false;
-
 	title.x = 307;
 	title.y = 397;
 	title.w = 319;
@@ -26,6 +24,8 @@ ModuleTitleScreen::~ModuleTitleScreen()
 // Load assets
 bool ModuleTitleScreen::Start()
 {
+	keyPressed = false;
+
 	LOG("Loading Stage");
 
 	graphics = App->textures->Load("general_sprites.png");
@@ -46,7 +46,6 @@ bool ModuleTitleScreen::CleanUp()
 	return true;
 }
 
-// Update: draw fences
 update_status ModuleTitleScreen::Update()
 {
 	App->renderer->Blit(graphics, 0, 0, &title);

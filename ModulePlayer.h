@@ -19,6 +19,7 @@ public:
 	bool CleanUp();
 
 public:
+	void StartingInitials();
 	void SetDirection();
 	bool DetectFences(iPoint position);
 	void DetectBumps();
@@ -29,10 +30,15 @@ public:
 	void MoveCar();
 	void ApplyCarCollisionEffect();
 	bool CheckIfFinishLine();
-	bool CheckIfLapCompleted();
+	void CheckIfLapCompleted();
+	void CheckIfWinner();
+
+private:
+	void DetectPlayerCheckPoints();
 
 public:
 	const int shadowsOffset = 2;
+	const float distanceOffset = 2.0f;
 	SDL_Texture* graphics = nullptr;
 	Animation turn;
 	Animation standardShadows;
@@ -67,14 +73,17 @@ public:
 	int frameReference;
 	bool carCollision;
 	int carCollisionType;
-	bool checkpoint1;
-	bool checkpoint2;
-	bool checkpoint3;
-	bool checkpoint4;
-	bool checkpoint5;
-	bool checkpoint6;
-	bool checkpoint7;
-	bool checkpoint8;
+	vector<bool> checkpoint;
+	int lap;
+	vector<iPoint> checkpoint1;
+	vector<iPoint> checkpoint2;
+	vector<iPoint> checkpoint3;
+	vector<iPoint> checkpoint4;
+	vector<iPoint> checkpoint5;
+	vector<iPoint> checkpoint6;
+	vector<iPoint> checkpoint7;
+	vector<iPoint> checkpoint8;
+	bool winner;
 };
 
 #endif // __MODULEPLAYER_H__

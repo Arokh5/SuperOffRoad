@@ -27,7 +27,6 @@ private:
 
 private:
 	vector<SDL_Texture*> graphics;
-	const float distanceOffset = 2.0f;
 	const int checkpoint1Lot = 4;
 	const int checkpoint2Lot = 4;
 	const int checkpoint3Lot = 5;

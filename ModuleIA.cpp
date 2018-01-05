@@ -11,17 +11,9 @@
 ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 {
 	// Create 3 rival IA cars
-	cars.push_back(new ModulePlayer());
-	cars.push_back(new ModulePlayer());
-	cars.push_back(new ModulePlayer());
-
-	// Define initial positions
-	cars[0]->position.x = 177;
-	cars[0]->position.y = 165;
-	cars[1]->position.x = 195;
-	cars[1]->position.y = 165;
-	cars[2]->position.x = 195;
-	cars[2]->position.y = 177;
+	cars.push_back(new ModulePlayer()); // blue car
+	cars.push_back(new ModulePlayer()); // yellow car
+	cars.push_back(new ModulePlayer()); // grey car
 
 	// Add checkpoints to checkpoints containers
 	/*1*/
@@ -127,6 +119,18 @@ bool ModuleIA::Start()
 {
 	LOG("Loading IA");
 
+	cars[0]->StartingInitials();
+	cars[1]->StartingInitials();
+	cars[2]->StartingInitials();
+
+	// Define initial positions
+	cars[0]->position.x = 177;
+	cars[0]->position.y = 165;
+	cars[1]->position.x = 195;
+	cars[1]->position.y = 165;
+	cars[2]->position.x = 195;
+	cars[2]->position.y = 177;
+
 	graphics.push_back(App->textures->Load("general_sprites_blue.png"));
 	graphics.push_back(App->textures->Load("general_sprites_yellow.png"));
 	graphics.push_back(App->textures->Load("general_sprites_grey.png"));
@@ -195,6 +199,9 @@ update_status ModuleIA::PreUpdate()
 				App->renderer->Blit(graphics[i], cars[i]->position.x, cars[i]->position.y, &cars[i]->currentAnimation->GetCurrentInverseFrame());
 			}
 		}
+
+		cars[i]->CheckIfLapCompleted();
+		cars[i]->CheckIfWinner();
 	}
 
 	return UPDATE_CONTINUE;
@@ -209,89 +216,89 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 {
 	for each (iPoint checkpoint in checkpointContainer1[GetRandomCheckpoint(checkpoint1Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = true;
 			car->still = false;
 			car->frameReference = 25;
-			car->checkpoint1 = true;
+			car->checkpoint[0] = true;
 		}
 	}
 
 	for each (iPoint checkpoint in checkpointContainer2[GetRandomCheckpoint(checkpoint2Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = true;
 			car->still = false;
 			car->frameReference = 0;
-			car->checkpoint2 = true;
+			car->checkpoint[1] = true;
 		}
 	}
 
 	for each (iPoint checkpoint in checkpointContainer3[GetRandomCheckpoint(checkpoint3Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = false;
 			car->still = false;
 			car->frameReference = 23;
-			car->checkpoint3 = true;
+			car->checkpoint[2] = true;
 		}
 	}
 
 	for each (iPoint checkpoint in checkpointContainer4[GetRandomCheckpoint(checkpoint4Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = false;
 			car->still = false;
 			car->frameReference = 17;
-			car->checkpoint4 = true;
+			car->checkpoint[3] = true;
 		}
 	}
 
 	for each (iPoint checkpoint in checkpointContainer5[GetRandomCheckpoint(checkpoint5Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = false;
 			car->still = false;
 			car->frameReference = 8;
-			car->checkpoint5 = true;
+			car->checkpoint[4] = true;
 		}
 	}
 
 	for each (iPoint checkpoint in checkpointContainer6[GetRandomCheckpoint(checkpoint6Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = false;
 			car->still = false;
 			car->frameReference = 0;
-			car->checkpoint6 = true;
+			car->checkpoint[5] = true;
 		}
 	}
 
 	for each (iPoint checkpoint in checkpointContainer7[GetRandomCheckpoint(checkpoint7Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = true;
 			car->still = false;
 			car->frameReference = 8;
-			car->checkpoint7 = true;
+			car->checkpoint[6] = true;
 		}
 	}
 
 	for each (iPoint checkpoint in checkpointContainer8[GetRandomCheckpoint(checkpoint8Lot)])
 	{
-		if (car->position.DistanceTo(checkpoint) <= distanceOffset)
+		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
 			car->right = true;
 			car->still = false;
 			car->frameReference = 17;
-			car->checkpoint8 = true;
+			car->checkpoint[7] = true;
 		}
 	}
 }

@@ -16,12 +16,16 @@ public:
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
-
 	bool CleanUp();
 
 private:
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect background;
+	SDL_Rect scoreboard;
+	vector<SDL_Rect> playerCarNumbers;
+	vector<SDL_Rect> blueCarNumbers;
+	vector<SDL_Rect> yellowCarNumbers;
+	vector<SDL_Rect> greyCarNumbers;
 	SDL_Rect fence1_1;
 	SDL_Rect fence1_2;
 	SDL_Rect fence2_1;
@@ -30,6 +34,9 @@ private:
 	SDL_Rect fence4;
 	SDL_Rect fence5_1;
 	SDL_Rect fence5_2;
+	bool titleScreen;
+
+	void GoTitleScreen();
 };
 
 #endif // __MODULESTAGE_H__

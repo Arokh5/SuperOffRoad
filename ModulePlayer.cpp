@@ -11,31 +11,56 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	const float turnSpeed = 0.3f;
 	const float splashSpeed = 0.1f;
-	position.x = 177;
-	position.y = 176;
-	acceleration = initialAcceleration;
-	accelerationCondition = initialAccelerationCondition;
-	lastFramePosition = position;
-	right = true;
-	repeater = 0;
-	bounce = false;
-	collision = false;
-	still = true;
-	bounceRecoil = 0;
 	movementsDone.assign(32, 0);
 	moduleCollision = new ModuleCollision();
-	frameReference = 17;
-	carCollision = false;
 
 	// Put checkpoints to false
-	checkpoint1 = false;
-	checkpoint2 = false;
-	checkpoint3 = false;
-	checkpoint4 = false;
-	checkpoint5 = false;
-	checkpoint6 = false;
-	checkpoint7 = false;
-	checkpoint8 = false;
+	for (int i = 0; i < 8; i++)
+	{
+		checkpoint.push_back(false);
+	}
+
+	// Add player checkpoints
+	/*1*/
+	for (int i = 160; i < 179; i++)
+	{
+		checkpoint1.push_back({ 120, i });
+	}
+	/*2*/
+	for (int i = 112; i < 177; i++)
+	{
+		checkpoint2.push_back({ i, 75 });
+	}
+	/*3*/
+	for (int i = 58; i < 81; i++)
+	{
+		checkpoint3.push_back({ 220, i });
+	}
+	/*4*/
+	for (int i = 228; i < 268; i++)
+	{
+		checkpoint4.push_back({ i, 35 });
+	}
+	/*5*/
+	for (int i = 22; i < 44; i++)
+	{
+		checkpoint5.push_back({ 80, i });
+	}
+	/*6*/
+	for (int i = 26; i < 66; i++)
+	{
+		checkpoint6.push_back({ i, 95 });
+	}
+	/*7*/
+	for (int i = 100; i < 130; i++)
+	{
+		checkpoint7.push_back({ 220, i });
+	}
+	/*8*/
+	for (int i = 220; i < 253; i++)
+	{
+		checkpoint8.push_back({ i, 150 });
+	}
 
 	// turn animation
 	turn.frames.push_back({ 35, 12, 16, 9 });
@@ -401,13 +426,6 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	splash.frames.push_back({ 435, 377, 15, 11 });
 	splash.frames.push_back({ 459, 377, 15, 11 });
 	splash.speed = splashSpeed;
-
-	// define car start rotation
-	turn.current_frame = 17.0f;
-	standardShadows.current_frame = 17.0f;
-	currentAnimation = &turn;
-	currentShadowsAnimation = &standardShadows;
-	currentSplashAnimation = &splash;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -420,6 +438,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
+	StartingInitials();
 	graphics = App->textures->Load("general_sprites.png");
 
 	return true;
@@ -439,6 +458,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::PreUpdate()
 {
 	DetectBumps();
+	DetectPlayerCheckPoints();
 	moduleCollision->DetectCarCollisions();
 	if (carCollision) ApplyCarCollisionEffect();
 
@@ -461,8 +481,8 @@ update_status ModulePlayer::PreUpdate()
 	{
 		if (acceleration == accelerationCondition)
 		{
-			LOG("positionX: %d", position.x);
-			LOG("positionY: %d", position.y);
+			/*LOG("positionX: %d", position.x);
+			LOG("positionY: %d", position.y);*/
 
 			repeater++;
 			SetDirection();
@@ -527,8 +547,37 @@ update_status ModulePlayer::PreUpdate()
 			App->renderer->Blit(graphics, position.x, position.y, &currentAnimation->GetCurrentInverseFrame());
 		}
 	}
+
+	CheckIfLapCompleted();
+	CheckIfWinner();
 	
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::StartingInitials()
+{
+	position.x = 177;
+	position.y = 176;
+	acceleration = initialAcceleration;
+	accelerationCondition = initialAccelerationCondition;
+	lastFramePosition = position;
+	right = true;
+	repeater = 0;
+	bounce = false;
+	collision = false;
+	still = true;
+	bounceRecoil = 0;
+	frameReference = 17;
+	carCollision = false;
+	lap = 1;
+	winner = false;
+
+	// define car start rotation and animation
+	turn.current_frame = 17.0f;
+	standardShadows.current_frame = 17.0f;
+	currentAnimation = &turn;
+	currentShadowsAnimation = &standardShadows;
+	currentSplashAnimation = &splash;
 }
 
 void ModulePlayer::SetDirection()
@@ -1491,20 +1540,100 @@ bool ModulePlayer::CheckIfFinishLine()
 	return flag;
 }
 
-bool ModulePlayer::CheckIfLapCompleted()
+void ModulePlayer::CheckIfLapCompleted()
 {
-	if (checkpoint1 &&
-		checkpoint2 &&
-		checkpoint3 &&
-		checkpoint4 &&
-		checkpoint5 &&
-		checkpoint6 &&
-		checkpoint7 &&
-		checkpoint8 &&
-		CheckIfFinishLine())
+	bool allCheckpoints = true;
+
+	for each (bool cp in checkpoint)
 	{
-		LOG("LAP COMPLETED!!");
+		if (!cp)
+		{
+			allCheckpoints = false;
+		}
 	}
 
-	return false;
+	if (allCheckpoints && CheckIfFinishLine())
+	{
+		lap++;
+
+		for (int i = 0; i < checkpoint.size(); i++)
+		{
+			checkpoint[i] = false;
+		}
+	}
+}
+
+void ModulePlayer::DetectPlayerCheckPoints()
+{
+	for each (iPoint cp1 in checkpoint1)
+	{
+		if (position.DistanceTo(cp1) <= distanceOffset)
+		{
+			checkpoint[0] = true;
+		}
+	}
+
+	for each (iPoint cp2 in checkpoint2)
+	{
+		if (position.DistanceTo(cp2) <= distanceOffset)
+		{
+			checkpoint[1] = true;
+		}
+	}
+
+	for each (iPoint cp3 in checkpoint3)
+	{
+		if (position.DistanceTo(cp3) <= distanceOffset)
+		{
+			checkpoint[2] = true;
+		}
+	}
+
+	for each (iPoint cp4 in checkpoint4)
+	{
+		if (position.DistanceTo(cp4) <= distanceOffset)
+		{
+			checkpoint[3] = true;
+		}
+	}
+
+	for each (iPoint cp5 in checkpoint5)
+	{
+		if (position.DistanceTo(cp5) <= distanceOffset)
+		{
+			checkpoint[4] = true;
+		}
+	}
+
+	for each (iPoint cp6 in checkpoint6)
+	{
+		if (position.DistanceTo(cp6) <= distanceOffset)
+		{
+			checkpoint[5] = true;
+		}
+	}
+
+	for each (iPoint cp7 in checkpoint7)
+	{
+		if (position.DistanceTo(cp7) <= distanceOffset)
+		{
+			checkpoint[6] = true;
+		}
+	}
+
+	for each (iPoint cp8 in checkpoint8)
+	{
+		if (position.DistanceTo(cp8) <= distanceOffset)
+		{
+			checkpoint[7] = true;
+		}
+	}
+}
+
+void ModulePlayer::CheckIfWinner()
+{
+	if (lap == 9)
+	{
+		winner = true;
+	}
 }
