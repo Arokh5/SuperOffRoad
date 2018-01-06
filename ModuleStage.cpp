@@ -15,8 +15,8 @@ ModuleStage::ModuleStage(bool start_enabled) : Module(start_enabled)
 	// Background
 	background.x = 8;
 	background.y = 208;
-	background.w = 319;
-	background.h = 191;
+	background.w = 320;
+	background.h = 192;
 
 	// Scoreboard
 	scoreboard.x = 8;
@@ -25,52 +25,52 @@ ModuleStage::ModuleStage(bool start_enabled) : Module(start_enabled)
 	scoreboard.h = 30;
 
 	// Player car numbers
-	playerCarNumbers.push_back({ 80, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 88, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 96, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 104, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 112, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 120, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 128, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 136, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 144, 3232, 4, 7 });
-	playerCarNumbers.push_back({ 152, 3232, 4, 7 });
+	playerCarNumbers.push_back({ 80, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 88, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 96, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 104, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 112, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 120, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 128, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 136, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 144, 3232, 5, 8 });
+	playerCarNumbers.push_back({ 152, 3232, 5, 8 });
 
 	// Blue car numbers
-	blueCarNumbers.push_back({ 80, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 88, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 96, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 104, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 112, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 120, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 128, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 136, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 144, 3223, 4, 7 });
-	blueCarNumbers.push_back({ 152, 3223, 4, 7 });
+	blueCarNumbers.push_back({ 80, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 88, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 96, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 104, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 112, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 120, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 128, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 136, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 144, 3223, 5, 8 });
+	blueCarNumbers.push_back({ 152, 3223, 5, 8 });
 
 	// Yellow car numbers
-	yellowCarNumbers.push_back({ 80, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 88, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 96, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 104, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 112, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 120, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 128, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 136, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 144, 3214, 4, 7 });
-	yellowCarNumbers.push_back({ 152, 3214, 4, 7 });
+	yellowCarNumbers.push_back({ 80, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 88, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 96, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 104, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 112, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 120, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 128, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 136, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 144, 3214, 5, 8 });
+	yellowCarNumbers.push_back({ 152, 3214, 5, 8 });
 
 	// Grey car numbers
-	greyCarNumbers.push_back({ 80, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 88, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 96, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 104, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 112, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 120, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 128, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 136, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 144, 3205, 4, 7 });
-	greyCarNumbers.push_back({ 152, 3205, 4, 7 });
+	greyCarNumbers.push_back({ 80, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 88, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 96, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 104, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 112, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 120, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 128, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 136, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 144, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 152, 3205, 5, 8 });
 
 	// Fence 1
 	fence1_1.x = 400;
@@ -167,10 +167,10 @@ update_status ModuleStage::PreUpdate()
 	App->renderer->Blit(graphics, 60, 170, &greyCarNumbers[0]);
 	App->renderer->Blit(graphics, 65, 170, &greyCarNumbers[0]);
 
-	App->renderer->Blit(graphics, 31, 162, &playerCarNumbers[App->player->lap]);
-	App->renderer->Blit(graphics, 42, 162, &blueCarNumbers[App->IA->cars[0]->lap]);
-	App->renderer->Blit(graphics, 53, 162, &yellowCarNumbers[App->IA->cars[1]->lap]);
-	App->renderer->Blit(graphics, 64, 162, &greyCarNumbers[App->IA->cars[2]->lap]);
+	App->renderer->Blit(graphics, 31, 161, &playerCarNumbers[App->player->lap]);
+	App->renderer->Blit(graphics, 42, 161, &blueCarNumbers[App->IA->cars[0]->lap]);
+	App->renderer->Blit(graphics, 53, 161, &yellowCarNumbers[App->IA->cars[1]->lap]);
+	App->renderer->Blit(graphics, 64, 161, &greyCarNumbers[App->IA->cars[2]->lap]);
 
 	return UPDATE_CONTINUE;
 }

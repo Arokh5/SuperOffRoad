@@ -13,8 +13,8 @@ ModuleTitleScreen::ModuleTitleScreen(bool start_enabled) : Module(start_enabled)
 {
 	title.x = 307;
 	title.y = 397;
-	title.w = 319;
-	title.h = 199;
+	title.w = 320;
+	title.h = 200;
 }
 
 ModuleTitleScreen::~ModuleTitleScreen()
