@@ -39,7 +39,6 @@ private:
 public:
 	const int shadowsOffset = 2;
 	const float distanceOffset = 2.0f;
-	SDL_Texture* graphics = nullptr;
 	Animation turn;
 	Animation standardShadows;
 	Animation littleBumpRightSide;
@@ -66,7 +65,7 @@ public:
 	bool bounce;
 	int bounceRecoil;
 	int accelerationCondition;
-	vector<int> currentDirection { 0, 0 };
+	vector<int> currentDirection;
 	vector<int> movementsDone;
 	ModuleCollision* moduleCollision = nullptr;
 	int bounceType;
@@ -75,6 +74,10 @@ public:
 	int carCollisionType;
 	vector<bool> checkpoint;
 	int lap;
+	bool winner;
+
+private:
+	SDL_Texture* graphics = nullptr;
 	vector<iPoint> checkpoint1;
 	vector<iPoint> checkpoint2;
 	vector<iPoint> checkpoint3;
@@ -83,7 +86,6 @@ public:
 	vector<iPoint> checkpoint6;
 	vector<iPoint> checkpoint7;
 	vector<iPoint> checkpoint8;
-	bool winner;
 };
 
 #endif // __MODULEPLAYER_H__
