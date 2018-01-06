@@ -148,6 +148,8 @@ bool ModuleIA::CleanUp()
 		App->textures->Unload(graphic);
 	}
 
+	graphics.clear();
+
 	return true;
 }
 
