@@ -71,6 +71,7 @@ ModuleStage::ModuleStage(bool start_enabled) : Module(start_enabled)
 	greyCarNumbers.push_back({ 136, 3205, 5, 8 });
 	greyCarNumbers.push_back({ 144, 3205, 5, 8 });
 	greyCarNumbers.push_back({ 152, 3205, 5, 8 });
+	greyCarNumbers.push_back({ 184, 3232, 5, 8 });
 
 	// Fence 1
 	fence1_1.x = 400;
@@ -155,6 +156,7 @@ update_status ModuleStage::PreUpdate()
 	App->renderer->Blit(graphics, 0, 0, &background);
 	App->renderer->Blit(graphics, 10, 150, &scoreboard);
 
+	// Nitro
 	App->renderer->Blit(graphics, 27, 170, &playerCarNumbers[0]);
 	App->renderer->Blit(graphics, 32, 170, &playerCarNumbers[0]);
 
@@ -167,6 +169,13 @@ update_status ModuleStage::PreUpdate()
 	App->renderer->Blit(graphics, 60, 170, &greyCarNumbers[0]);
 	App->renderer->Blit(graphics, 65, 170, &greyCarNumbers[0]);
 
+	// Timer
+	App->renderer->Blit(graphics, 31, 152, &greyCarNumbers[0]);
+	App->renderer->Blit(graphics, 36, 152, &greyCarNumbers[0]);
+	App->renderer->Blit(graphics, 41, 152, &greyCarNumbers[10]);
+	App->renderer->Blit(graphics, 45, 152, &greyCarNumbers[0]);
+
+	// Laps
 	App->renderer->Blit(graphics, 31, 161, &playerCarNumbers[App->player->lap]);
 	App->renderer->Blit(graphics, 42, 161, &blueCarNumbers[App->IA->cars[0]->lap]);
 	App->renderer->Blit(graphics, 53, 161, &yellowCarNumbers[App->IA->cars[1]->lap]);
