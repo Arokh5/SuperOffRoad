@@ -21,9 +21,9 @@ public:
 	vector<ModulePlayer*> cars;
 
 private:
-	int GetRandomCheckpoint(int lot);
-	void DetectCheckpoints(ModulePlayer* car);
-	void OnCheckpointExit(ModulePlayer* car);
+	int GetRandomCheckpoint(int lot) const;
+	void DetectCheckpoints(ModulePlayer* car) const;
+	void OnCheckpointExit(ModulePlayer* car) const;
 
 private:
 	vector<SDL_Texture*> graphics;

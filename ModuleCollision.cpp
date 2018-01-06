@@ -131,7 +131,7 @@ ModuleCollision::~ModuleCollision()
 {
 }
 
-vector<vector<int>> ModuleCollision::FillCollider(int initialX, int finalX, int initialY, int finalY)
+vector<vector<int>> ModuleCollision::FillCollider(int initialX, int finalX, int initialY, int finalY) const
 {
 	vector<vector<int>> collider;
 	int difX = abs(finalX - initialX);
@@ -188,7 +188,7 @@ vector<vector<int>> ModuleCollision::FillCollider(int initialX, int finalX, int 
 	return collider;
 }
 
-void ModuleCollision::DetectCarCollisions()
+void ModuleCollision::DetectCarCollisions() const
 {
 	SDL_Rect playerCar;
 	playerCar.x = App->player->position.x;
@@ -231,7 +231,7 @@ void ModuleCollision::DetectCarCollisions()
 	}
 }
 
-void ModuleCollision::DefineCollisionType(ModulePlayer* car1, ModulePlayer* car2)
+void ModuleCollision::DefineCollisionType(ModulePlayer* car1, ModulePlayer* car2) const
 {
 	if (car1->position.x == car2->position.x && car1->position.y < car2->position.y)
 	{

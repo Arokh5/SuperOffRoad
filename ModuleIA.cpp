@@ -209,12 +209,12 @@ update_status ModuleIA::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-int ModuleIA::GetRandomCheckpoint(int lot)
+int ModuleIA::GetRandomCheckpoint(int lot) const
 {
 	return rand() % lot + 0;
 }
 
-void ModuleIA::DetectCheckpoints(ModulePlayer* car)
+void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 {
 	for each (iPoint checkpoint in checkpointContainer1[GetRandomCheckpoint(checkpoint1Lot)])
 	{
@@ -305,7 +305,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car)
 	}
 }
 
-void ModuleIA::OnCheckpointExit(ModulePlayer* car)
+void ModuleIA::OnCheckpointExit(ModulePlayer* car) const
 {
 	if (((int)car->currentAnimation->current_frame) == car->frameReference)
 	{
