@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "time.h"
 
 struct SDL_Texture;
 
@@ -35,8 +36,14 @@ private:
 	SDL_Rect fence5_1;
 	SDL_Rect fence5_2;
 	bool titleScreen;
+	clock_t seconds;
+	clock_t tenthOfSecond;
+	int tens;
+	int units;
+	int dsUnits;
 
 	void GoTitleScreen();
+	void RunTimer();
 };
 
 #endif // __MODULESTAGE_H__

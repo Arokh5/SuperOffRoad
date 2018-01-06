@@ -124,6 +124,11 @@ ModuleStage::~ModuleStage()
 bool ModuleStage::Start()
 {
 	titleScreen = false;
+	seconds = clock();
+	tenthOfSecond = clock();
+	tens = 0;
+	units = 0;
+	dsUnits = 0;
 
 	LOG("Loading Stage");
 
@@ -170,10 +175,11 @@ update_status ModuleStage::PreUpdate()
 	App->renderer->Blit(graphics, 65, 170, &greyCarNumbers[0]);
 
 	// Timer
-	App->renderer->Blit(graphics, 31, 152, &greyCarNumbers[0]);
-	App->renderer->Blit(graphics, 36, 152, &greyCarNumbers[0]);
+	RunTimer();
+	App->renderer->Blit(graphics, 31, 152, &greyCarNumbers[tens]);
+	App->renderer->Blit(graphics, 36, 152, &greyCarNumbers[units]);
 	App->renderer->Blit(graphics, 41, 152, &greyCarNumbers[10]);
-	App->renderer->Blit(graphics, 45, 152, &greyCarNumbers[0]);
+	App->renderer->Blit(graphics, 45, 152, &greyCarNumbers[dsUnits]);
 
 	// Laps
 	App->renderer->Blit(graphics, 31, 161, &playerCarNumbers[App->player->lap]);
@@ -213,5 +219,31 @@ void ModuleStage::GoTitleScreen()
 			titleScreen = true;
 			App->fade->FadeToBlack(App->titleScreen, App->stage, 3.0f);
 		}
+	}
+}
+
+void ModuleStage::RunTimer()
+{
+	if (clock() - seconds > 1000)
+	{
+		units++;
+		seconds = clock();
+	}
+
+	if (clock() - tenthOfSecond > 100)
+	{
+		dsUnits++;
+		tenthOfSecond = clock();
+	}
+
+	if (units != 0 && units % 10 == 0)
+	{
+		units = 0;
+		tens++;
+	}
+
+	if (dsUnits > 9)
+	{
+		dsUnits = 0;
 	}
 }
