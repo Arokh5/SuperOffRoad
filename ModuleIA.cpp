@@ -17,10 +17,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 
 	// Add checkpoints to checkpoints containers
 	/*1*/
-	for (int i = 120; i < 136; i+=5)
+	for (float i = 100; i < 116; i+=5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 160; j < 179; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 160; j < 179; j++)
 		{
 			tempCheckpoint.push_back({ i, j });
 		}
@@ -28,10 +28,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 		checkpointContainer1.push_back(tempCheckpoint);
 	}
 	/*2*/
-	for (int i = 75; i < 91; i+=5)
+	for (float i = 65; i < 81; i+=5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 112; j < 177; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 112; j < 177; j++)
 		{
 			tempCheckpoint.push_back({ j, i });
 		}
@@ -39,10 +39,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 		checkpointContainer2.push_back(tempCheckpoint);
 	}
 	/*3*/
-	for (int i = 220; i < 241; i += 5)
+	for (float i = 230; i < 246; i += 5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 58; j < 81; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 58; j < 81; j++)
 		{
 			tempCheckpoint.push_back({ i, j });
 		}
@@ -50,10 +50,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 		checkpointContainer3.push_back(tempCheckpoint);
 	}
 	/*4*/
-	for (int i = 35; i < 51; i += 5)
+	for (float i = 25; i < 41; i += 5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 228; j < 268; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 228; j < 268; j++)
 		{
 			tempCheckpoint.push_back({ j, i });
 		}
@@ -61,10 +61,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 		checkpointContainer4.push_back(tempCheckpoint);
 	}
 	/*5*/
-	for (int i = 80; i < 96; i += 5)
+	for (float i = 70; i < 86; i += 5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 22; j < 44; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 22; j < 44; j++)
 		{
 			tempCheckpoint.push_back({ i, j });
 		}
@@ -72,10 +72,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 		checkpointContainer5.push_back(tempCheckpoint);
 	}
 	/*6*/
-	for (int i = 95; i < 101; i += 5)
+	for (float i = 100; i < 106; i += 5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 26; j < 66; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 26; j < 66; j++)
 		{
 			tempCheckpoint.push_back({ j, i });
 		}
@@ -83,10 +83,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 		checkpointContainer6.push_back(tempCheckpoint);
 	}
 	/*7*/
-	for (int i = 220; i < 246; i += 5)
+	for (float i = 230; i < 256; i += 5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 100; j < 130; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 100; j < 130; j++)
 		{
 			tempCheckpoint.push_back({ i, j });
 		}
@@ -94,10 +94,10 @@ ModuleIA::ModuleIA(bool start_enabled) : Module(start_enabled)
 		checkpointContainer7.push_back(tempCheckpoint);
 	}
 	/*8*/
-	for (int i = 150; i < 161; i += 5)
+	for (float i = 155; i < 166; i += 5)
 	{
-		vector<iPoint> tempCheckpoint;
-		for (int j = 220; j < 253; j++)
+		vector<fPoint> tempCheckpoint;
+		for (float j = 220; j < 253; j++)
 		{
 			tempCheckpoint.push_back({ j, i });
 		}
@@ -129,7 +129,7 @@ bool ModuleIA::Start()
 	cars[1]->position.x = 195;
 	cars[1]->position.y = 165;
 	cars[2]->position.x = 195;
-	cars[2]->position.y = 177;
+	cars[2]->position.y = 176;
 
 	graphics.push_back(App->textures->Load("general_sprites_blue.png"));
 	graphics.push_back(App->textures->Load("general_sprites_yellow.png"));
@@ -158,6 +158,7 @@ update_status ModuleIA::PreUpdate()
 {
 	for (int i = 0; i < cars.size(); i++)
 	{
+		cars[i]->CalculateDeltatime();
 		cars[i]->DetectBumps();
 		if (cars[i]->carCollision) cars[i]->ApplyCarCollisionEffect();
 		DetectCheckpoints(cars[i]);
@@ -216,7 +217,7 @@ int ModuleIA::GetRandomCheckpoint(int lot) const
 
 void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 {
-	for each (iPoint checkpoint in checkpointContainer1[GetRandomCheckpoint(checkpoint1Lot)])
+	for each (fPoint checkpoint in checkpointContainer1[GetRandomCheckpoint(checkpoint1Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
@@ -227,7 +228,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 		}
 	}
 
-	for each (iPoint checkpoint in checkpointContainer2[GetRandomCheckpoint(checkpoint2Lot)])
+	for each (fPoint checkpoint in checkpointContainer2[GetRandomCheckpoint(checkpoint2Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
@@ -238,7 +239,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 		}
 	}
 
-	for each (iPoint checkpoint in checkpointContainer3[GetRandomCheckpoint(checkpoint3Lot)])
+	for each (fPoint checkpoint in checkpointContainer3[GetRandomCheckpoint(checkpoint3Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
@@ -249,7 +250,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 		}
 	}
 
-	for each (iPoint checkpoint in checkpointContainer4[GetRandomCheckpoint(checkpoint4Lot)])
+	for each (fPoint checkpoint in checkpointContainer4[GetRandomCheckpoint(checkpoint4Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
@@ -260,7 +261,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 		}
 	}
 
-	for each (iPoint checkpoint in checkpointContainer5[GetRandomCheckpoint(checkpoint5Lot)])
+	for each (fPoint checkpoint in checkpointContainer5[GetRandomCheckpoint(checkpoint5Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
@@ -271,7 +272,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 		}
 	}
 
-	for each (iPoint checkpoint in checkpointContainer6[GetRandomCheckpoint(checkpoint6Lot)])
+	for each (fPoint checkpoint in checkpointContainer6[GetRandomCheckpoint(checkpoint6Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
@@ -282,7 +283,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 		}
 	}
 
-	for each (iPoint checkpoint in checkpointContainer7[GetRandomCheckpoint(checkpoint7Lot)])
+	for each (fPoint checkpoint in checkpointContainer7[GetRandomCheckpoint(checkpoint7Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{
@@ -293,7 +294,7 @@ void ModuleIA::DetectCheckpoints(ModulePlayer* car) const
 		}
 	}
 
-	for each (iPoint checkpoint in checkpointContainer8[GetRandomCheckpoint(checkpoint8Lot)])
+	for each (fPoint checkpoint in checkpointContainer8[GetRandomCheckpoint(checkpoint8Lot)])
 	{
 		if (car->position.DistanceTo(checkpoint) <= car->distanceOffset)
 		{

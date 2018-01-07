@@ -21,7 +21,7 @@ public:
 public:
 	void StartingInitials();
 	void SetDirection();
-	bool DetectFences(iPoint position);
+	bool DetectFences(fPoint position);
 	void DetectBumps();
 	bool DetectPool();
 	bool SetRotationDirection(std::vector<std::vector<int>> fences);
@@ -32,6 +32,7 @@ public:
 	bool CheckIfFinishLine();
 	void CheckIfLapCompleted();
 	void CheckIfWinner();
+	void CalculateDeltatime();
 
 private:
 	void DetectPlayerCheckPoints();
@@ -39,6 +40,7 @@ private:
 public:
 	const int shadowsOffset = 2;
 	const float distanceOffset = 2.0f;
+	const float errorMargin = 1.5f;
 	Animation turn;
 	Animation standardShadows;
 	Animation littleBumpRightSide;
@@ -53,8 +55,8 @@ public:
 	Animation* currentAnimation = nullptr;
 	Animation* currentShadowsAnimation = nullptr;
 	Animation* currentSplashAnimation = nullptr;
-	iPoint position;
-	iPoint lastFramePosition;
+	fPoint position;
+	fPoint lastFramePosition;
 	bool still;
 	bool right;
 	const int initialAcceleration = 0;
@@ -78,14 +80,17 @@ public:
 
 private:
 	SDL_Texture* graphics = nullptr;
-	vector<iPoint> checkpoint1;
-	vector<iPoint> checkpoint2;
-	vector<iPoint> checkpoint3;
-	vector<iPoint> checkpoint4;
-	vector<iPoint> checkpoint5;
-	vector<iPoint> checkpoint6;
-	vector<iPoint> checkpoint7;
-	vector<iPoint> checkpoint8;
+	vector<fPoint> checkpoint1;
+	vector<fPoint> checkpoint2;
+	vector<fPoint> checkpoint3;
+	vector<fPoint> checkpoint4;
+	vector<fPoint> checkpoint5;
+	vector<fPoint> checkpoint6;
+	vector<fPoint> checkpoint7;
+	vector<fPoint> checkpoint8;
+	float deltaTime;
+	int thisTime;
+	int lastTime;
 };
 
 #endif // __MODULEPLAYER_H__

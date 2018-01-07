@@ -22,42 +22,42 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 
 	// Add player checkpoints
 	/*1*/
-	for (int i = 160; i < 179; i++)
+	for (float i = 160; i < 179; i++)
 	{
-		checkpoint1.push_back({ 120, i });
+		checkpoint1.push_back({ 135, i });
 	}
 	/*2*/
-	for (int i = 112; i < 177; i++)
+	for (float i = 112; i < 177; i++)
 	{
-		checkpoint2.push_back({ i, 75 });
+		checkpoint2.push_back({ i, 85 });
 	}
 	/*3*/
-	for (int i = 58; i < 81; i++)
+	for (float i = 58; i < 81; i++)
 	{
 		checkpoint3.push_back({ 220, i });
 	}
 	/*4*/
-	for (int i = 228; i < 268; i++)
+	for (float i = 228; i < 268; i++)
 	{
-		checkpoint4.push_back({ i, 35 });
+		checkpoint4.push_back({ i, 50 });
 	}
 	/*5*/
-	for (int i = 22; i < 44; i++)
+	for (float i = 22; i < 44; i++)
 	{
-		checkpoint5.push_back({ 80, i });
+		checkpoint5.push_back({ 90, i });
 	}
 	/*6*/
-	for (int i = 26; i < 66; i++)
+	for (float i = 26; i < 66; i++)
 	{
 		checkpoint6.push_back({ i, 95 });
 	}
 	/*7*/
-	for (int i = 100; i < 130; i++)
+	for (float i = 100; i < 130; i++)
 	{
 		checkpoint7.push_back({ 220, i });
 	}
 	/*8*/
-	for (int i = 220; i < 253; i++)
+	for (float i = 220; i < 253; i++)
 	{
 		checkpoint8.push_back({ i, 150 });
 	}
@@ -457,6 +457,7 @@ bool ModulePlayer::CleanUp()
 // PreUpdate
 update_status ModulePlayer::PreUpdate()
 {
+	CalculateDeltatime();
 	DetectBumps();
 	DetectPlayerCheckPoints();
 	moduleCollision->DetectCarCollisions();
@@ -481,8 +482,8 @@ update_status ModulePlayer::PreUpdate()
 	{
 		if (acceleration == accelerationCondition)
 		{
-			/*LOG("positionX: %d", position.x);
-			LOG("positionY: %d", position.y);*/
+			/*LOG("positionX: %f", position.x);
+			LOG("positionY: %f", position.y);*/
 
 			repeater++;
 			SetDirection();
@@ -556,6 +557,11 @@ update_status ModulePlayer::PreUpdate()
 
 void ModulePlayer::StartingInitials()
 {
+	// Put time to 0
+	deltaTime = 0.0;
+	thisTime = 0;
+	lastTime = 0;
+
 	position.x = 177;
 	position.y = 176;
 	acceleration = initialAcceleration;
@@ -1091,14 +1097,14 @@ void ModulePlayer::MoveCar()
 
 	if (!bounce && !collision)
 	{
-		position.x += currentDirection[0];
-		position.y += currentDirection[1];
+		position.x += currentDirection[0] * deltaTime;
+		position.y += currentDirection[1] * deltaTime;
 	}
 	else if (collision && !bounce)
 	{
-		iPoint tempPos;
-		tempPos.x = position.x + currentDirection[0];
-		tempPos.y = position.y + currentDirection[1];
+		fPoint tempPos;
+		tempPos.x = position.x + (currentDirection[0] * deltaTime);
+		tempPos.y = position.y + (currentDirection[1] * deltaTime);
 
 		if (!DetectFences(tempPos))
 		{
@@ -1121,7 +1127,7 @@ void ModulePlayer::MoveCar()
 	}
 }
 
-bool ModulePlayer::DetectFences(iPoint position)
+bool ModulePlayer::DetectFences(fPoint position)
 {
 	bool fenceDetected = false;
 
@@ -1132,7 +1138,7 @@ bool ModulePlayer::DetectFences(iPoint position)
 			/* Debug fences */
 			//SDL_RenderDrawPoint(App->renderer->renderer, fences[i][0], fences[i][1]);
 
-			if (position.x == fences[i][0] && position.y == fences[i][1])
+			if (fabs(position.x - fences[i][0]) < errorMargin && fabs(position.y - fences[i][1]) < errorMargin)
 			{
 				float intersection_carLastFrame = sqrt(pow(position.x - lastFramePosition.x, 2) + pow(position.y - lastFramePosition.y, 2));
 				float intersection_colliderOrigin = sqrt(pow(position.x - fences.front()[0], 2) + pow(position.y - fences.front()[1], 2));
@@ -1255,73 +1261,73 @@ void ModulePlayer::ApplyBounceEffect()
 	switch (bounceType)
 	{
 		case 0:
-			position.y--;
+			position.y -= 1 * deltaTime;
 			break;
 
 		case 1:
-			position.x--;
+			position.x -= 1 * deltaTime;
 			break;
 
 		case 2:
-			position.x--;
-			position.y++;
+			position.x -= 1 * deltaTime;
+			position.y += 1 * deltaTime;
 
 		case 3:
-			position.x++;
+			position.x += 1 * deltaTime;
 
 		case 4:
-			position.x++;
-			position.y--;
+			position.x += 1 * deltaTime;
+			position.y -= 1 * deltaTime;
 
 		case 5:
-			position.y++;
+			position.y += 1 * deltaTime;
 	}
 }
 
 void ModulePlayer::ApplyCarCollisionEffect()
 {
-	iPoint tempPos;
+	fPoint tempPos;
 
 	switch (carCollisionType)
 	{
 		case 1:
 			tempPos.x = position.x;
-			tempPos.y = position.y + 1;
+			tempPos.y = position.y + (1 * deltaTime);
 			break;
 
 		case 2:
-			tempPos.x = position.x - 1;
-			tempPos.y = position.y + 1;
+			tempPos.x = position.x - (1 * deltaTime);
+			tempPos.y = position.y + (1 * deltaTime);
 			break;
 
 		case 3:
-			tempPos.x = position.x - 1;
+			tempPos.x = position.x - (1 * deltaTime);
 			tempPos.y = position.y;
 			break;
 
 		case 4:
-			tempPos.x = position.x - 1;
-			tempPos.y = position.y - 1;
+			tempPos.x = position.x - (1 * deltaTime);
+			tempPos.y = position.y - (1 * deltaTime);
 			break;
 
 		case 5:
 			tempPos.x = position.x;
-			tempPos.y = position.y - 1;
+			tempPos.y = position.y - (1 * deltaTime);
 			break;
 
 		case 6:
-			tempPos.x = position.x + 1;
-			tempPos.y = position.y - 1;
+			tempPos.x = position.x + (1 * deltaTime);
+			tempPos.y = position.y - (1 * deltaTime);
 			break;
 
 		case 7:
-			tempPos.x = position.x + 1;
+			tempPos.x = position.x + (1 * deltaTime);
 			tempPos.y = position.y;
 			break;
 
 		case 8:
-			tempPos.x = position.x + 1;
-			tempPos.y = position.y + 1;
+			tempPos.x = position.x + (1 * deltaTime);
+			tempPos.y = position.y + (1 * deltaTime);
 			break;
 	}
 
@@ -1331,7 +1337,7 @@ void ModulePlayer::ApplyCarCollisionEffect()
 	{
 		for (int i = 0; i < fences.size(); i++)
 		{
-			if (tempPos.x == fences[i][0] && tempPos.y == fences[i][1])
+			if (fabs(tempPos.x - fences[i][0]) < errorMargin && fabs(tempPos.y - fences[i][1]) < errorMargin)
 			{
 				fenceDetected = true;
 				break;
@@ -1536,7 +1542,7 @@ bool ModulePlayer::CheckIfFinishLine()
 		/* Debug finish line */
 		//SDL_RenderDrawPoint(App->renderer->renderer, moduleCollision->finishLine[i][0], moduleCollision->finishLine[i][1]);
 
-		if (position.x == moduleCollision->finishLine[i][0] && position.y == moduleCollision->finishLine[i][1])
+		if (fabs(position.x - moduleCollision->finishLine[i][0]) < distanceOffset && fabs(position.y - moduleCollision->finishLine[i][1]) < distanceOffset)
 		{
 			flag = true;
 			break;
@@ -1571,7 +1577,7 @@ void ModulePlayer::CheckIfLapCompleted()
 
 void ModulePlayer::DetectPlayerCheckPoints()
 {
-	for each (iPoint cp1 in checkpoint1)
+	for each (fPoint cp1 in checkpoint1)
 	{
 		if (position.DistanceTo(cp1) <= distanceOffset)
 		{
@@ -1579,7 +1585,7 @@ void ModulePlayer::DetectPlayerCheckPoints()
 		}
 	}
 
-	for each (iPoint cp2 in checkpoint2)
+	for each (fPoint cp2 in checkpoint2)
 	{
 		if (position.DistanceTo(cp2) <= distanceOffset)
 		{
@@ -1587,7 +1593,7 @@ void ModulePlayer::DetectPlayerCheckPoints()
 		}
 	}
 
-	for each (iPoint cp3 in checkpoint3)
+	for each (fPoint cp3 in checkpoint3)
 	{
 		if (position.DistanceTo(cp3) <= distanceOffset)
 		{
@@ -1595,7 +1601,7 @@ void ModulePlayer::DetectPlayerCheckPoints()
 		}
 	}
 
-	for each (iPoint cp4 in checkpoint4)
+	for each (fPoint cp4 in checkpoint4)
 	{
 		if (position.DistanceTo(cp4) <= distanceOffset)
 		{
@@ -1603,7 +1609,7 @@ void ModulePlayer::DetectPlayerCheckPoints()
 		}
 	}
 
-	for each (iPoint cp5 in checkpoint5)
+	for each (fPoint cp5 in checkpoint5)
 	{
 		if (position.DistanceTo(cp5) <= distanceOffset)
 		{
@@ -1611,7 +1617,7 @@ void ModulePlayer::DetectPlayerCheckPoints()
 		}
 	}
 
-	for each (iPoint cp6 in checkpoint6)
+	for each (fPoint cp6 in checkpoint6)
 	{
 		if (position.DistanceTo(cp6) <= distanceOffset)
 		{
@@ -1619,7 +1625,7 @@ void ModulePlayer::DetectPlayerCheckPoints()
 		}
 	}
 
-	for each (iPoint cp7 in checkpoint7)
+	for each (fPoint cp7 in checkpoint7)
 	{
 		if (position.DistanceTo(cp7) <= distanceOffset)
 		{
@@ -1627,7 +1633,7 @@ void ModulePlayer::DetectPlayerCheckPoints()
 		}
 	}
 
-	for each (iPoint cp8 in checkpoint8)
+	for each (fPoint cp8 in checkpoint8)
 	{
 		if (position.DistanceTo(cp8) <= distanceOffset)
 		{
@@ -1638,8 +1644,15 @@ void ModulePlayer::DetectPlayerCheckPoints()
 
 void ModulePlayer::CheckIfWinner()
 {
-	if (lap == 9)
+	if (lap == 7)
 	{
 		winner = true;
 	}
+}
+
+void ModulePlayer::CalculateDeltatime()
+{
+	thisTime = SDL_GetTicks();
+	deltaTime = (float)(thisTime - lastTime) / 12;
+	lastTime = thisTime;
 }
